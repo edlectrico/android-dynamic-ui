@@ -1,11 +1,9 @@
-package eu.deustotech.deusto.components;
+package es.deusto.deustotech.components;
 
 import java.io.IOException;
 import java.io.InputStream;
 import java.lang.reflect.Method;
 import java.util.Vector;
-
-import eu.deustotech.deusto.R;
 
 import android.content.Context;
 import android.content.res.AssetManager;
@@ -43,6 +41,7 @@ import android.view.accessibility.AccessibilityNodeInfo;
 import android.view.animation.Animation;
 import android.view.inputmethod.EditorInfo;
 import android.view.inputmethod.InputConnection;
+import es.deusto.deustotech.R;
 
 public class ProxyView extends View {
 

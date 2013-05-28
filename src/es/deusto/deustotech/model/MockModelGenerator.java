@@ -1,12 +1,12 @@
-package eu.deustotech.deusto.model;
+package es.deusto.deustotech.model;
 
-import eu.deustotech.deusto.model.ICapability.BRIGHTNESS;
-import eu.deustotech.deusto.model.ICapability.ILLUMINANCE;
-import eu.deustotech.deusto.model.ICapability.LOCATION;
-import eu.deustotech.deusto.model.ICapability.VOLUME;
-import eu.deustotech.deusto.model.context.ContextCapabilities;
-import eu.deustotech.deusto.model.device.DeviceCapabilities;
-import eu.deustotech.deusto.model.user.UserCapabilities;
+import es.deusto.deustotech.model.ICapability.BRIGHTNESS;
+import es.deusto.deustotech.model.ICapability.ILLUMINANCE;
+import es.deusto.deustotech.model.ICapability.LOCATION;
+import es.deusto.deustotech.model.ICapability.VOLUME;
+import es.deusto.deustotech.model.context.ContextCapabilities;
+import es.deusto.deustotech.model.device.DeviceCapabilities;
+import es.deusto.deustotech.model.user.UserCapabilities;
 
 public abstract class MockModelGenerator {
 

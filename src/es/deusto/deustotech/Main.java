@@ -1,11 +1,11 @@
-package eu.deustotech.deusto;
+package es.deusto.deustotech;
 
 import java.util.HashMap;
 
-import eu.deustotech.deusto.model.ICapability;
-import eu.deustotech.deusto.model.MockModelGenerator;
-import eu.deustotech.deusto.modules.AdaptationModule;
-import eu.deustotech.deusto.modules.UserCapabilitiesUpdater;
+import es.deusto.deustotech.model.ICapability;
+import es.deusto.deustotech.model.MockModelGenerator;
+import es.deusto.deustotech.modules.AdaptationModule;
+import es.deusto.deustotech.modules.UserCapabilitiesUpdater;
 
 import android.app.Activity;
 import android.os.Bundle;

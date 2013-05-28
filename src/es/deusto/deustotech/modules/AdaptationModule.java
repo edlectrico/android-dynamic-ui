@@ -1,4 +1,4 @@
-package eu.deustotech.deusto.modules;
+package es.deusto.deustotech.modules;
 
 import java.util.HashMap;
 import java.util.Random;

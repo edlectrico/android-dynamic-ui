@@ -1,4 +1,4 @@
-package eu.deustotech.deusto.components;
+package es.deusto.deustotech.components;
 
 import android.content.Context;
 import android.util.AttributeSet;

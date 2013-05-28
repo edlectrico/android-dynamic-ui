@@ -1,7 +1,7 @@
-package eu.deustotech.deusto.modules;
+package es.deusto.deustotech.modules;
 
-import eu.deustotech.deusto.model.ICapability;
-import eu.deustotech.deusto.model.ICapability.CAPABILITY;
+import es.deusto.deustotech.model.ICapability;
+import es.deusto.deustotech.model.ICapability.CAPABILITY;
 
 public class UserCapabilitiesUpdater {
 

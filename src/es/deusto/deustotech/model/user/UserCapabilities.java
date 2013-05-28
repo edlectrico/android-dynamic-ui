@@ -1,8 +1,8 @@
-package eu.deustotech.deusto.model.user;
+package es.deusto.deustotech.model.user;
 
 import java.util.HashMap;
 
-import eu.deustotech.deusto.model.AbstractCapabilities;
+import es.deusto.deustotech.model.AbstractCapabilities;
 
 public class UserCapabilities extends AbstractCapabilities {
 

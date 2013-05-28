@@ -1,4 +1,4 @@
-package eu.deustotech.deusto.model;
+package es.deusto.deustotech.model;
 
 import java.util.HashMap;
 
