@@ -1,10 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-
-    <string name="hello">Hello World, DesignerActivity!</string>
     <string name="adaptation">Adaptation begins!!!</string>
     <string name="capture_db">Capture decibels</string>
-    <string name="app_name">Designer</string>
+    <string name="app_name">AndroidDynamicUI</string>
     <string name="service_started">Service Started!</string>
     <string name="service_label">Service Label</string>
     <string name="mybutton">XML Button</string>

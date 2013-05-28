@@ -1,8 +1,8 @@
-package eu.deustotech;
+package eu.deustotech.deusto;
 
 import java.util.HashMap;
 
-import eu.deustotech.modules.AdaptationModule;
+import eu.deustotech.deusto.modules.AdaptationModule;
 
 import android.app.Activity;
 import android.os.Bundle;
@@ -13,7 +13,7 @@ import android.widget.EditText;
 import android.widget.GridLayout;
 import android.widget.TextView;
 
-public class MainActivity extends Activity {
+public class Main extends Activity {
 
 	private HashMap<String, View> viewsMap;
 	//Components definition in WidgetRegistry.java

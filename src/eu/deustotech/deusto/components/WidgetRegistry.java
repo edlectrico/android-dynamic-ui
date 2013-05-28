@@ -1,4 +1,4 @@
-package eu.deustotech.components;
+package eu.deustotech.deusto.components;
 
 import java.util.HashMap;
 import java.util.Map;

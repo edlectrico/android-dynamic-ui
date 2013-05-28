@@ -1,11 +1,11 @@
-package eu.deustotech.components;
+package eu.deustotech.deusto.components;
 
 import java.io.IOException;
 import java.io.InputStream;
 import java.lang.reflect.Method;
 import java.util.Vector;
 
-import eu.deustotech.R;
+import eu.deustotech.deusto.R;
 
 import android.content.Context;
 import android.content.res.AssetManager;

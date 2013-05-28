@@ -1,13 +1,14 @@
 <?xml version="1.0" encoding="utf-8"?>
 <GridLayout xmlns:android="http://schemas.android.com/apk/res/android"
-  xmlns:custom="http://schemas.android.com/apk/res/eu.deustotech"
+  xmlns:custom="http://schemas.android.com/apk/res/eu.deustotech.deusto"
   android:id="@+id/default_layout"
   android:layout_width="match_parent"
   android:layout_height="match_parent"
   android:columnCount="1"
   android:orientation="horizontal"
   android:rowCount="3" >
-    <eu.deustotech.components.ProxyView
+  
+    <eu.deustotech.deusto.components.ProxyView
         widget="Button"
         android:id="@+id/mybutton"
         custom:showText="true"
@@ -20,7 +21,7 @@
         android:layout_gravity="center_horizontal"
         />
     
-    <eu.deustotech.components.ProxyView
+    <eu.deustotech.deusto.components.ProxyView
         widget="TextView"
         android:id="@+id/mytexview"
         custom:showText="true"
@@ -32,7 +33,7 @@
         android:layout_gravity="center_horizontal"
         />
     
-   <eu.deustotech.components.ProxyView
+   <eu.deustotech.deusto.components.ProxyView
         widget="EditText"
         android:id="@+id/myedittext"
         custom:showText="true"
