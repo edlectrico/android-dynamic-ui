@@ -13,7 +13,8 @@ public class UserCapabilities extends AbstractCapabilities {
 	//TODO: If user cannot see he/she should have an option to avoid HAPTIC.
 	//NO_HAPTIC, ONLY_VOICE, ONLY_GESTURES for example.
 	private static enum INPUT {
-		GESTURES, HAPTIC, VOICE_CONTROL
+		GESTURES, HAPTIC, VOICE_CONTROL,				//Common and adaptable configuration
+		ONLY_VOICE_CONTROL, ONLY_HAPTIC, ONLY_GESTURES	//Priority demands for disabled users
 	}; 
 
 	private static enum LANGUAGE {
@@ -25,7 +26,8 @@ public class UserCapabilities extends AbstractCapabilities {
 	//The same way, a blind user should be able to configure
 	//the output to ONLY_AUDIO
 	private static enum OUTPUT {
-		DEFAULT, AUDIO
+		DEFAULT, AUDIO,				//Common and adaptable configuration
+		ONLY_AUDIO, ONLY_VISUAL		//Priority demands for disabled users
 	};
 
 	//TODO: How do users specify that they cannot see, for example, blue?
