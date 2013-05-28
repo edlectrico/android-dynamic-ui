@@ -43,8 +43,8 @@ public class UserCapabilities extends AbstractCapabilities {
 		this.caps = new HashMap<CAPABILITY, Object>();
 	}
 
-	public UserCapabilities(String brightness, String contrast,
-			String maxTextSize, String minTextSize, String volume) {
+	public UserCapabilities(BRIGHTNESS brightness, String contrast,
+			String maxTextSize, String minTextSize, VOLUME volume, LOCATION location) {
 		super();
 
 		this.caps = new HashMap<CAPABILITY, Object>();
@@ -62,7 +62,7 @@ public class UserCapabilities extends AbstractCapabilities {
 		caps.put(CAPABILITY.USER_EXPERIENCE, EXPERIENCE.STANDARD);
 		caps.put(CAPABILITY.USER_VOLUME, volume);
 		caps.put(CAPABILITY.USER_ACTIVITY, ACTIVITIES.NONE);
-		caps.put(CAPABILITY.USER_LOCATION, new String("Home")); 	//TODO: configure default locations? (HOME/STREET/WORK...)
+		caps.put(CAPABILITY.USER_LOCATION, location); 	//TODO: configure default locations? (HOME/STREET/WORK...)
 		caps.put(CAPABILITY.USER_RELATIONSHIP, RELATIONSHIP.NONE);	//TODO: Does it mean anything?
 	}
 

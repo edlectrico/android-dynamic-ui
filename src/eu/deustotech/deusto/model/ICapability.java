@@ -29,6 +29,37 @@ public interface ICapability {
 		NONE, SOCIAL, WORK
 	}
 	
+	static enum ILLUMINANCE {
+		// extracted from http://en.wikipedia.org/wiki/Lux
+		MOONLESS_OVERCAST_NIGHT, // Moonless, overcast night sky (starlight)
+		MOONLESS_CLEAR_NIGHT, // Moonless clear night sky with airglow
+		FULL_MOON_CLEAR_NIGHT, // Full moon on a clear night
+		TWILIGHT_SKY, // Dark limit of civil twilight under a clear sky
+		LIVING_ROOM, // Family living room lights (Australia, 1998)
+		TOILET, // Office building hallway/toilet lighting
+		VERY_DARK_OVERCAST_DAY, // Very dark overcast day
+		OFFICE, // Office lighting
+		SUNRISE_CLEAR_DAY, // Sunrise or sunset on a clear day
+		OVERCAST_DAY, // Overcast day
+		TV_STUDIO, // typical TV studio lighting
+		DAYLIGHT, // Full daylight (not direct sun)
+		SUNLIGHT, // Direct sunlight
+		COMPARISON_UNAVAILABLE // None of the above
+	}
+	
+	static enum LOCATION {
+		HOME, STREET, PUBLIC_BUILDING,
+		WORK
+	};
+	
+	static enum BRIGHTNESS {
+		DEFAULT, LOW, HIGH, VERY_HIGH
+	};
+	
+	static enum VOLUME {
+		DEFAULT, LOW, HIGHT, VERY_HIGH
+	};
+	
 	public Object getCapabilityValue(final CAPABILITY capabilityName);
 	public void setCapabilityValue(final CAPABILITY capabilityName, final Object value);
 }
