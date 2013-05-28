@@ -23,8 +23,8 @@ public interface ICapability {
 	
 	//User
 	static enum LOCATION {
-		HOME, STREET, PUBLIC_BUILDING,
-		WORK
+		HOME, STREET, 
+		PUBLIC_BUILDING, WORK
 	};
 	
 	static enum BRIGHTNESS {
