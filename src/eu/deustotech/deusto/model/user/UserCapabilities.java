@@ -61,6 +61,9 @@ public class UserCapabilities extends AbstractCapabilities {
 		caps.put(CAPABILITY.USER_TEXT_COLOR, COLOR.DEFAULT);
 		caps.put(CAPABILITY.USER_EXPERIENCE, EXPERIENCE.STANDARD);
 		caps.put(CAPABILITY.USER_VOLUME, volume);
+		caps.put(CAPABILITY.USER_ACTIVITY, ACTIVITIES.NONE);
+		caps.put(CAPABILITY.USER_LOCATION, new String("Home")); 	//TODO: configure default locations? (HOME/STREET/WORK...)
+		caps.put(CAPABILITY.USER_RELATIONSHIP, RELATIONSHIP.NONE);	//TODO: Does it mean anything?
 	}
 
 }

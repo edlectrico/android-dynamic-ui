@@ -6,14 +6,6 @@ import eu.deustotech.deusto.model.AbstractCapabilities;
 
 public class ContextCapabilities extends AbstractCapabilities {
 
-	private static enum ACTIVITIES {
-		NONE, RESTING, RUNNING
-	};
-	
-	private static enum RELATIONSHIP {
-		NONE, SOCIAL, WORK
-	}
-
 	public ContextCapabilities() {
 		super();
 		
@@ -26,14 +18,11 @@ public class ContextCapabilities extends AbstractCapabilities {
 		
 		this.caps = new HashMap<CAPABILITY, Object>();
 		
-		caps.put(CAPABILITY.CONTEXT_LIGHT, light);
-		caps.put(CAPABILITY.CONTEXT_ACTIVITY, ACTIVITIES.NONE);
+		caps.put(CAPABILITY.CONTEXT_LIGHTNING, light);
 		caps.put(CAPABILITY.CONTEXT_NOISE, noise);
 		caps.put(CAPABILITY.CONTEXT_PRESSURE, pressure);
 		caps.put(CAPABILITY.CONTEXT_TEMPERATURE, temperature);
 		caps.put(CAPABILITY.CONTEXT_CALENDAR, calendar);
-		caps.put(CAPABILITY.CONTEXT_LOCATION, location);
-		caps.put(CAPABILITY.CONTEXT_RELATIONSHIP, RELATIONSHIP.NONE);
 	};
 	
 }
