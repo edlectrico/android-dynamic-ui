@@ -2,11 +2,15 @@ package eu.deustotech.deusto;
 
 import java.util.HashMap;
 
+import eu.deustotech.deusto.model.ICapability;
+import eu.deustotech.deusto.model.MockModelGenerator;
 import eu.deustotech.deusto.modules.AdaptationModule;
+import eu.deustotech.deusto.modules.UserCapabilitiesUpdater;
 
 import android.app.Activity;
 import android.os.Bundle;
 import android.util.Log;
+import android.util.MonthDisplayHelper;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
@@ -51,6 +55,15 @@ public class Main extends Activity {
 			layout.addView(viewsMap.get(COMPONENT_NAMES[i]));
 			viewsMap.get(COMPONENT_NAMES[i]).invalidate();
 		}
+		
+		//TODO: generating mock user and context to call UserCapabilitiesUpdater
+		//and obtain a updatedUser
+		//+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+		final ICapability user 			= MockModelGenerator.generateMockUser();
+		final ICapability context 		= MockModelGenerator.generateMockContext();
+		
+		final ICapability updatedUser 	= UserCapabilitiesUpdater.update(user, context);
+		//+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
 		
 		//Once the current UI is loaded, we call the AdaptationModule to
 		//perform the corresponding changes
