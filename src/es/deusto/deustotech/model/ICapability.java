@@ -33,7 +33,8 @@ public interface ICapability {
 	};
 	
 	static enum VOLUME {
-		DEFAULT, LOW, HIGHT, VERY_HIGH
+		DEFAULT, LOW, HIGHT, VERY_HIGH,
+		ONLY_LOW, ONLY_HIGHT, ONLY_VERY_HIGHT
 	};
 	
 	static enum ACTIVITIES {

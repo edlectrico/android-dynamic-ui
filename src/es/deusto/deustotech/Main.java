@@ -63,6 +63,8 @@ public class Main extends Activity {
 		final ICapability updatedUser 	= UserCapabilitiesUpdater.update(user, context);
 		//+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
 		
+		//TODO: generateUI(updatedUser);
+		
 		//Once the current UI is loaded, we call the AdaptationModule to
 		//perform the corresponding changes
 		AdaptationModule adaptationModule = new AdaptationModule(viewsMap, getApplicationContext());
