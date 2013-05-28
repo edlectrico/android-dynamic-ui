@@ -56,6 +56,7 @@ public class Main extends Activity {
 		//perform the corresponding changes
 		AdaptationModule adaptationModule = new AdaptationModule(viewsMap, getApplicationContext());
 		
+		//TODO: the following code is just to test the automatic adaptation each 1000 milliseconds 
 		new Thread(adaptationModule).start();
 	}
 	

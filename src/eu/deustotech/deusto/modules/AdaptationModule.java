@@ -56,7 +56,9 @@ public class AdaptationModule implements Runnable {
 		return componentsToAdapt;
 	}
 	
-	
+	//TODO: Remove the following methods, they're just to test 
+	//the automatic adaptation each 1000 milliseconds 
+	//++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
 	private int generateRandomValue() {
 		Random random = new Random();
 		return random.nextInt(6);
@@ -72,6 +74,6 @@ public class AdaptationModule implements Runnable {
 				e.printStackTrace();
 			}
 		}
-		
 	}
+	//++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
 }
