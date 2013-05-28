@@ -10,8 +10,8 @@ public class UserCapabilities extends AbstractCapabilities {
 		DEFAULT, NO_IMAGES, ONLY_BIG
 	};
 
-	//TODO: If user cannot see he/she should have an option to avoid HAPTIC.
-	//NO_HAPTIC, ONLY_VOICE, ONLY_GESTURES for example.
+	//If user cannot see he/she should have an option to 
+	//avoid HAPTIC -> ONLY_VOICE_CONTROL.
 	private static enum INPUT {
 		GESTURES, HAPTIC, VOICE_CONTROL,				//Common and adaptable configuration
 		ONLY_VOICE_CONTROL, ONLY_HAPTIC, ONLY_GESTURES	//Priority demands for disabled users
@@ -21,12 +21,10 @@ public class UserCapabilities extends AbstractCapabilities {
 		ENGLISH, ESPAÑOL, EUSKERA
 	};
 
-	//TODO: DEFAULT means text and images. If the user is deaf
-	//he should be able to restrict the output to ONLY_TEXT_AND_IMAGES.
-	//The same way, a blind user should be able to configure
-	//the output to ONLY_AUDIO
+	//If the user is deaf he should be able to restrict the output to ONLY_VISUAL.
+	//The same way, a blind user should be able to configure the output to ONLY_AUDIO
 	private static enum OUTPUT {
-		DEFAULT, AUDIO,				//Common and adaptable configuration
+		VISUAL, AUDIO,				//Common and adaptable configuration
 		ONLY_AUDIO, ONLY_VISUAL		//Priority demands for disabled users
 	};
 
@@ -58,7 +56,7 @@ public class UserCapabilities extends AbstractCapabilities {
 		caps.put(CAPABILITY.USER_LANGUAGE, LANGUAGE.ENGLISH);
 		caps.put(CAPABILITY.USER_MAX_TEXT_SIZE, maxTextSize);
 		caps.put(CAPABILITY.USER_MIN_TEXT_SIZE, minTextSize);
-		caps.put(CAPABILITY.USER_OUTPUT, OUTPUT.DEFAULT);
+		caps.put(CAPABILITY.USER_OUTPUT, OUTPUT.VISUAL);
 		caps.put(CAPABILITY.USER_BACKGROUND_COLOR, COLOR.DEFAULT);
 		caps.put(CAPABILITY.USER_TEXT_COLOR, COLOR.DEFAULT);
 		caps.put(CAPABILITY.USER_EXPERIENCE, EXPERIENCE.STANDARD);
