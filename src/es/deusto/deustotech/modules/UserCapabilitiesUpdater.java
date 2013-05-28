@@ -51,10 +51,9 @@ public class UserCapabilitiesUpdater {
 				}
 			}
 		}
-		
 
 		final Object userVolumeValue 	= user.getCapabilityValue(CAPABILITY.USER_VOLUME);
-		final Object contextNoiseValue 	= (Float) context.getCapabilityValue(CAPABILITY.CONTEXT_NOISE);
+		final Object contextNoiseValue 	= context.getCapabilityValue(CAPABILITY.CONTEXT_NOISE);
 
 		if (!(userVolumeValue.equals(ICapability.VOLUME.ONLY_LOW)) && !(userVolumeValue.equals(ICapability.VOLUME.ONLY_HIGHT)) && 
 				!(userVolumeValue.equals(ICapability.VOLUME.ONLY_VERY_HIGHT))){
