@@ -21,6 +21,21 @@ public interface ICapability {
 		CONTEXT_CALENDAR, CONTEXT_TIME
 	};
 	
+	//User
+	static enum LOCATION {
+		HOME, STREET, PUBLIC_BUILDING,
+		WORK
+	};
+	
+	static enum BRIGHTNESS {
+		DEFAULT, LOW, HIGH, VERY_HIGH, 
+		ONLY_LOW, ONLY_HIGH, ONLY_VERY_HIGH
+	};
+	
+	static enum VOLUME {
+		DEFAULT, LOW, HIGHT, VERY_HIGH
+	};
+	
 	static enum ACTIVITIES {
 		NONE, RESTING, RUNNING
 	};
@@ -29,6 +44,7 @@ public interface ICapability {
 		NONE, SOCIAL, WORK
 	}
 	
+	//Context
 	static enum ILLUMINANCE {
 		// extracted from http://en.wikipedia.org/wiki/Lux
 		MOONLESS_OVERCAST_NIGHT, // Moonless, overcast night sky (starlight)
@@ -46,19 +62,6 @@ public interface ICapability {
 		SUNLIGHT, // Direct sunlight
 		COMPARISON_UNAVAILABLE // None of the above
 	}
-	
-	static enum LOCATION {
-		HOME, STREET, PUBLIC_BUILDING,
-		WORK
-	};
-	
-	static enum BRIGHTNESS {
-		DEFAULT, LOW, HIGH, VERY_HIGH
-	};
-	
-	static enum VOLUME {
-		DEFAULT, LOW, HIGHT, VERY_HIGH
-	};
 	
 	public Object getCapabilityValue(final CAPABILITY capabilityName);
 	public void setCapabilityValue(final CAPABILITY capabilityName, final Object value);

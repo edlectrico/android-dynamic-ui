@@ -11,20 +11,21 @@ import eu.deustotech.deusto.model.user.UserCapabilities;
 public abstract class MockModelGenerator {
 
 	public static UserCapabilities generateMockUser() {
-		return new UserCapabilities(BRIGHTNESS.DEFAULT, null, null, null, VOLUME.DEFAULT, LOCATION.STREET);
+		return new UserCapabilities(BRIGHTNESS.DEFAULT, null, null, null,
+				VOLUME.DEFAULT, LOCATION.STREET);
 	}
 
 	public static ContextCapabilities generateMockContext() {
-		return new ContextCapabilities(ILLUMINANCE.DAYLIGHT, "200", null, null, null);
+		return new ContextCapabilities(ILLUMINANCE.SUNLIGHT, "200", null, null,
+				null);
 	}
 
 	public static ICapability[] generateMockDevices() {
 		ICapability[] mockDevices = {
 				new DeviceCapabilities("Samsung Galaxy S3", 720, 1280, 0F, 0F,
 						"good", "high", "standard", ""),
-				new DeviceCapabilities("Samsung Galaxy Tab", 600, 1024, 4.74F, 7.48F,
-						"good", "high", "standard", "")
-				};
+				new DeviceCapabilities("Samsung Galaxy Tab", 600, 1024, 4.74F,
+						7.48F, "good", "high", "standard", "") };
 
 		return mockDevices;
 	}
