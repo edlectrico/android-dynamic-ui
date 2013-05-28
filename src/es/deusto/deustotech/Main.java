@@ -2,20 +2,18 @@ package es.deusto.deustotech;
 
 import java.util.HashMap;
 
-import es.deusto.deustotech.model.ICapability;
-import es.deusto.deustotech.model.MockModelGenerator;
-import es.deusto.deustotech.modules.AdaptationModule;
-import es.deusto.deustotech.modules.UserCapabilitiesUpdater;
-
 import android.app.Activity;
 import android.os.Bundle;
 import android.util.Log;
-import android.util.MonthDisplayHelper;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.GridLayout;
 import android.widget.TextView;
+import es.deusto.deustotech.model.ICapability;
+import es.deusto.deustotech.model.MockModelGenerator;
+import es.deusto.deustotech.modules.AdaptationModule;
+import es.deusto.deustotech.modules.UserCapabilitiesUpdater;
 
 public class Main extends Activity {
 
