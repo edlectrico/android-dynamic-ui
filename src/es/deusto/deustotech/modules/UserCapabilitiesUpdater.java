@@ -35,12 +35,12 @@ public class UserCapabilitiesUpdater {
 		}
 
 		final Object userVolumeValue 	= user.getCapabilityValue(CAPABILITY.USER_VOLUME);
-		final float contextNoiseValue 	= (Float) context.getCapabilityValue(CAPABILITY.CONTEXT_NOISE);
+		final Object contextNoiseValue 	= (Float) context.getCapabilityValue(CAPABILITY.CONTEXT_NOISE);
 
 		if ((userVolumeValue.equals(ICapability.VOLUME.DEFAULT))
 				|| (userVolumeValue.equals(ICapability.VOLUME.LOW))
 				|| (userVolumeValue.equals(ICapability.VOLUME.HIGHT))) {
-			if (contextNoiseValue > 90F) {
+			if (contextNoiseValue.equals(ICapability.NOISE.NOISY)) { 
 				user.setCapabilityValue(CAPABILITY.USER_VOLUME,
 						ICapability.VOLUME.VERY_HIGH);
 			}

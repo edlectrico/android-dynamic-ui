@@ -63,6 +63,13 @@ public interface ICapability {
 		COMPARISON_UNAVAILABLE // None of the above
 	}
 	
+	static enum NOISE {
+		VERY_NOISY, // x >= 110 dB
+		NOISY,		// 70 <= x < 110 dB
+		STREET,		// 50 <= x < 70 dB
+		NOT_NOISY	// 0 <= x < 50 dB 
+	};
+	
 	public Object getCapabilityValue(final CAPABILITY capabilityName);
 	public void setCapabilityValue(final CAPABILITY capabilityName, final Object value);
 }

@@ -3,6 +3,7 @@ package es.deusto.deustotech.model;
 import es.deusto.deustotech.model.ICapability.BRIGHTNESS;
 import es.deusto.deustotech.model.ICapability.ILLUMINANCE;
 import es.deusto.deustotech.model.ICapability.LOCATION;
+import es.deusto.deustotech.model.ICapability.NOISE;
 import es.deusto.deustotech.model.ICapability.VOLUME;
 import es.deusto.deustotech.model.context.ContextCapabilities;
 import es.deusto.deustotech.model.device.DeviceCapabilities;
@@ -16,7 +17,7 @@ public abstract class MockModelGenerator {
 	}
 
 	public static ContextCapabilities generateMockContext() {
-		return new ContextCapabilities(ILLUMINANCE.SUNLIGHT, "200", null, null,
+		return new ContextCapabilities(ILLUMINANCE.SUNLIGHT, NOISE.VERY_NOISY, null, null,
 				null);
 	}
 
