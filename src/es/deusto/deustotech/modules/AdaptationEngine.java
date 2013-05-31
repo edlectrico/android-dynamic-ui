@@ -7,18 +7,18 @@ import android.content.Context;
 import android.graphics.Color;
 import android.view.View;
 
-public class AdaptationModule implements Runnable {
+public class AdaptationEngine implements Runnable {
 
 	private static final String[] COMPONENT_BACKGROUND_COLOR = { "blue", "red",
 			"yellow", "green", "black", "white" };
 
 	private HashMap<String, View> componentsToAdapt;
 
-	public AdaptationModule() {
+	public AdaptationEngine() {
 		super();
 	}
 
-	public AdaptationModule(HashMap<String, View> componentsMap, Context context) {
+	public AdaptationEngine(HashMap<String, View> componentsMap, Context context) {
 		super();
 
 		this.componentsToAdapt = componentsMap;
