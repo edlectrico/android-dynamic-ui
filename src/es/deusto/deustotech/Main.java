@@ -10,6 +10,7 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.GridLayout;
 import android.widget.TextView;
+import es.deusto.deustotech.components.UIConfiguration;
 import es.deusto.deustotech.model.ICapability;
 import es.deusto.deustotech.model.MockModelGenerator;
 import es.deusto.deustotech.modules.AdaptationEngine;
@@ -67,7 +68,7 @@ public class Main extends Activity {
 		final ICapability updatedUser 	= UserCapabilitiesUpdater.update(user, context);
 		
 		final UIReasoner uiReasoner = new UIReasoner(getApplicationContext());
-		final HashMap<String, View> adaptedUIConfiguration = uiReasoner.getAdaptedConfiguration(updatedUser, device, viewsMap);
+		final UIConfiguration adaptedUIConfiguration = uiReasoner.getAdaptedConfiguration(updatedUser, device, viewsMap);
 		
 		//Once the current UI is loaded, we call the AdaptationModule to
 		//perform the corresponding changes
@@ -77,5 +78,4 @@ public class Main extends Activity {
 		//TODO: the following code is just to test the automatic adaptation each 1000 milliseconds 
 //		new Thread(adaptationModule).start();
 	}
-	
 }

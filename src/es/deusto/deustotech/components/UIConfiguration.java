@@ -1,31 +1,44 @@
 package es.deusto.deustotech.components;
 
-import java.util.HashMap;
-
-import android.content.Context;
-import android.graphics.Color;
-import android.util.Log;
-import android.view.View;
-import android.widget.Button;
-
 public class UIConfiguration {
 
-	public static HashMap<String, View> getMockConfiguration(Context context){
-		
-		HashMap<String, View> componentsToAdapt = new HashMap<String, View>();
-		
-		Button button = new Button(context);
-		button.setBackgroundColor(Color.RED);
-		button.setHeight(300);
-		button.setWidth(400);
-		button.setText("TESTING");
-		button.setTextColor(Color.WHITE);
+	private int viewColor;
+	private int textColor;
+	private int height;
+	private int width;
+	private String text;
 
-		Log.e(UIConfiguration.class.getSimpleName(), "Height: " + button.getHeight());
-		Log.e(UIConfiguration.class.getSimpleName(), "Width: " + button.getWidth());
-		
-		componentsToAdapt.put("Button", button);
-		
-		return componentsToAdapt;
+	public UIConfiguration(){
+		super();
+	}
+
+	public UIConfiguration(int viewColor, int textColor, int height, int width,
+			String text) {
+		super();
+		this.viewColor = viewColor;
+		this.textColor = textColor;
+		this.height = height;
+		this.width = width;
+		this.text = text;
+	}
+
+	public int getViewColor() {
+		return viewColor;
+	}
+
+	public int getTextColor() {
+		return textColor;
+	}
+
+	public int getHeight() {
+		return height;
+	}
+
+	public int getWidth() {
+		return width;
+	}
+
+	public String getText() {
+		return text;
 	}
 }

@@ -1,19 +1,19 @@
 package es.deusto.deustotech.modules;
 
 import java.util.HashMap;
-import java.util.Random;
+
+import es.deusto.deustotech.components.UIConfiguration;
 
 import android.content.Context;
-import android.graphics.Color;
 import android.view.View;
 
 public class AdaptationEngine {
 
-	private static final String[] COMPONENT_BACKGROUND_COLOR = { "blue", "red",
-			"yellow", "green", "black", "white" };
+//	private static final String[] COMPONENT_BACKGROUND_COLOR = { "blue", "red",
+//			"yellow", "green", "black", "white" };
 
 	private HashMap<String, View> componentsToAdapt;
-	private HashMap<String, View> adaptedConfiguration;
+	private UIConfiguration configuration;
 
 	public AdaptationEngine() {
 		super();
@@ -25,27 +25,35 @@ public class AdaptationEngine {
 		this.componentsToAdapt = viewsMap;
 	}
 	
-	public AdaptationEngine(HashMap<String, View> viewsMap, Context context, HashMap<String, View> adaptedConfiguration) {
+	public AdaptationEngine(HashMap<String, View> viewsMap, Context context, 
+			UIConfiguration adaptedConfiguration) {
 		super();
 
-		this.componentsToAdapt 		= viewsMap;
-		this.adaptedConfiguration 	= adaptedConfiguration;
+		this.componentsToAdapt 	= viewsMap;
+		this.configuration 		= adaptedConfiguration;
 	}
 	
-	//TODO: This method should receive a configuration to be performed here
+	/**
+	 * This method takes both componentsToAdapt and adaptatedConfiguration and performs
+	 * the necessary adaptations in the first HashMap.
+	 * 
+	 * @return an adapted configuration HashMap
+	 */
 	public HashMap<String, View> adaptConfiguration(){
 		componentsToAdapt.get("Button").post(new Runnable() {
 			@Override
 			public void run() {
-				componentsToAdapt.get("Button").setBackgroundColor(Color.RED);
-				componentsToAdapt.get("Button").setMinimumHeight(500);
-				componentsToAdapt.get("Button").setMinimumWidth(500);
+				componentsToAdapt.get("Button").setBackgroundColor(configuration.getViewColor());
+				componentsToAdapt.get("Button").setMinimumHeight(configuration.getHeight());
+				componentsToAdapt.get("Button").setMinimumWidth(configuration.getWidth());
 			}
 		});
 		
 		return componentsToAdapt;
 	}
 
+	//Not used
+	/*
 	public HashMap<String, View> adapt() {
 		//Previously it should check entities status
 		componentsToAdapt.get("Button").post(new Runnable() {
@@ -77,14 +85,17 @@ public class AdaptationEngine {
 		
 		return componentsToAdapt;
 	}
+	*/
 	
 	//TODO: Remove the following methods, they're just to test 
 	//the automatic adaptation each 1000 milliseconds 
 	//++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+	/*
 	private int generateRandomValue() {
 		Random random = new Random();
 		return random.nextInt(6);
 	}
+	 */
 
 	/*
 	@Override
