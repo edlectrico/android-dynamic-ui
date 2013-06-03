@@ -18,10 +18,19 @@ public class AdaptationEngine implements Runnable {
 		super();
 	}
 
-	public AdaptationEngine(HashMap<String, View> componentsMap, Context context) {
+	public AdaptationEngine(HashMap<String, View> viewsMap, Context context) {
 		super();
 
-		this.componentsToAdapt = componentsMap;
+		this.componentsToAdapt = viewsMap;
+	}
+
+	public AdaptationEngine(HashMap<String, View> viewsMap,
+			Context applicationContext, UIReasoner uiReasoner) {
+		// TODO Auto-generated constructor stub
+		
+		super();
+
+		this.componentsToAdapt = viewsMap;
 	}
 
 	public HashMap<String, View> adapt() {

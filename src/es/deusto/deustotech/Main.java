@@ -13,6 +13,7 @@ import android.widget.TextView;
 import es.deusto.deustotech.model.ICapability;
 import es.deusto.deustotech.model.MockModelGenerator;
 import es.deusto.deustotech.modules.AdaptationEngine;
+import es.deusto.deustotech.modules.UIReasoner;
 import es.deusto.deustotech.modules.UserCapabilitiesUpdater;
 
 public class Main extends Activity {
@@ -64,10 +65,11 @@ public class Main extends Activity {
 		//+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
 		
 		//TODO: generateUI(updatedUser);
+		UIReasoner uiReasoner = new UIReasoner(updatedUser);
 		
 		//Once the current UI is loaded, we call the AdaptationModule to
 		//perform the corresponding changes
-		AdaptationEngine adaptationModule = new AdaptationEngine(viewsMap, getApplicationContext());
+		AdaptationEngine adaptationModule = new AdaptationEngine(viewsMap, getApplicationContext(), uiReasoner);
 		
 		//TODO: the following code is just to test the automatic adaptation each 1000 milliseconds 
 		new Thread(adaptationModule).start();
