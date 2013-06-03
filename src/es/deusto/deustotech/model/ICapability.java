@@ -1,5 +1,7 @@
 package es.deusto.deustotech.model;
 
+import java.util.HashMap;
+
 public interface ICapability {
 	
 	static enum CAPABILITY {
@@ -74,4 +76,5 @@ public interface ICapability {
 	
 	public Object getCapabilityValue(final CAPABILITY capabilityName);
 	public void setCapabilityValue(final CAPABILITY capabilityName, final Object value);
+	public HashMap<CAPABILITY, Object> getAllCapabilities();
 }

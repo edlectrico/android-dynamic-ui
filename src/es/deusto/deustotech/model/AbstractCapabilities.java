@@ -15,5 +15,10 @@ public abstract class AbstractCapabilities implements ICapability {
 	public void setCapabilityValue(CAPABILITY capabilityName, Object value) {
 		this.caps.put(capabilityName, value);
 	}
+	
+	@Override
+	public HashMap<CAPABILITY, Object> getAllCapabilities(){
+		return caps;
+	}
 
 }
