@@ -3,6 +3,7 @@ package es.deusto.deustotech.modules;
 import java.util.HashMap;
 
 import es.deusto.deustotech.components.UIConfiguration;
+import es.deusto.deustotech.components.WidgetName;
 
 import android.content.Context;
 import android.view.View;
@@ -40,12 +41,12 @@ public class AdaptationEngine {
 	 * @return an adapted configuration HashMap
 	 */
 	public HashMap<String, View> adaptConfiguration(){
-		componentsToAdapt.get("Button").post(new Runnable() {
+		componentsToAdapt.get(WidgetName.BUTTON).post(new Runnable() {
 			@Override
 			public void run() {
-				componentsToAdapt.get("Button").setBackgroundColor(configuration.getViewColor());
-				componentsToAdapt.get("Button").setMinimumHeight(configuration.getHeight());
-				componentsToAdapt.get("Button").setMinimumWidth(configuration.getWidth());
+				componentsToAdapt.get(WidgetName.BUTTON).setBackgroundColor(configuration.getViewColor());
+				componentsToAdapt.get(WidgetName.BUTTON).setMinimumHeight(configuration.getHeight());
+				componentsToAdapt.get(WidgetName.BUTTON).setMinimumWidth(configuration.getWidth());
 			}
 		});
 		
@@ -56,30 +57,30 @@ public class AdaptationEngine {
 	/*
 	public HashMap<String, View> adapt() {
 		//Previously it should check entities status
-		componentsToAdapt.get("Button").post(new Runnable() {
+		componentsToAdapt.get(WidgetName.BUTTON).post(new Runnable() {
 			@Override
 			public void run() {
-				componentsToAdapt.get("Button").setBackgroundColor(Color.parseColor(COMPONENT_BACKGROUND_COLOR[generateRandomValue()]));
-				componentsToAdapt.get("Button").setMinimumHeight(generateRandomValue() * 100);
-				componentsToAdapt.get("Button").setMinimumWidth(generateRandomValue() * 100);
+				componentsToAdapt.get(WidgetName.BUTTON).setBackgroundColor(Color.parseColor(COMPONENT_BACKGROUND_COLOR[generateRandomValue()]));
+				componentsToAdapt.get(WidgetName.BUTTON).setMinimumHeight(generateRandomValue() * 100);
+				componentsToAdapt.get(WidgetName.BUTTON).setMinimumWidth(generateRandomValue() * 100);
 			}
 		});
 		
-		componentsToAdapt.get("EditText").post(new Runnable() {
+		componentsToAdapt.get(WidgetName.EDIT_TEXT).post(new Runnable() {
 			@Override
 			public void run() {
-				componentsToAdapt.get("EditText").setBackgroundColor(Color.parseColor(COMPONENT_BACKGROUND_COLOR[generateRandomValue()]));
-				componentsToAdapt.get("EditText").setMinimumHeight(generateRandomValue() * 100);
-				componentsToAdapt.get("EditText").setMinimumWidth(generateRandomValue() * 100);
+				componentsToAdapt.get(WidgetName.EDIT_TEXT).setBackgroundColor(Color.parseColor(COMPONENT_BACKGROUND_COLOR[generateRandomValue()]));
+				componentsToAdapt.get(WidgetName.EDIT_TEXT).setMinimumHeight(generateRandomValue() * 100);
+				componentsToAdapt.get(WidgetName.EDIT_TEXT).setMinimumWidth(generateRandomValue() * 100);
 			}
 		});
 		
-		componentsToAdapt.get("TextView").post(new Runnable() {
+		componentsToAdapt.get(WidgetName.TEXT_VIEW).post(new Runnable() {
 			@Override
 			public void run() {
-				componentsToAdapt.get("TextView").setBackgroundColor(Color.parseColor(COMPONENT_BACKGROUND_COLOR[generateRandomValue()]));
-				componentsToAdapt.get("TextView").setMinimumHeight(generateRandomValue() * 100);
-				componentsToAdapt.get("TextView").setMinimumWidth(generateRandomValue() * 100);
+				componentsToAdapt.get(WidgetName.TEXT_VIEW).setBackgroundColor(Color.parseColor(COMPONENT_BACKGROUND_COLOR[generateRandomValue()]));
+				componentsToAdapt.get(WidgetName.TEXT_VIEW).setMinimumHeight(generateRandomValue() * 100);
+				componentsToAdapt.get(WidgetName.TEXT_VIEW).setMinimumWidth(generateRandomValue() * 100);
 			}
 		});
 		

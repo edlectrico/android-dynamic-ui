@@ -22,8 +22,11 @@ public class UIReasoner {
 	 * 
 	 * @return a new UI configuration to be displayed in the device
 	 */
-	public UIConfiguration getAdaptedConfiguration(ICapability updatedUser, ICapability device, HashMap<String, View> currentConfiguration) {
-		//TODO: This is a mock configuration
+	public UIConfiguration getAdaptedConfiguration(ICapability updatedUser, ICapability device, 
+			HashMap<String, View> currentConfiguration) {
+		//TODO: This is a mock configuration. The logic of this method
+		//should return the corresponding UIConfiguration object so
+		//the AdaptationModule could adapt the UI to its characteristics
 		UIConfiguration uiConfiguration = new UIConfiguration(Color.RED, Color.GREEN, 500, 500, "TEST");
 		
 		return uiConfiguration;

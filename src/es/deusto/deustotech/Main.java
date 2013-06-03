@@ -6,11 +6,9 @@ import android.app.Activity;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
-import android.widget.Button;
-import android.widget.EditText;
 import android.widget.GridLayout;
-import android.widget.TextView;
 import es.deusto.deustotech.components.UIConfiguration;
+import es.deusto.deustotech.components.WidgetName;
 import es.deusto.deustotech.model.ICapability;
 import es.deusto.deustotech.model.MockModelGenerator;
 import es.deusto.deustotech.modules.AdaptationEngine;
@@ -20,12 +18,6 @@ import es.deusto.deustotech.modules.UserCapabilitiesUpdater;
 public class Main extends Activity {
 
 	private HashMap<String, View> viewsMap; //Current UI
-	//Components definition in WidgetRegistry.java
-	private static final String BUTTON 		= Button.class.getSimpleName();
-	private static final String TEXT_VIEW 	= TextView.class.getSimpleName();
-	private static final String EDIT_TEXT	= EditText.class.getSimpleName();
-	
-	private static String [] COMPONENT_NAMES = {BUTTON, TEXT_VIEW, EDIT_TEXT};
 	
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
@@ -43,17 +35,17 @@ public class Main extends Activity {
 		
 		Log.d(this.getClass().getName(), "view is: " + button.getClass().getName());
 		
-		for (int i=0; i<COMPONENT_NAMES.length; ++i){
-			if (COMPONENT_NAMES[i] == BUTTON){
-				viewsMap.put(COMPONENT_NAMES[i], button);
-			} else if (COMPONENT_NAMES[i] == TEXT_VIEW){
-				viewsMap.put(COMPONENT_NAMES[i], textView);
-			} else if  (COMPONENT_NAMES[i] == EDIT_TEXT){
-				viewsMap.put(COMPONENT_NAMES[i], editText);
+		for (int i=0; i<WidgetName.COMPONENT_NAMES.length; ++i){
+			if (WidgetName.COMPONENT_NAMES[i] == WidgetName.BUTTON){
+				viewsMap.put(WidgetName.COMPONENT_NAMES[i], button);
+			} else if (WidgetName.COMPONENT_NAMES[i] == WidgetName.TEXT_VIEW){
+				viewsMap.put(WidgetName.COMPONENT_NAMES[i], textView);
+			} else if  (WidgetName.COMPONENT_NAMES[i] == WidgetName.EDIT_TEXT){
+				viewsMap.put(WidgetName.COMPONENT_NAMES[i], editText);
 			}
 				
-			layout.addView(viewsMap.get(COMPONENT_NAMES[i]));
-			viewsMap.get(COMPONENT_NAMES[i]).invalidate();
+			layout.addView(viewsMap.get(WidgetName.COMPONENT_NAMES[i]));
+			viewsMap.get(WidgetName.COMPONENT_NAMES[i]).invalidate();
 		}
 		
 		//TODO: generating mock user and context to call UserCapabilitiesUpdater
