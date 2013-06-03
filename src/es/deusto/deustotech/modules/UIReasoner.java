@@ -34,16 +34,18 @@ public class UIReasoner {
 	 * @return a new UI configuration to be displayed in the device
 	 */
 	public UIConfiguration getAdaptedConfiguration() {
-		final HashMap<CAPABILITY, Object> userCapabilities 		= this.user.getAllCapabilities();
-		final HashMap<CAPABILITY, Object> deviceCapabilities 	= this.device.getAllCapabilities();
-		
+		return adaptConfiguration(this.user.getAllCapabilities(), this.device.getAllCapabilities());
+	}
+
+	private UIConfiguration adaptConfiguration(
+			HashMap<CAPABILITY, Object> userCapabilities,
+			HashMap<CAPABILITY, Object> deviceCapabilities) {
 		
 		//TODO: This is a mock configuration. The logic of this method
 		//should return the corresponding UIConfiguration object so
 		//the AdaptationModule could adapt the UI to its characteristics
-		UIConfiguration uiConfiguration = new UIConfiguration(Color.RED, Color.GREEN, 500, 500, "TEST");
-
-		return uiConfiguration;
+		
+		return new UIConfiguration(Color.RED, Color.GREEN, 500, 500, "TEST");
 	}
 
 	public ICapability getUser() {
