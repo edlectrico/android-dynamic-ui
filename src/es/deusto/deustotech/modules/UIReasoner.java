@@ -5,7 +5,7 @@ import es.deusto.deustotech.model.ICapability;
 
 public class UIReasoner {
 	
-	public UIReasoner(ICapability updatedUser){
+	public UIReasoner(){
 		// TODO Auto-generated constructor stub
 	}
 	
@@ -16,7 +16,7 @@ public class UIReasoner {
 	 * 
 	 * @return a new UI configuration to be displayed in the device
 	 */
-	public UIConfiguration getConfiguration() {
+	public UIConfiguration getConfiguration(ICapability updatedUser, ICapability device) {
 		// TODO Auto-generated constructor stub
 		
 		return null;

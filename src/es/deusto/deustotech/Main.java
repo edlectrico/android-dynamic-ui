@@ -69,8 +69,8 @@ public class Main extends Activity {
 		final ICapability device		= MockModelGenerator.generateMockDevices();
 		
 		//TODO: generateUI(updatedUser);
-		UIReasoner uiReasoner = new UIReasoner(updatedUser);
-		final UIConfiguration configuration = uiReasoner.getConfiguration();
+		UIReasoner uiReasoner = new UIReasoner();
+		final UIConfiguration configuration = uiReasoner.getConfiguration(updatedUser, device);
 		
 		//Once the current UI is loaded, we call the AdaptationModule to
 		//perform the corresponding changes
