@@ -10,7 +10,6 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.GridLayout;
 import android.widget.TextView;
-import es.deusto.deustotech.components.UIConfiguration;
 import es.deusto.deustotech.model.ICapability;
 import es.deusto.deustotech.model.MockModelGenerator;
 import es.deusto.deustotech.modules.AdaptationEngine;
@@ -19,7 +18,7 @@ import es.deusto.deustotech.modules.UserCapabilitiesUpdater;
 
 public class Main extends Activity {
 
-	private HashMap<String, View> viewsMap;
+	private HashMap<String, View> viewsMap; //Current UI
 	//Components definition in WidgetRegistry.java
 	private static final String BUTTON 		= Button.class.getSimpleName();
 	private static final String TEXT_VIEW 	= TextView.class.getSimpleName();
@@ -61,23 +60,22 @@ public class Main extends Activity {
 		//+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
 		final ICapability user 			= MockModelGenerator.generateMockUser();
 		final ICapability context 		= MockModelGenerator.generateMockContext();
-		
-		final ICapability updatedUser 	= UserCapabilitiesUpdater.update(user, context);
-		//+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
-
-		//TODO: How do device capabilities affect this cycle?
 		final ICapability device		= MockModelGenerator.generateMockDevices();
+		//+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
 		
-		//TODO: generateUI(updatedUser);
-		UIReasoner uiReasoner = new UIReasoner();
-		final UIConfiguration configuration = uiReasoner.getConfiguration(updatedUser, device);
+		//Context and users are directly related since context affect user capabilities
+		final ICapability updatedUser 	= UserCapabilitiesUpdater.update(user, context);
+		
+		final UIReasoner uiReasoner = new UIReasoner(getApplicationContext());
+		final HashMap<String, View> adaptedUIConfiguration = uiReasoner.getAdaptedConfiguration(updatedUser, device, viewsMap);
 		
 		//Once the current UI is loaded, we call the AdaptationModule to
 		//perform the corresponding changes
-		AdaptationEngine adaptationModule = new AdaptationEngine(viewsMap, getApplicationContext(), configuration);
+		AdaptationEngine adaptationModule = new AdaptationEngine(viewsMap, getApplicationContext(), adaptedUIConfiguration);
+		adaptationModule.adaptConfiguration();
 		
 		//TODO: the following code is just to test the automatic adaptation each 1000 milliseconds 
-		new Thread(adaptationModule).start();
+//		new Thread(adaptationModule).start();
 	}
 	
 }

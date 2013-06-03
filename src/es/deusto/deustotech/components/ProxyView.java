@@ -177,8 +177,8 @@ public class ProxyView extends View {
 		final Vector<CallData> localMethodsToCall = methodsCall.get();
 		for (CallData callData : localMethodsToCall) {
 			try {
-				System.out.println("Now calling seriously"
-						+ callData.methodName);
+//				System.out.println("Now calling seriously"
+//						+ callData.methodName);
 				getMethodInParents(callData.methodName, callData.types).invoke(
 						this.impl, callData.args);
 			} catch (Exception e) {

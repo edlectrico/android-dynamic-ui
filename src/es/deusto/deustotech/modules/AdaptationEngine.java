@@ -3,18 +3,17 @@ package es.deusto.deustotech.modules;
 import java.util.HashMap;
 import java.util.Random;
 
-import es.deusto.deustotech.components.UIConfiguration;
-
 import android.content.Context;
 import android.graphics.Color;
 import android.view.View;
 
-public class AdaptationEngine implements Runnable {
+public class AdaptationEngine {
 
 	private static final String[] COMPONENT_BACKGROUND_COLOR = { "blue", "red",
 			"yellow", "green", "black", "white" };
 
 	private HashMap<String, View> componentsToAdapt;
+	private HashMap<String, View> adaptedConfiguration;
 
 	public AdaptationEngine() {
 		super();
@@ -25,14 +24,26 @@ public class AdaptationEngine implements Runnable {
 
 		this.componentsToAdapt = viewsMap;
 	}
-
-	public AdaptationEngine(HashMap<String, View> viewsMap,
-			Context applicationContext, UIConfiguration configuration) {
-		// TODO Auto-generated constructor stub
-		
+	
+	public AdaptationEngine(HashMap<String, View> viewsMap, Context context, HashMap<String, View> adaptedConfiguration) {
 		super();
 
-		this.componentsToAdapt = viewsMap;
+		this.componentsToAdapt 		= viewsMap;
+		this.adaptedConfiguration 	= adaptedConfiguration;
+	}
+	
+	//TODO: This method should receive a configuration to be performed here
+	public HashMap<String, View> adaptConfiguration(){
+		componentsToAdapt.get("Button").post(new Runnable() {
+			@Override
+			public void run() {
+				componentsToAdapt.get("Button").setBackgroundColor(Color.RED);
+				componentsToAdapt.get("Button").setMinimumHeight(500);
+				componentsToAdapt.get("Button").setMinimumWidth(500);
+			}
+		});
+		
+		return componentsToAdapt;
 	}
 
 	public HashMap<String, View> adapt() {
@@ -75,6 +86,7 @@ public class AdaptationEngine implements Runnable {
 		return random.nextInt(6);
 	}
 
+	/*
 	@Override
 	public void run() {
 		while (true){
@@ -86,5 +98,6 @@ public class AdaptationEngine implements Runnable {
 			}
 		}
 	}
+	*/
 	//++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
 }

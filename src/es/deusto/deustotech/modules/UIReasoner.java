@@ -1,12 +1,19 @@
 package es.deusto.deustotech.modules;
 
+import java.util.HashMap;
+
+import android.content.Context;
+import android.view.View;
 import es.deusto.deustotech.components.UIConfiguration;
 import es.deusto.deustotech.model.ICapability;
 
 public class UIReasoner {
 	
-	public UIReasoner(){
+	private Context appContext;
+	
+	public UIReasoner(Context applicationContext){
 		// TODO Auto-generated constructor stub
+		this.appContext = applicationContext;
 	}
 	
 	/**
@@ -16,10 +23,10 @@ public class UIReasoner {
 	 * 
 	 * @return a new UI configuration to be displayed in the device
 	 */
-	public UIConfiguration getConfiguration(ICapability updatedUser, ICapability device) {
+	public HashMap<String, View> getAdaptedConfiguration(ICapability updatedUser, ICapability device, HashMap<String, View> currentConfiguration) {
 		// TODO Auto-generated constructor stub
 		
-		return null;
+		return UIConfiguration.getMockConfiguration(this.appContext);
 	}
 	
 	
