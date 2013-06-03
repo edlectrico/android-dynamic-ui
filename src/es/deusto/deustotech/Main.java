@@ -17,7 +17,14 @@ import es.deusto.deustotech.modules.UserCapabilitiesUpdater;
 
 public class Main extends Activity {
 
-	private HashMap<String, View> viewsMap; //Current UI
+	/**
+	 * If the project will be an importable library we should manage
+	 * the views map in a method like "addComponents" or something
+	 * similar to be as transparent as possible to the developer
+	 * and the main Activity. 
+	 */
+	
+	private HashMap<String, View> viewsMap; //Current UI container
 	
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
@@ -67,7 +74,7 @@ public class Main extends Activity {
 		AdaptationEngine adaptationModule = new AdaptationEngine(viewsMap, getApplicationContext(), adaptedUIConfiguration);
 		adaptationModule.adaptConfiguration();
 		
-		//TODO: the following code is just to test the automatic adaptation each 1000 milliseconds 
+		//The following code is just to @test the automatic adaptation each 1000 milliseconds 
 //		new Thread(adaptationModule).start();
 	}
 }
