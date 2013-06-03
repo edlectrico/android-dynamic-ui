@@ -3,6 +3,8 @@ package es.deusto.deustotech.modules;
 import java.util.HashMap;
 import java.util.Random;
 
+import es.deusto.deustotech.components.UIConfiguration;
+
 import android.content.Context;
 import android.graphics.Color;
 import android.view.View;
@@ -25,7 +27,7 @@ public class AdaptationEngine implements Runnable {
 	}
 
 	public AdaptationEngine(HashMap<String, View> viewsMap,
-			Context applicationContext, UIReasoner uiReasoner) {
+			Context applicationContext, UIConfiguration configuration) {
 		// TODO Auto-generated constructor stub
 		
 		super();

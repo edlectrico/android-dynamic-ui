@@ -10,6 +10,7 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.GridLayout;
 import android.widget.TextView;
+import es.deusto.deustotech.components.UIConfiguration;
 import es.deusto.deustotech.model.ICapability;
 import es.deusto.deustotech.model.MockModelGenerator;
 import es.deusto.deustotech.modules.AdaptationEngine;
@@ -63,13 +64,17 @@ public class Main extends Activity {
 		
 		final ICapability updatedUser 	= UserCapabilitiesUpdater.update(user, context);
 		//+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+
+		//TODO: How do device capabilities affect this cycle?
+		final ICapability device		= MockModelGenerator.generateMockDevices();
 		
 		//TODO: generateUI(updatedUser);
 		UIReasoner uiReasoner = new UIReasoner(updatedUser);
+		final UIConfiguration configuration = uiReasoner.getConfiguration();
 		
 		//Once the current UI is loaded, we call the AdaptationModule to
 		//perform the corresponding changes
-		AdaptationEngine adaptationModule = new AdaptationEngine(viewsMap, getApplicationContext(), uiReasoner);
+		AdaptationEngine adaptationModule = new AdaptationEngine(viewsMap, getApplicationContext(), configuration);
 		
 		//TODO: the following code is just to test the automatic adaptation each 1000 milliseconds 
 		new Thread(adaptationModule).start();

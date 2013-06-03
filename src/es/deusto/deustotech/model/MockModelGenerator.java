@@ -21,6 +21,7 @@ public abstract class MockModelGenerator {
 				null);
 	}
 
+	/*
 	public static ICapability[] generateMockDevices() {
 		ICapability[] mockDevices = {
 				new DeviceCapabilities("Samsung Galaxy S3", 720, 1280, 0F, 0F,
@@ -30,5 +31,10 @@ public abstract class MockModelGenerator {
 
 		return mockDevices;
 	}
-
+	 */
+	
+	public static ICapability generateMockDevices() {
+		return	new DeviceCapabilities("Samsung Galaxy S3", 720, 1280, 0F, 0F,
+				"good", "high", "standard", "");
+	}
 }

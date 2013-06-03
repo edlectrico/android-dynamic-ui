@@ -12,6 +12,14 @@ public class UserCapabilitiesUpdater {
 	 * context situation.
 	 */
 
+	/**
+	 * Given a user and a context situation this method updates
+	 * the user capabilities to the new current context parameters.
+	 * 
+	 * @param user
+	 * @param context
+	 * @return an updated user
+	 */
 	static public ICapability update(ICapability user, ICapability context) {
 		// TODO: for the moment just adapt noise and lightning
 
