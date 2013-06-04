@@ -8,8 +8,8 @@ public class UIConfiguration {
 	private int width;
 	private String text;
 	
-	private int volume;
-	private int brightness;
+//	private int volume;
+//	private int brightness;
 
 	public UIConfiguration(){
 		super();

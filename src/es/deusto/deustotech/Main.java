@@ -7,6 +7,7 @@ import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
 import android.widget.GridLayout;
+import es.deusto.deustotech.components.UIConfiguration;
 import es.deusto.deustotech.components.WidgetName;
 import es.deusto.deustotech.model.ICapability;
 import es.deusto.deustotech.model.MockModelGenerator;
@@ -37,7 +38,7 @@ public class Main extends Activity {
 
 		viewsMap = new HashMap<String, View>();
 
-		GridLayout layout = (GridLayout) findViewById(R.id.default_layout);
+		GridLayout layout = (GridLayout) findViewById(R.id.default_layout); //main.xml
 
 		View button 	= findViewById(R.id.mybutton);
 		View textView 	= findViewById(R.id.mytexview);
@@ -69,8 +70,16 @@ public class Main extends Activity {
 		//Context and users are directly related since context affect user capabilities
 		final ICapability updatedUser 	= UserCapabilitiesUpdater.update(user, context);
 
-		final UIReasoner uiReasoner = new UIReasoner(updatedUser, device, viewsMap);
+		HashMap<String, UIConfiguration> currentUI = new HashMap<String, UIConfiguration>();
+		final int width = button.getLayoutParams().width;
+		final int height = button.getLayoutParams().height;
+		
+		currentUI.put(WidgetName.BUTTON, new UIConfiguration(0, 0, height, width, null));
+		
+		
+		final UIReasoner uiReasoner = new UIReasoner(updatedUser, device, currentUI);
 
+		
 		//Once the current UI is loaded, we call the AdaptationModule to
 		//perform the corresponding changes
 		AdaptationEngine adaptationModule = new AdaptationEngine(viewsMap, getApplicationContext(), 

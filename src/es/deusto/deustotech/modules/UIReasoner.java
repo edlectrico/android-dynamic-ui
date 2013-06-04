@@ -3,27 +3,27 @@ package es.deusto.deustotech.modules;
 import java.util.HashMap;
 
 import android.graphics.Color;
-import android.view.View;
 import es.deusto.deustotech.components.UIConfiguration;
+import es.deusto.deustotech.components.WidgetName;
 import es.deusto.deustotech.model.ICapability;
 import es.deusto.deustotech.model.ICapability.CAPABILITY;
 
 public class UIReasoner {
 
 	private ICapability user, device;
-	private HashMap<String, View> uiConfiguration;
+	private HashMap<String, UIConfiguration> currentUI;
 
 	public UIReasoner(){
 		super();
 	}
 
 	public UIReasoner(ICapability user, ICapability device,
-			HashMap<String, View> uiConfiguration) {
+			HashMap<String, UIConfiguration> currentUI) {
 		super();
 		
-		this.uiConfiguration 	= uiConfiguration;
-		this.device 			= device;
-		this.user 				= user;
+		this.currentUI 	= currentUI;
+		this.device 	= device;
+		this.user 		= user;
 	}
 
 	/**
@@ -50,7 +50,13 @@ public class UIReasoner {
 		 * 2. Get current UI configuration
 		 * 3. If it is not enough, generate a new configuration
 		 */
-
+		
+		if (userCapabilities.get(CAPABILITY.USER_BRIGHTNESS).equals(ICapability.BRIGHTNESS.VERY_HIGH)){
+			if (this.currentUI.get(WidgetName.BUTTON).getHeight() == -2){ //wrap_content
+				//TODO: Bigger
+				return new UIConfiguration(Color.RED, Color.GREEN, 500, 700, "VERY BIG");
+			}
+		}
 		
 		return new UIConfiguration(Color.RED, Color.GREEN, 500, 500, "TEST");
 	}
@@ -63,7 +69,7 @@ public class UIReasoner {
 		return device;
 	}
 
-	public HashMap<String, View> getUiConfiguration() {
-		return uiConfiguration;
+	public HashMap<String, UIConfiguration> getUiConfiguration() {
+		return currentUI;
 	}
 }
