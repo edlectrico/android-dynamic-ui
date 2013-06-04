@@ -82,6 +82,7 @@ public class Main extends Activity {
 		
 		//Once the current UI is loaded, we call the AdaptationModule to
 		//perform the corresponding changes
+		//TODO: User currentUI?
 		AdaptationEngine adaptationModule = new AdaptationEngine(viewsMap, getApplicationContext(), 
 				uiReasoner.getAdaptedConfiguration());
 		adaptationModule.adaptConfiguration();
