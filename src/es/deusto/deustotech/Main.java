@@ -64,15 +64,16 @@ public class Main extends Activity {
 		//++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
 		final ICapability user 			= MockModelGenerator.generateMockUser();
 		final ICapability context 		= MockModelGenerator.generateMockContext();
-		final ICapability device		= MockModelGenerator.generateMockDevices();
+		final ICapability device		= MockModelGenerator.generateMockDevice();
 		//++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
 
 		//Context and users are directly related since context affect user capabilities
 		final ICapability updatedUser 	= UserCapabilitiesUpdater.update(user, context);
 
+		//TODO: For each component...
 		HashMap<String, UIConfiguration> currentUI = new HashMap<String, UIConfiguration>();
-		final int width = button.getLayoutParams().width;
-		final int height = button.getLayoutParams().height;
+		final int width 	= button.getLayoutParams().width;
+		final int height 	= button.getLayoutParams().height;
 		
 		currentUI.put(WidgetName.BUTTON, new UIConfiguration(0, 0, height, width, null));
 		

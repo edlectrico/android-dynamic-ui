@@ -30,9 +30,14 @@ public interface ICapability {
 		PUBLIC_BUILDING, WORK
 	};
 	
+	//TODO: What is big? Use Trends?
 	static enum BRIGHTNESS {
 		DEFAULT, LOW, HIGH, VERY_HIGH, 
 		ONLY_LOW, ONLY_HIGH, ONLY_VERY_HIGH
+	};
+	
+	static enum CONTRAST {
+		DEFAULT, LOW, HIGH
 	};
 	
 	static enum VOLUME {
@@ -97,6 +102,10 @@ public interface ICapability {
 		NOISY,		// 70 <= x < 110 dB
 		STREET,		// 50 <= x < 70 dB
 		NOT_NOISY	// 0 <= x < 50 dB 
+	};
+	
+	static enum PRESSURE {
+		NORMAL, HIGH, LOW
 	};
 	
 	public Object getCapabilityValue(final CAPABILITY capabilityName);

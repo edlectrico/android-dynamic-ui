@@ -41,10 +41,12 @@ public class UserCapabilitiesUpdater {
 						.equals(ICapability.ILLUMINANCE.SUNLIGHT)) {
 					user.setCapabilityValue(CAPABILITY.USER_BRIGHTNESS,
 							ICapability.BRIGHTNESS.VERY_HIGH);
+					user.setCapabilityValue(CAPABILITY.USER_MAX_TEXT_SIZE, TEXT_SIZE.VERY_BIG);
 				} else if (contextIlluminanceValue
 						.equals(ICapability.ILLUMINANCE.DAYLIGHT)){
 					user.setCapabilityValue(CAPABILITY.USER_BRIGHTNESS,
 							ICapability.BRIGHTNESS.HIGH);
+					user.setCapabilityValue(CAPABILITY.USER_MAX_TEXT_SIZE, TEXT_SIZE.BIG);
 				} else if ((contextIlluminanceValue
 						.equals(ICapability.ILLUMINANCE.MOONLESS_CLEAR_NIGHT)) || (contextIlluminanceValue
 								.equals(ICapability.ILLUMINANCE.MOONLESS_OVERCAST_NIGHT))
@@ -54,6 +56,7 @@ public class UserCapabilitiesUpdater {
 												.equals(ICapability.ILLUMINANCE.TWILIGHT_SKY))) {
 					user.setCapabilityValue(CAPABILITY.USER_BRIGHTNESS,
 							ICapability.BRIGHTNESS.LOW);
+					user.setCapabilityValue(CAPABILITY.USER_MAX_TEXT_SIZE, TEXT_SIZE.DEFAULT);
 				}
 			}
 		}
@@ -70,12 +73,11 @@ public class UserCapabilitiesUpdater {
 				user.setCapabilityValue(CAPABILITY.USER_VIEW_BACKGROUND_COLOR, Color.RED);
 				
 				/*
-				 * 	caps.put(CAPABILITY.USER_BRIGHTNESS, brightness);
 					caps.put(CAPABILITY.USER_CONTRAST, contrast);
 					caps.put(CAPABILITY.USER_IMAGES, IMAGES.DEFAULT);
 					caps.put(CAPABILITY.USER_INPUT, INPUT.HAPTIC);
 					caps.put(CAPABILITY.USER_LANGUAGE, LANGUAGE.ENGLISH);
-					caps.put(CAPABILITY.USER_MAX_TEXT_SIZE, maxTextSize);
+					
 					caps.put(CAPABILITY.USER_MIN_TEXT_SIZE, minTextSize);
 					caps.put(CAPABILITY.USER_OUTPUT, OUTPUT.VISUAL);
 					caps.put(CAPABILITY.USER_BACKGROUND_COLOR, COLOR.DEFAULT);
