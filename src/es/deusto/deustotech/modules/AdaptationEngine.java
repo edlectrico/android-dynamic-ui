@@ -2,11 +2,9 @@ package es.deusto.deustotech.modules;
 
 import java.util.HashMap;
 
+import android.view.View;
 import es.deusto.deustotech.components.UIConfiguration;
 import es.deusto.deustotech.components.WidgetName;
-
-import android.content.Context;
-import android.view.View;
 
 public class AdaptationEngine {
 
@@ -20,13 +18,13 @@ public class AdaptationEngine {
 		super();
 	}
 
-	public AdaptationEngine(HashMap<String, View> viewsMap, Context context) {
+	public AdaptationEngine(HashMap<String, View> viewsMap) {
 		super();
 
 		this.componentsToAdapt = viewsMap;
 	}
 	
-	public AdaptationEngine(HashMap<String, View> viewsMap, Context context, 
+	public AdaptationEngine(HashMap<String, View> viewsMap,  
 			UIConfiguration adaptedConfiguration) {
 		super();
 

@@ -79,13 +79,12 @@ public class Main extends Activity {
 		
 		
 		final UIReasoner uiReasoner = new UIReasoner(updatedUser, device, currentUI);
+		final UIConfiguration conf 	= uiReasoner.getAdaptedConfiguration();
 
 		
 		//Once the current UI is loaded, we call the AdaptationModule to
 		//perform the corresponding changes
-		//TODO: User currentUI?
-		AdaptationEngine adaptationModule = new AdaptationEngine(viewsMap, getApplicationContext(), 
-				uiReasoner.getAdaptedConfiguration());
+		AdaptationEngine adaptationModule = new AdaptationEngine(viewsMap, conf);
 		adaptationModule.adaptConfiguration();
 
 		//The following code is just to @test the automatic adaptation each 1000 milliseconds 

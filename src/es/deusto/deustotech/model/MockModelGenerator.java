@@ -15,7 +15,7 @@ public abstract class MockModelGenerator {
 	}
 
 	public static ContextCapabilities generateMockContext() {
-		return new ContextCapabilities(ILLUMINANCE.SUNLIGHT, NOISE.VERY_NOISY);
+		return new ContextCapabilities(ILLUMINANCE.SUNLIGHT, NOISE.STREET);
 	}
 
 	public static ICapability generateMockDevice() {

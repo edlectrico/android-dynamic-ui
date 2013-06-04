@@ -41,12 +41,12 @@ public class UserCapabilitiesUpdater {
 						.equals(ICapability.ILLUMINANCE.SUNLIGHT)) {
 					user.setCapabilityValue(CAPABILITY.USER_BRIGHTNESS,
 							ICapability.BRIGHTNESS.VERY_HIGH);
-					user.setCapabilityValue(CAPABILITY.USER_MAX_TEXT_SIZE, TEXT_SIZE.VERY_BIG);
+//					user.setCapabilityValue(CAPABILITY.USER_MAX_TEXT_SIZE, TEXT_SIZE.VERY_BIG);
 				} else if (contextIlluminanceValue
 						.equals(ICapability.ILLUMINANCE.DAYLIGHT)){
 					user.setCapabilityValue(CAPABILITY.USER_BRIGHTNESS,
 							ICapability.BRIGHTNESS.HIGH);
-					user.setCapabilityValue(CAPABILITY.USER_MAX_TEXT_SIZE, TEXT_SIZE.BIG);
+//					user.setCapabilityValue(CAPABILITY.USER_MAX_TEXT_SIZE, TEXT_SIZE.BIG);
 				} else if ((contextIlluminanceValue
 						.equals(ICapability.ILLUMINANCE.MOONLESS_CLEAR_NIGHT)) || (contextIlluminanceValue
 								.equals(ICapability.ILLUMINANCE.MOONLESS_OVERCAST_NIGHT))
@@ -56,7 +56,7 @@ public class UserCapabilitiesUpdater {
 												.equals(ICapability.ILLUMINANCE.TWILIGHT_SKY))) {
 					user.setCapabilityValue(CAPABILITY.USER_BRIGHTNESS,
 							ICapability.BRIGHTNESS.LOW);
-					user.setCapabilityValue(CAPABILITY.USER_MAX_TEXT_SIZE, TEXT_SIZE.DEFAULT);
+//					user.setCapabilityValue(CAPABILITY.USER_MAX_TEXT_SIZE, TEXT_SIZE.DEFAULT);
 				}
 			}
 		}
