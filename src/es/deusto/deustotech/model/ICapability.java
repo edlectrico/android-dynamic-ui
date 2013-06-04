@@ -6,9 +6,10 @@ public interface ICapability {
 	
 	static enum CAPABILITY {
 		//USER
-		USER_BRIGHTNESS, USER_CONTRAST, USER_IMAGES, 
+		USER_BRIGHTNESS, USER_CONTRAST, USER_IMAGES,
+		USER_MAX_VIEW_SIZE,
 		USER_INPUT, USER_LANGUAGE, USER_MAX_TEXT_SIZE, 
-		USER_MIN_TEXT_SIZE, USER_OUTPUT, USER_BACKGROUND_COLOR, 
+		USER_MIN_TEXT_SIZE, USER_OUTPUT, USER_VIEW_BACKGROUND_COLOR, 
 		USER_TEXT_COLOR, USER_EXPERIENCE, USER_VOLUME,
 		USER_LOCATION, USER_ACTIVITY, USER_RELATIONSHIP,
 		//DEVICE
@@ -35,7 +36,7 @@ public interface ICapability {
 	};
 	
 	static enum VOLUME {
-		DEFAULT, LOW, HIGHT, VERY_HIGH,
+		DEFAULT, LOW, HIGH, VERY_HIGH,
 		ONLY_LOW, ONLY_HIGHT, ONLY_VERY_HIGHT
 	};
 	
@@ -46,6 +47,30 @@ public interface ICapability {
 	static enum RELATIONSHIP {
 		NONE, SOCIAL, WORK
 	}
+	
+	static enum IMAGES {
+		DEFAULT, NO_IMAGES, ONLY_BIG
+	};
+	
+	static enum TEXT_SIZE {
+		SMALL, DEFAULT, BIG, VERY_BIG
+	}
+	
+	static enum VIEW_SIZE {
+		SMALL, DEFAULT, BIG, VERY_BIG
+	}
+	
+	//TODO: How do users specify that they cannot see, for example, blue?
+	static enum COLOR {
+		RED, BLUE, WHITE, GREEN, BLACK, YELLOW, DEFAULT
+	};
+
+	//If user cannot see he/she should have an option to 
+	//avoid HAPTIC -> ONLY_VOICE_CONTROL.
+	static enum INPUT {
+		GESTURES, HAPTIC, VOICE_CONTROL,				//Common and adaptable configuration
+		ONLY_VOICE_CONTROL, ONLY_HAPTIC, ONLY_GESTURES	//Priority demands for disabled users
+	}; 
 	
 	//Context
 	static enum ILLUMINANCE {

@@ -12,7 +12,7 @@ import es.deusto.deustotech.model.user.UserCapabilities;
 public abstract class MockModelGenerator {
 
 	public static UserCapabilities generateMockUser() {
-		return new UserCapabilities(BRIGHTNESS.DEFAULT, null, null, null,
+		return new UserCapabilities(BRIGHTNESS.DEFAULT, null,
 				VOLUME.DEFAULT, LOCATION.STREET);
 	}
 

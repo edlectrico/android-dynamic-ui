@@ -7,7 +7,6 @@ import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
 import android.widget.GridLayout;
-import es.deusto.deustotech.components.UIConfiguration;
 import es.deusto.deustotech.components.WidgetName;
 import es.deusto.deustotech.model.ICapability;
 import es.deusto.deustotech.model.MockModelGenerator;
@@ -74,10 +73,12 @@ public class Main extends Activity {
 
 		//Once the current UI is loaded, we call the AdaptationModule to
 		//perform the corresponding changes
-		AdaptationEngine adaptationModule = new AdaptationEngine(viewsMap, getApplicationContext(), uiReasoner.getAdaptedConfiguration());
+		AdaptationEngine adaptationModule = new AdaptationEngine(viewsMap, getApplicationContext(), 
+				uiReasoner.getAdaptedConfiguration());
 		adaptationModule.adaptConfiguration();
 
 		//The following code is just to @test the automatic adaptation each 1000 milliseconds 
 		//new Thread(adaptationModule).start();
 	}
+
 }

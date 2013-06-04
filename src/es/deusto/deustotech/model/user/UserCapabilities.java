@@ -6,17 +6,6 @@ import es.deusto.deustotech.model.AbstractCapabilities;
 
 public class UserCapabilities extends AbstractCapabilities {
 
-	private static enum IMAGES {
-		DEFAULT, NO_IMAGES, ONLY_BIG
-	};
-
-	//If user cannot see he/she should have an option to 
-	//avoid HAPTIC -> ONLY_VOICE_CONTROL.
-	private static enum INPUT {
-		GESTURES, HAPTIC, VOICE_CONTROL,				//Common and adaptable configuration
-		ONLY_VOICE_CONTROL, ONLY_HAPTIC, ONLY_GESTURES	//Priority demands for disabled users
-	}; 
-
 	private static enum LANGUAGE {
 		ENGLISH, ESPAÑOL, EUSKERA
 	};
@@ -26,11 +15,6 @@ public class UserCapabilities extends AbstractCapabilities {
 	private static enum OUTPUT {
 		VISUAL, AUDIO,				//Common and adaptable configuration
 		ONLY_AUDIO, ONLY_VISUAL		//Priority demands for disabled users
-	};
-
-	//TODO: How do users specify that they cannot see, for example, blue?
-	private static enum COLOR {
-		RED, BLUE, WHITE, GREEN, BLACK, YELLOW, DEFAULT
 	};
 
 	private static enum EXPERIENCE {
@@ -44,7 +28,7 @@ public class UserCapabilities extends AbstractCapabilities {
 	}
 
 	public UserCapabilities(BRIGHTNESS brightness, String contrast,
-			String maxTextSize, String minTextSize, VOLUME volume, LOCATION location) {
+			VOLUME volume, LOCATION location) {
 		super();
 
 		this.caps = new HashMap<CAPABILITY, Object>();
@@ -54,10 +38,11 @@ public class UserCapabilities extends AbstractCapabilities {
 		caps.put(CAPABILITY.USER_IMAGES, IMAGES.DEFAULT);
 		caps.put(CAPABILITY.USER_INPUT, INPUT.HAPTIC);
 		caps.put(CAPABILITY.USER_LANGUAGE, LANGUAGE.ENGLISH);
-		caps.put(CAPABILITY.USER_MAX_TEXT_SIZE, maxTextSize);
-		caps.put(CAPABILITY.USER_MIN_TEXT_SIZE, minTextSize);
+		caps.put(CAPABILITY.USER_MAX_TEXT_SIZE, TEXT_SIZE.DEFAULT);
+		caps.put(CAPABILITY.USER_MIN_TEXT_SIZE, TEXT_SIZE.DEFAULT);
+		caps.put(CAPABILITY.USER_MAX_VIEW_SIZE, VIEW_SIZE.DEFAULT);
 		caps.put(CAPABILITY.USER_OUTPUT, OUTPUT.VISUAL);
-		caps.put(CAPABILITY.USER_BACKGROUND_COLOR, COLOR.DEFAULT);
+		caps.put(CAPABILITY.USER_VIEW_BACKGROUND_COLOR, COLOR.DEFAULT);
 		caps.put(CAPABILITY.USER_TEXT_COLOR, COLOR.DEFAULT);
 		caps.put(CAPABILITY.USER_EXPERIENCE, EXPERIENCE.STANDARD);
 		caps.put(CAPABILITY.USER_VOLUME, volume);

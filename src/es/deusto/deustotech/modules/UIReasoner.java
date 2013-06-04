@@ -27,9 +27,9 @@ public class UIReasoner {
 	}
 
 	/**
-	 * This method receives an updated, the current device's capabilities
+	 * This method takes the updated user, the current device's capabilities
 	 * and the current configuration and returns the best suitable UI
-	 * configuration for this situation.
+	 * for this situation.
 	 * 
 	 * @return a new UI configuration to be displayed in the device
 	 */
@@ -44,6 +44,13 @@ public class UIReasoner {
 		//TODO: This is a mock configuration. The logic of this method
 		//should return the corresponding UIConfiguration object so
 		//the AdaptationModule could adapt the UI to its characteristics
+		
+		/**
+		 * 1. Get user capabilities
+		 * 2. Get current UI configuration
+		 * 3. If it is not enough, generate a new configuration
+		 */
+
 		
 		return new UIConfiguration(Color.RED, Color.GREEN, 500, 500, "TEST");
 	}
