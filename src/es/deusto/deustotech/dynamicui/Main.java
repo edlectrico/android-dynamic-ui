@@ -72,10 +72,9 @@ public class Main extends Activity {
 
 		//TODO: For each component...
 		HashMap<String, UIConfiguration> currentUI = new HashMap<String, UIConfiguration>();
-		final int width 	= button.getLayoutParams().width;
-		final int height 	= button.getLayoutParams().height;
 		
-		currentUI.put(WidgetName.BUTTON, new UIConfiguration(0, 0, height, width, null));
+		currentUI.put(WidgetName.BUTTON, new UIConfiguration(0, 0, 
+				button.getLayoutParams().height, button.getLayoutParams().width, null));
 		
 		
 		final UIReasoner uiReasoner = new UIReasoner(user, device, currentUI);
