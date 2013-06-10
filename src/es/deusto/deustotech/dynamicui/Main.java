@@ -62,13 +62,13 @@ public class Main extends Activity {
 		//TODO: generating mock user and context to call UserCapabilitiesUpdater
 		//and obtain a updatedUser
 		//++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
-		final ICapability user 			= MockModelGenerator.generateMockUser();
+		ICapability user 			= MockModelGenerator.generateMockUser();
 		final ICapability context 		= MockModelGenerator.generateMockContext();
 		final ICapability device		= MockModelGenerator.generateMockDevice();
 		//++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
 
 		//Context and users are directly related since context affect user capabilities
-		final ICapability updatedUser 	= UserCapabilitiesUpdater.update(user, context);
+		user = UserCapabilitiesUpdater.update(user, context);
 
 		//TODO: For each component...
 		HashMap<String, UIConfiguration> currentUI = new HashMap<String, UIConfiguration>();
@@ -78,7 +78,7 @@ public class Main extends Activity {
 		currentUI.put(WidgetName.BUTTON, new UIConfiguration(0, 0, height, width, null));
 		
 		
-		final UIReasoner uiReasoner = new UIReasoner(updatedUser, device, currentUI);
+		final UIReasoner uiReasoner = new UIReasoner(user, device, currentUI);
 		final UIConfiguration conf 	= uiReasoner.getAdaptedConfiguration();
 
 		

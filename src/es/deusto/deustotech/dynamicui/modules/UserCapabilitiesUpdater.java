@@ -1,10 +1,7 @@
 package es.deusto.deustotech.dynamicui.modules;
 
-import android.graphics.Color;
 import es.deusto.deustotech.dynamicui.model.ICapability;
 import es.deusto.deustotech.dynamicui.model.ICapability.CAPABILITY;
-import es.deusto.deustotech.dynamicui.model.ICapability.IMAGES;
-import es.deusto.deustotech.dynamicui.model.ICapability.TEXT_SIZE;
 import es.deusto.deustotech.dynamicui.model.user.UserCapabilities;
 
 public class UserCapabilitiesUpdater {

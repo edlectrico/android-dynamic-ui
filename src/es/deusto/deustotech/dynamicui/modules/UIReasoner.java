@@ -3,6 +3,7 @@ package es.deusto.deustotech.dynamicui.modules;
 import java.util.HashMap;
 
 import android.graphics.Color;
+
 import es.deusto.deustotech.dynamicui.components.UIConfiguration;
 import es.deusto.deustotech.dynamicui.components.WidgetName;
 import es.deusto.deustotech.dynamicui.model.ICapability;
@@ -51,6 +52,39 @@ public class UIReasoner {
 		 * 3. If it is not enough, generate a new configuration
 		 */
 		
+		UIConfiguration uiConfiguration = new UIConfiguration();
+		
+		//BRIGHTNESS
+		/*
+		if (userCapabilities.get(CAPABILITY.USER_BRIGHTNESS).equals(ICapability.BRIGHTNESS.VERY_HIGH)){
+			if (!currentUI.get(CAPABILITY.DEVICE_BRIGHTNESS).equals(ICapability.BRIGHTNESS.VERY_HIGH)){
+				//TODO: Higher brightness value
+			}
+		}
+		*/
+		
+		//VIEW_SIZE
+		if (userCapabilities.get(CAPABILITY.USER_VIEW_SIZE).equals(ICapability.VIEW_SIZE.BIG)){
+			if (currentUI.get(WidgetName.BUTTON).getHeight() == -2){ //wrap_content
+				uiConfiguration.setHeight(500);
+			}
+			
+			if (currentUI.get(WidgetName.BUTTON).getWidth() == -2){ //wrap_content
+				uiConfiguration.setWidth(500);
+			}
+			
+		}
+		
+		//TEXT_SIZE
+//		if (userCapabilities.get(CAPABILITY.USER_TEXT_SIZE).equals(ICapability.TEXT_SIZE.BIG)){
+//			if ((!currentUI.get(CAPABILITY.DEVICE_TEXT_SIZE).equals(ICapability.TEXT_SIZE.BIG)) && 
+//			(!currentUI.get(CAPABILITY.DEVICE_TEXT_SIZE).equals(ICapability.TEXT_SIZE.VERY_BIG))) {
+//				//TODO: BIG
+//			}
+//		}
+		
+		
+		/*
 		if (userCapabilities.get(CAPABILITY.USER_BRIGHTNESS).equals(ICapability.BRIGHTNESS.VERY_HIGH)){
 			if (this.currentUI.get(WidgetName.BUTTON).getHeight() == -2){ //wrap_content
 				//TODO: Bigger
@@ -59,6 +93,13 @@ public class UIReasoner {
 		}
 		
 		return new UIConfiguration(Color.RED, Color.GREEN, 500, 500, "TEST");
+		*/
+		
+		uiConfiguration.setTextColor(Color.GREEN);
+		uiConfiguration.setViewColor(Color.WHITE);
+		uiConfiguration.setText("TESTING");
+		
+		return uiConfiguration;
 	}
 
 	public ICapability getUser() {
