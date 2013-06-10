@@ -1,11 +1,11 @@
-package es.deusto.deustotech.modules;
+package es.deusto.deustotech.dynamicui.modules;
 
 import android.graphics.Color;
-import es.deusto.deustotech.model.ICapability;
-import es.deusto.deustotech.model.ICapability.CAPABILITY;
-import es.deusto.deustotech.model.ICapability.IMAGES;
-import es.deusto.deustotech.model.ICapability.TEXT_SIZE;
-import es.deusto.deustotech.model.user.UserCapabilities;
+import es.deusto.deustotech.dynamicui.model.ICapability;
+import es.deusto.deustotech.dynamicui.model.ICapability.CAPABILITY;
+import es.deusto.deustotech.dynamicui.model.ICapability.IMAGES;
+import es.deusto.deustotech.dynamicui.model.ICapability.TEXT_SIZE;
+import es.deusto.deustotech.dynamicui.model.user.UserCapabilities;
 
 public class UserCapabilitiesUpdater {
 
@@ -37,6 +37,7 @@ public class UserCapabilitiesUpdater {
 			if ((userBrightnessValue.equals(ICapability.BRIGHTNESS.DEFAULT)
 					|| userBrightnessValue.equals(ICapability.BRIGHTNESS.LOW)
 					|| userBrightnessValue.equals(ICapability.BRIGHTNESS.HIGH))) { //If BRIGHTNESS.VERY_HIGHT -> no applicable adaptation
+				//CONTEXT_ILLUMINANCE
 				if (contextIlluminanceValue
 						.equals(ICapability.ILLUMINANCE.SUNLIGHT)) {
 					user.setCapabilityValue(CAPABILITY.USER_BRIGHTNESS,
@@ -58,6 +59,26 @@ public class UserCapabilitiesUpdater {
 							ICapability.BRIGHTNESS.LOW);
 //					user.setCapabilityValue(CAPABILITY.USER_MAX_TEXT_SIZE, TEXT_SIZE.DEFAULT);
 				}
+				
+				//USER_VIEW_SIZE
+				final Object userViewSizeValue 	= user.getCapabilityValue(CAPABILITY.USER_VIEW_SIZE);
+				final Object userTextSizeValue 	= user.getCapabilityValue(CAPABILITY.USER_TEXT_SIZE);
+				
+				if (!userViewSizeValue.equals(ICapability.VIEW_SIZE.ONLY_VERY_BIG)){
+					if (contextIlluminanceValue.equals(ICapability.ILLUMINANCE.SUNLIGHT)){ //BIGGER CONTROLS/TEXT
+						if (userViewSizeValue.equals(ICapability.VIEW_SIZE.DEFAULT)){
+							user.setCapabilityValue(CAPABILITY.USER_VIEW_SIZE, ICapability.VIEW_SIZE.BIG);
+						} else if (userViewSizeValue.equals(ICapability.VIEW_SIZE.BIG)){
+							user.setCapabilityValue(CAPABILITY.USER_VIEW_SIZE, ICapability.VIEW_SIZE.VERY_BIG); //TODO: Is it correct?
+						}
+						//USER_TEXT_SIZE
+						if (userTextSizeValue.equals(ICapability.TEXT_SIZE.DEFAULT)){
+							user.setCapabilityValue(CAPABILITY.USER_TEXT_SIZE, ICapability.TEXT_SIZE.BIG);
+						} else if (userTextSizeValue.equals(ICapability.TEXT_SIZE.BIG)){
+							user.setCapabilityValue(CAPABILITY.USER_TEXT_SIZE, ICapability.TEXT_SIZE.VERY_BIG); //TODO: Is it correct?
+						}
+					}
+				}
 			}
 		}
 		
@@ -67,10 +88,10 @@ public class UserCapabilitiesUpdater {
 			if (contextIlluminanceValue
 					.equals(ICapability.ILLUMINANCE.SUNLIGHT)) {
 				//TODO: Bigger and more visible controls
-				user.setCapabilityValue(CAPABILITY.USER_MAX_TEXT_SIZE, TEXT_SIZE.VERY_BIG);
-				user.setCapabilityValue(CAPABILITY.USER_MAX_VIEW_SIZE, TEXT_SIZE.VERY_BIG);
-				user.setCapabilityValue(CAPABILITY.USER_IMAGES, IMAGES.ONLY_BIG);
-				user.setCapabilityValue(CAPABILITY.USER_VIEW_BACKGROUND_COLOR, Color.RED);
+//				user.setCapabilityValue(CAPABILITY.USER_TEXT_SIZE, TEXT_SIZE.VERY_BIG);
+//				user.setCapabilityValue(CAPABILITY.USER_VIEW_SIZE, ICapability.VIEW_SIZE.VERY_BIG);
+//				user.setCapabilityValue(CAPABILITY.USER_IMAGES, IMAGES.ONLY_BIG);
+//				user.setCapabilityValue(CAPABILITY.USER_VIEW_BACKGROUND_COLOR, Color.RED);
 				
 				/*
 					caps.put(CAPABILITY.USER_CONTRAST, contrast);

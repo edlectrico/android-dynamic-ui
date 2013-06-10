@@ -1,10 +1,10 @@
-package es.deusto.deustotech.modules;
+package es.deusto.deustotech.dynamicui.modules;
 
 import java.util.HashMap;
 
 import android.view.View;
-import es.deusto.deustotech.components.UIConfiguration;
-import es.deusto.deustotech.components.WidgetName;
+import es.deusto.deustotech.dynamicui.components.UIConfiguration;
+import es.deusto.deustotech.dynamicui.components.WidgetName;
 
 public class AdaptationEngine {
 

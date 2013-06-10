@@ -1,8 +1,8 @@
-package es.deusto.deustotech.model.user;
+package es.deusto.deustotech.dynamicui.model.user;
 
 import java.util.HashMap;
 
-import es.deusto.deustotech.model.AbstractCapabilities;
+import es.deusto.deustotech.dynamicui.model.AbstractCapabilities;
 
 public class UserCapabilities extends AbstractCapabilities {
 
@@ -27,7 +27,7 @@ public class UserCapabilities extends AbstractCapabilities {
 		this.caps = new HashMap<CAPABILITY, Object>();
 	}
 
-	public UserCapabilities(BRIGHTNESS brightness, VOLUME volume) {
+	public UserCapabilities(BRIGHTNESS brightness, VOLUME volume, VIEW_SIZE viewSize, TEXT_SIZE textSize) {
 		super();
 
 		this.caps = new HashMap<CAPABILITY, Object>();
@@ -37,9 +37,10 @@ public class UserCapabilities extends AbstractCapabilities {
 		caps.put(CAPABILITY.USER_IMAGES, 				IMAGES.DEFAULT);
 		caps.put(CAPABILITY.USER_INPUT, 				INPUT.HAPTIC);
 		caps.put(CAPABILITY.USER_LANGUAGE, 				LANGUAGE.ENGLISH);
-		caps.put(CAPABILITY.USER_MAX_TEXT_SIZE, 		TEXT_SIZE.DEFAULT);
-		caps.put(CAPABILITY.USER_MIN_TEXT_SIZE, 		TEXT_SIZE.DEFAULT);
-		caps.put(CAPABILITY.USER_MAX_VIEW_SIZE, 		VIEW_SIZE.DEFAULT);
+//		caps.put(CAPABILITY.USER_MAX_TEXT_SIZE, 		TEXT_SIZE.DEFAULT);
+//		caps.put(CAPABILITY.USER_MIN_TEXT_SIZE, 		TEXT_SIZE.DEFAULT);
+		caps.put(CAPABILITY.USER_VIEW_SIZE, 			viewSize);
+		caps.put(CAPABILITY.USER_TEXT_SIZE, 			textSize);
 		caps.put(CAPABILITY.USER_OUTPUT, 				OUTPUT.VISUAL);
 		caps.put(CAPABILITY.USER_VIEW_BACKGROUND_COLOR, COLOR.DEFAULT);
 		caps.put(CAPABILITY.USER_TEXT_COLOR, 			COLOR.DEFAULT);

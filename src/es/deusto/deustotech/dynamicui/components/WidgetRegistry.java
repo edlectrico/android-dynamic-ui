@@ -1,4 +1,4 @@
-package es.deusto.deustotech.components;
+package es.deusto.deustotech.dynamicui.components;
 
 import java.util.HashMap;
 import java.util.Map;

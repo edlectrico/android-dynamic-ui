@@ -1,8 +1,8 @@
-package es.deusto.deustotech.model.device;
+package es.deusto.deustotech.dynamicui.model.device;
 
 import java.util.HashMap;
 
-import es.deusto.deustotech.model.AbstractCapabilities;
+import es.deusto.deustotech.dynamicui.model.AbstractCapabilities;
 
 public class DeviceCapabilities extends AbstractCapabilities {
 

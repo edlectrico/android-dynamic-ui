@@ -1,4 +1,4 @@
-package es.deusto.deustotech;
+package es.deusto.deustotech.dynamicui;
 
 import java.util.HashMap;
 
@@ -7,13 +7,13 @@ import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
 import android.widget.GridLayout;
-import es.deusto.deustotech.components.UIConfiguration;
-import es.deusto.deustotech.components.WidgetName;
-import es.deusto.deustotech.model.ICapability;
-import es.deusto.deustotech.model.MockModelGenerator;
-import es.deusto.deustotech.modules.AdaptationEngine;
-import es.deusto.deustotech.modules.UIReasoner;
-import es.deusto.deustotech.modules.UserCapabilitiesUpdater;
+import es.deusto.deustotech.dynamicui.components.UIConfiguration;
+import es.deusto.deustotech.dynamicui.components.WidgetName;
+import es.deusto.deustotech.dynamicui.model.ICapability;
+import es.deusto.deustotech.dynamicui.model.MockModelGenerator;
+import es.deusto.deustotech.dynamicui.modules.AdaptationEngine;
+import es.deusto.deustotech.dynamicui.modules.UIReasoner;
+import es.deusto.deustotech.dynamicui.modules.UserCapabilitiesUpdater;
 
 public class Main extends Activity {
 

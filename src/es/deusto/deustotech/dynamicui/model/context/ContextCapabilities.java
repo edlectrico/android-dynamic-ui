@@ -1,8 +1,8 @@
-package es.deusto.deustotech.model.context;
+package es.deusto.deustotech.dynamicui.model.context;
 
 import java.util.HashMap;
 
-import es.deusto.deustotech.model.AbstractCapabilities;
+import es.deusto.deustotech.dynamicui.model.AbstractCapabilities;
 
 public class ContextCapabilities extends AbstractCapabilities {
 

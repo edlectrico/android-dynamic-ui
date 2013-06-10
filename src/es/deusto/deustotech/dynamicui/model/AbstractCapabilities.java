@@ -1,4 +1,4 @@
-package es.deusto.deustotech.model;
+package es.deusto.deustotech.dynamicui.model;
 
 import java.util.HashMap;
 

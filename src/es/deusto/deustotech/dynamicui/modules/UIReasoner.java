@@ -1,12 +1,12 @@
-package es.deusto.deustotech.modules;
+package es.deusto.deustotech.dynamicui.modules;
 
 import java.util.HashMap;
 
 import android.graphics.Color;
-import es.deusto.deustotech.components.UIConfiguration;
-import es.deusto.deustotech.components.WidgetName;
-import es.deusto.deustotech.model.ICapability;
-import es.deusto.deustotech.model.ICapability.CAPABILITY;
+import es.deusto.deustotech.dynamicui.components.UIConfiguration;
+import es.deusto.deustotech.dynamicui.components.WidgetName;
+import es.deusto.deustotech.dynamicui.model.ICapability;
+import es.deusto.deustotech.dynamicui.model.ICapability.CAPABILITY;
 
 public class UIReasoner {
 

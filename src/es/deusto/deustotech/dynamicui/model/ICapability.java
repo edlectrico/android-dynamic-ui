@@ -1,4 +1,4 @@
-package es.deusto.deustotech.model;
+package es.deusto.deustotech.dynamicui.model;
 
 import java.util.HashMap;
 
@@ -7,9 +7,11 @@ public interface ICapability {
 	static enum CAPABILITY {
 		//USER
 		USER_BRIGHTNESS, USER_CONTRAST, USER_IMAGES,
-		USER_MAX_VIEW_SIZE,
-		USER_INPUT, USER_LANGUAGE, USER_MAX_TEXT_SIZE, 
-		USER_MIN_TEXT_SIZE, USER_OUTPUT, USER_VIEW_BACKGROUND_COLOR, 
+		USER_VIEW_SIZE, USER_TEXT_SIZE,
+		USER_INPUT, USER_LANGUAGE, 
+//		USER_MAX_TEXT_SIZE, 
+//		USER_MIN_TEXT_SIZE, 
+		USER_OUTPUT, USER_VIEW_BACKGROUND_COLOR, 
 		USER_TEXT_COLOR, USER_EXPERIENCE, USER_VOLUME,
 		USER_LOCATION, USER_ACTIVITY, USER_RELATIONSHIP,
 		//DEVICE
@@ -58,11 +60,13 @@ public interface ICapability {
 	};
 	
 	static enum TEXT_SIZE {
-		SMALL, DEFAULT, BIG, VERY_BIG
+		SMALL, DEFAULT, BIG, VERY_BIG,
+		ONLY_VERY_BIG
 	}
 	
 	static enum VIEW_SIZE {
-		SMALL, DEFAULT, BIG, VERY_BIG
+		SMALL, DEFAULT, BIG, VERY_BIG,
+		ONLY_VERY_BIG
 	}
 	
 	//TODO: How do users specify that they cannot see, for example, blue?

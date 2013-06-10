@@ -1,4 +1,4 @@
-package es.deusto.deustotech.components;
+package es.deusto.deustotech.dynamicui.components;
 
 import android.content.Context;
 import android.util.AttributeSet;
