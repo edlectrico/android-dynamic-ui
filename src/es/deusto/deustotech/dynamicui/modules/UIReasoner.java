@@ -41,14 +41,12 @@ public class UIReasoner {
 	 */
 	public UIConfiguration getAdaptedConfiguration() {
 		//TODO: 
-		//1. If there is a sufficient previous configuration for this
-		//user in the history, return it
+		//1. Check if there is a previous configuration for this situation
 		if (checkAdaptationHistory()){
 			return historyManager.getAdaptedConfiguration();
-		}
-		//2. Else, generate a new one
-		//2.1 First, from a standard one
-		else {
+		} else {
+			//2. Else, generate a new one
+			//2.1 First, from a standard one
 			StandardUIManager standardUIManager 	= new StandardUIManager();
 			UIConfiguration standardConfiguration 	= standardUIManager.getStandardConfiguration(user);
 			

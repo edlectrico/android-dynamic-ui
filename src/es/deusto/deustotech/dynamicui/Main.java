@@ -15,7 +15,7 @@ import es.deusto.deustotech.dynamicui.components.UIConfiguration;
 import es.deusto.deustotech.dynamicui.components.WidgetName;
 import es.deusto.deustotech.dynamicui.model.ICapability;
 import es.deusto.deustotech.dynamicui.model.MockModelGenerator;
-import es.deusto.deustotech.dynamicui.modules.AdaptationEngine;
+import es.deusto.deustotech.dynamicui.modules.AdaptationManager;
 import es.deusto.deustotech.dynamicui.modules.UIReasoner;
 import es.deusto.deustotech.dynamicui.modules.UserCapabilitiesUpdater;
 
@@ -33,7 +33,7 @@ public class Main extends Activity {
 	 */
 
 	private HashMap<String, View> viewsMap; //Current UI container
-	public SharedPreferences settings;
+	public SharedPreferences preferences;
 
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
@@ -41,7 +41,7 @@ public class Main extends Activity {
 
 		setContentView(R.layout.main); // Default layout
 		
-		settings = getSharedPreferences(
+		preferences = getSharedPreferences(
 				getResources().getString(R.string.preferences_name), 0);
 
 		viewsMap = new HashMap<String, View>();
@@ -93,7 +93,7 @@ public class Main extends Activity {
 		
 		//Once the current UI is loaded, we call the AdaptationModule to
 		//perform the corresponding changes
-		AdaptationEngine adaptationModule = new AdaptationEngine(viewsMap, conf);
+		AdaptationManager adaptationModule = new AdaptationManager(viewsMap, conf, getApplicationContext(), user);
 		adaptationModule.adaptConfiguration();
 
 		//The following code is just to @test the automatic adaptation each 1000 milliseconds 
@@ -102,7 +102,7 @@ public class Main extends Activity {
 
 	//TODO This probably should be outside the Main activity. 
 	private void storeCurrentSituation(ICapability user, UIConfiguration configuration) {
-		SharedPreferences.Editor editor = settings.edit();
+		SharedPreferences.Editor editor = preferences.edit();
 		
 		HashMap<ICapability, UIConfiguration> currentSituation = new HashMap<ICapability, UIConfiguration>();
 		currentSituation.put(user, configuration);

@@ -2,34 +2,42 @@ package es.deusto.deustotech.dynamicui.modules;
 
 import java.util.HashMap;
 
+import com.google.gson.Gson;
+
+import android.content.Context;
+import android.content.SharedPreferences;
 import android.view.View;
+import es.deusto.deustotech.dynamicui.R;
 import es.deusto.deustotech.dynamicui.components.UIConfiguration;
 import es.deusto.deustotech.dynamicui.components.WidgetName;
+import es.deusto.deustotech.dynamicui.model.ICapability;
 
-public class AdaptationEngine {
+public class AdaptationManager {
 
 //	private static final String[] COMPONENT_BACKGROUND_COLOR = { "blue", "red",
 //			"yellow", "green", "black", "white" };
 
 	private HashMap<String, View> componentsToAdapt;
 	private UIConfiguration configuration;
+	private Context context;
+	private SharedPreferences preferences;
+	private ICapability user;
 
-	public AdaptationEngine() {
+	public AdaptationManager() {
 		super();
 	}
 
-	public AdaptationEngine(HashMap<String, View> viewsMap) {
-		super();
-
-		this.componentsToAdapt = viewsMap;
-	}
-	
-	public AdaptationEngine(HashMap<String, View> viewsMap,  
-			UIConfiguration adaptedConfiguration) {
+	public AdaptationManager(HashMap<String, View> viewsMap,  
+			UIConfiguration adaptedConfiguration, Context appContext, 
+			ICapability adaptedUser) {
 		super();
 
 		this.componentsToAdapt 	= viewsMap;
 		this.configuration 		= adaptedConfiguration;
+		this.context 			= appContext;
+		this.user 				= adaptedUser;
+		
+		this.preferences = this.context.getSharedPreferences(this.context.getResources().getString(R.string.preferences_name), 0);
 	}
 	
 	/**
@@ -48,7 +56,22 @@ public class AdaptationEngine {
 			}
 		});
 		
+		storeAdaptedConfiguration();
+		
 		return componentsToAdapt;
+	}
+	
+	private void storeAdaptedConfiguration() {
+		SharedPreferences.Editor editor = preferences.edit();
+		
+		HashMap<ICapability, HashMap<String, View>> currentSituation = new HashMap<ICapability, HashMap<String, View>>();
+		currentSituation.put(user, componentsToAdapt);
+		
+		Gson gson = new Gson();
+		String json = gson.toJson(currentSituation);
+		//TODO Here the problem is that every adaptation will be stored here, deleting the previous one
+		editor.putString(this.context.getResources().getString(R.string.adapted_configuration), json);
+		editor.commit();
 	}
 
 	//Not used
