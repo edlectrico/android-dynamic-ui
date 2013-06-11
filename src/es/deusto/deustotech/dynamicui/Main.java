@@ -66,7 +66,7 @@ public class Main extends Activity {
 		final ICapability context 		= MockModelGenerator.generateMockContext();
 		final ICapability device		= MockModelGenerator.generateMockDevice();
 		//++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
-
+		
 		//Context and users are directly related since context affect user capabilities
 		user = UserCapabilitiesUpdater.update(user, context);
 
@@ -80,6 +80,7 @@ public class Main extends Activity {
 		final UIReasoner uiReasoner = new UIReasoner(user, device, currentUI);
 		final UIConfiguration conf 	= uiReasoner.getAdaptedConfiguration();
 
+		//TODO: Store current context and adapted configuration
 		
 		//Once the current UI is loaded, we call the AdaptationModule to
 		//perform the corresponding changes
