@@ -10,10 +10,8 @@ import es.deusto.deustotech.dynamicui.model.ICapability;
 public class HistoryManager {
 
 	/**
-	 * This class manages the standard UI configurations
-	 * for several default context situations. For example,
-	 * for a context with SUNLIGH lightning a configuration
-	 * with BRIGHTNESS.LEVEL.VERY_HIGH is presented
+	 * This class manages the previous presented UIs for
+	 * a certain updated user. 
 	 */
 	
 	public HistoryManager(){
