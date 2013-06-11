@@ -39,11 +39,13 @@ public class UserCapabilitiesUpdater {
 						.equals(ICapability.ILLUMINANCE.SUNLIGHT)) {
 					user.setCapabilityValue(CAPABILITY.USER_BRIGHTNESS,
 							ICapability.BRIGHTNESS.VERY_HIGH);
+					user.setCapabilityValue(CAPABILITY.USER_VIEW_BACKGROUND_COLOR, ICapability.COLOR.WHITE);
 //					user.setCapabilityValue(CAPABILITY.USER_MAX_TEXT_SIZE, TEXT_SIZE.VERY_BIG);
 				} else if (contextIlluminanceValue
 						.equals(ICapability.ILLUMINANCE.DAYLIGHT)){
 					user.setCapabilityValue(CAPABILITY.USER_BRIGHTNESS,
 							ICapability.BRIGHTNESS.HIGH);
+					user.setCapabilityValue(CAPABILITY.USER_VIEW_BACKGROUND_COLOR, ICapability.COLOR.RED);
 //					user.setCapabilityValue(CAPABILITY.USER_MAX_TEXT_SIZE, TEXT_SIZE.BIG);
 				} else if ((contextIlluminanceValue
 						.equals(ICapability.ILLUMINANCE.MOONLESS_CLEAR_NIGHT)) || (contextIlluminanceValue
@@ -54,6 +56,7 @@ public class UserCapabilitiesUpdater {
 												.equals(ICapability.ILLUMINANCE.TWILIGHT_SKY))) {
 					user.setCapabilityValue(CAPABILITY.USER_BRIGHTNESS,
 							ICapability.BRIGHTNESS.LOW);
+					user.setCapabilityValue(CAPABILITY.USER_VIEW_BACKGROUND_COLOR, ICapability.COLOR.GRAY);
 //					user.setCapabilityValue(CAPABILITY.USER_MAX_TEXT_SIZE, TEXT_SIZE.DEFAULT);
 				}
 				
@@ -74,6 +77,14 @@ public class UserCapabilitiesUpdater {
 						} else if (userTextSizeValue.equals(ICapability.TEXT_SIZE.BIG)){
 							user.setCapabilityValue(CAPABILITY.USER_TEXT_SIZE, ICapability.TEXT_SIZE.VERY_BIG); //TODO: Is it correct?
 						}
+					} else if ((contextIlluminanceValue
+							.equals(ICapability.ILLUMINANCE.MOONLESS_CLEAR_NIGHT)) || (contextIlluminanceValue
+									.equals(ICapability.ILLUMINANCE.MOONLESS_OVERCAST_NIGHT))
+									|| (contextIlluminanceValue
+											.equals(ICapability.ILLUMINANCE.FULL_MOON_CLEAR_NIGHT))
+											|| (contextIlluminanceValue
+													.equals(ICapability.ILLUMINANCE.TWILIGHT_SKY))){ //SMALLER CONTROLS/TEXT
+						user.setCapabilityValue(CAPABILITY.USER_VIEW_SIZE, ICapability.VIEW_SIZE.SMALL);
 					}
 				}
 			}

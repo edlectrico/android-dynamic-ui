@@ -66,13 +66,17 @@ public interface ICapability {
 	}
 	
 	static enum VIEW_SIZE {
-		SMALL, DEFAULT, BIG, VERY_BIG,
+		SMALL, 
+		DEFAULT, 
+		BIG, 
+		VERY_BIG,
 		ONLY_VERY_BIG
 	}
 	
 	//TODO: How do users specify that they cannot see, for example, blue?
 	static enum COLOR {
-		RED, BLUE, WHITE, GREEN, BLACK, YELLOW, DEFAULT
+		RED, BLUE, WHITE, GREEN, 
+		BLACK, YELLOW, DEFAULT, GRAY
 	};
 
 	//If user cannot see he/she should have an option to 
@@ -89,16 +93,16 @@ public interface ICapability {
 		MOONLESS_CLEAR_NIGHT, 		// Moonless clear night sky with airglow
 		FULL_MOON_CLEAR_NIGHT, 		// Full moon on a clear night
 		TWILIGHT_SKY, 				// Dark limit of civil twilight under a clear sky
-		LIVING_ROOM, 				// Family living room lights (Australia, 1998)
-		TOILET, 					// Office building hallway/toilet lighting
-		VERY_DARK_OVERCAST_DAY, 	// Very dark overcast day
-		OFFICE, 					// Office lighting
-		SUNRISE_CLEAR_DAY, 			// Sunrise or sunset on a clear day
-		OVERCAST_DAY, 				// Overcast day
-		TV_STUDIO, 					// typical TV studio lighting
+//		LIVING_ROOM, 				// Family living room lights (Australia, 1998)
+//		TOILET, 					// Office building hallway/toilet lighting
+//		VERY_DARK_OVERCAST_DAY, 	// Very dark overcast day
+//		OFFICE, 					// Office lighting
+//		SUNRISE_CLEAR_DAY, 			// Sunrise or sunset on a clear day
+//		OVERCAST_DAY, 				// Overcast day
+//		TV_STUDIO, 					// typical TV studio lighting
 		DAYLIGHT, 					// Full daylight (not direct sun)
 		SUNLIGHT, 					// Direct sunlight
-		COMPARISON_UNAVAILABLE 		// None of the above
+//		COMPARISON_UNAVAILABLE 		// None of the above
 	}
 	
 	static enum NOISE {

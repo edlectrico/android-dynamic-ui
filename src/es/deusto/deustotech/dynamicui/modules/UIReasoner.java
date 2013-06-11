@@ -5,7 +5,6 @@ import java.util.HashMap;
 import android.content.Context;
 import android.graphics.Color;
 import es.deusto.deustotech.dynamicui.components.UIConfiguration;
-import es.deusto.deustotech.dynamicui.components.WidgetName;
 import es.deusto.deustotech.dynamicui.model.ICapability;
 import es.deusto.deustotech.dynamicui.model.ICapability.CAPABILITY;
 
@@ -91,14 +90,17 @@ public class UIReasoner {
 		
 		//VIEW_SIZE
 		if (userCapabilities.get(CAPABILITY.USER_VIEW_SIZE).equals(ICapability.VIEW_SIZE.BIG)){
-			if (currentUI.get(WidgetName.BUTTON).getHeight() == -2){ //wrap_content
+//			if (currentUI.get(WidgetName.BUTTON).getHeight() == -2){ //wrap_content
 				uiConfiguration.setHeight(500);
-			}
+//			} else uiConfiguration.setHeight(200);
 			
-			if (currentUI.get(WidgetName.BUTTON).getWidth() == -2){ //wrap_content
+//			if (currentUI.get(WidgetName.BUTTON).getWidth() == -2){ //wrap_content
 				uiConfiguration.setWidth(500);
-			}
+//			} else uiConfiguration.setWidth(200);
 			
+		} else {
+			uiConfiguration.setHeight(100);
+			uiConfiguration.setWidth(100);
 		}
 		
 		//TEXT_SIZE
@@ -122,7 +124,7 @@ public class UIReasoner {
 		*/
 		
 		uiConfiguration.setTextColor(Color.GREEN);
-		uiConfiguration.setViewColor(Color.WHITE);
+		uiConfiguration.setViewColor(Color.parseColor(userCapabilities.get(CAPABILITY.USER_VIEW_BACKGROUND_COLOR).toString()));
 		uiConfiguration.setText("TESTING");
 		
 		return uiConfiguration;

@@ -1,5 +1,7 @@
 package es.deusto.deustotech.dynamicui.model;
 
+import java.util.Random;
+
 import es.deusto.deustotech.dynamicui.model.ICapability.BRIGHTNESS;
 import es.deusto.deustotech.dynamicui.model.ICapability.ILLUMINANCE;
 import es.deusto.deustotech.dynamicui.model.ICapability.NOISE;
@@ -17,7 +19,8 @@ public abstract class MockModelGenerator {
 	}
 
 	public static ContextCapabilities generateMockContext() {
-		return new ContextCapabilities(ILLUMINANCE.SUNLIGHT, NOISE.STREET);
+//		return new ContextCapabilities(ILLUMINANCE.SUNLIGHT, NOISE.STREET);
+		return new ContextCapabilities(randomContextIlluminance(), randomContextNoise());
 	}
 
 	public static ICapability generateMockDevice() {
@@ -25,6 +28,15 @@ public abstract class MockModelGenerator {
 				"good", "high", "standard", "");
 	}
 	
+	private static ILLUMINANCE randomContextIlluminance() {
+	    int pick = new Random().nextInt(ILLUMINANCE.values().length);
+	    return ILLUMINANCE.values()[pick];
+	}
+	
+	private static NOISE randomContextNoise() {
+	    int pick = new Random().nextInt(NOISE.values().length);
+	    return NOISE.values()[pick];
+	}
 	/*
 	public static ICapability[] generateMockDevices() {
 		ICapability[] mockDevices = {

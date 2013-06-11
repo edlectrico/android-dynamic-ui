@@ -13,4 +13,6 @@
 	<string name="preferences_name">DynamicUIPreferences</string>
 	<string name="current_situation">Current Situation</string>
 	<string name="adapted_configuration">Adapted Configuration</string>
+	
+	<string name="trigger">Trigger Context</string>
 </resources>
