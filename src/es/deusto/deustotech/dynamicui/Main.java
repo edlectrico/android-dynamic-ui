@@ -69,11 +69,11 @@ public class Main extends Activity {
 
 		//TODO: generating mock user and context to call UserCapabilitiesUpdater
 		//and obtain a updatedUser
-		//++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+		//+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
 		ICapability user 			= MockModelGenerator.generateMockUser();
-		final ICapability context 		= MockModelGenerator.generateMockContext();
-		final ICapability device		= MockModelGenerator.generateMockDevice();
-		//++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+		final ICapability context 	= MockModelGenerator.generateMockContext();
+		final ICapability device	= MockModelGenerator.generateMockDevice();
+		//+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
 		
 		//Context and users are directly related since context affect user capabilities
 		user = UserCapabilitiesUpdater.update(user, context);
@@ -89,7 +89,7 @@ public class Main extends Activity {
 		final UIConfiguration conf 	= uiReasoner.getAdaptedConfiguration();
 
 		//TODO: Store current context and adapted configuration
-		storeSituation(context, conf);
+		storeCurrentSituation(context, conf);
 		
 		//Once the current UI is loaded, we call the AdaptationModule to
 		//perform the corresponding changes
@@ -100,7 +100,8 @@ public class Main extends Activity {
 		//new Thread(adaptationModule).start();
 	}
 
-	private void storeSituation(ICapability context, UIConfiguration configuration) {
+	//TODO This probably should be outside the Main activity. 
+	private void storeCurrentSituation(ICapability context, UIConfiguration configuration) {
 		SharedPreferences.Editor editor = settings.edit();
 		
 		HashMap<ICapability, UIConfiguration> currentSituation = new HashMap<ICapability, UIConfiguration>();
