@@ -2,8 +2,8 @@ package es.deusto.deustotech.dynamicui.modules;
 
 import java.util.HashMap;
 
+import android.content.Context;
 import android.graphics.Color;
-
 import es.deusto.deustotech.dynamicui.components.UIConfiguration;
 import es.deusto.deustotech.dynamicui.components.WidgetName;
 import es.deusto.deustotech.dynamicui.model.ICapability;
@@ -14,22 +14,22 @@ public class UIReasoner {
 	private ICapability user, device;
 	private HashMap<String, UIConfiguration> currentUI;
 	private HistoryManager historyManager;
+	private Context context;
 
 	public UIReasoner(){
 		super();
-		
-		historyManager = new HistoryManager();
 	}
 
 	public UIReasoner(ICapability user, ICapability device,
-			HashMap<String, UIConfiguration> currentUI) {
+			HashMap<String, UIConfiguration> currentUI, Context appContext) {
 		super();
-		
-		historyManager = new HistoryManager();
 		
 		this.currentUI 	= currentUI;
 		this.device 	= device;
 		this.user 		= user;
+		this.context 	= appContext;
+		
+		historyManager = new HistoryManager(this.context);
 	}
 
 	/**

@@ -2,8 +2,14 @@ package es.deusto.deustotech.dynamicui.modules;
 
 import java.util.HashMap;
 
+import android.content.Context;
+import android.content.SharedPreferences;
 import android.graphics.Color;
+import android.view.View;
 
+import com.google.gson.Gson;
+
+import es.deusto.deustotech.dynamicui.R;
 import es.deusto.deustotech.dynamicui.components.UIConfiguration;
 import es.deusto.deustotech.dynamicui.model.ICapability;
 
@@ -14,10 +20,20 @@ public class HistoryManager {
 	 * a certain updated user. 
 	 */
 	
+	private SharedPreferences preferences;
+	private Context context;
+	
 	public HistoryManager(){
 		super();
 	}
 
+	public HistoryManager(Context appContext){
+		super();
+		
+		this.context = appContext;
+	}
+
+	
 	/**
 	 * This method checks the SharedPreferences for a previous
 	 * similar situation with the same user and UI configuration
@@ -30,11 +46,25 @@ public class HistoryManager {
 	 */
 	public boolean checkConfiguration(ICapability user,
 			HashMap<String, UIConfiguration> currentUI) {
-		boolean found = false;
-		
 		//TODO: check SharedPreferences
+		// Restore preferences
+		preferences = this.context.getSharedPreferences(this.context.getResources().getString(R.string.adapted_configuration), 0);
 		
-		return found;
+		return compareUsers();
+	}
+
+	private boolean compareUsers() {
+		Gson gson 	= new Gson();
+	    String json = preferences.getString(this.context.getResources().getString(R.string.adapted_configuration), "");
+	    
+	    if (json == ""){ //No adaptation stored
+	    	return false;
+	    }
+	    
+	    //TODO
+	    HashMap<ICapability, UIConfiguration> previousSituation = gson.fromJson(json, HashMap.class);
+	    
+		return true;
 	}
 
 	/**

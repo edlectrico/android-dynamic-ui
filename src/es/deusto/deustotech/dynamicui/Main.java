@@ -85,7 +85,7 @@ public class Main extends Activity {
 				button.getLayoutParams().height, button.getLayoutParams().width, null));
 		
 		
-		final UIReasoner uiReasoner = new UIReasoner(user, device, currentUI);
+		final UIReasoner uiReasoner = new UIReasoner(user, device, currentUI, getApplicationContext());
 		final UIConfiguration conf 	= uiReasoner.getAdaptedConfiguration();
 
 		//TODO: Store updated user and adapted configuration
