@@ -88,8 +88,8 @@ public class Main extends Activity {
 		final UIReasoner uiReasoner = new UIReasoner(user, device, currentUI);
 		final UIConfiguration conf 	= uiReasoner.getAdaptedConfiguration();
 
-		//TODO: Store current context and adapted configuration
-		storeCurrentSituation(context, conf);
+		//TODO: Store updated user and adapted configuration
+		storeCurrentSituation(user, conf);
 		
 		//Once the current UI is loaded, we call the AdaptationModule to
 		//perform the corresponding changes
@@ -101,11 +101,11 @@ public class Main extends Activity {
 	}
 
 	//TODO This probably should be outside the Main activity. 
-	private void storeCurrentSituation(ICapability context, UIConfiguration configuration) {
+	private void storeCurrentSituation(ICapability user, UIConfiguration configuration) {
 		SharedPreferences.Editor editor = settings.edit();
 		
 		HashMap<ICapability, UIConfiguration> currentSituation = new HashMap<ICapability, UIConfiguration>();
-		currentSituation.put(context, configuration);
+		currentSituation.put(user, configuration);
 		
 		Gson gson = new Gson();
 		String json = gson.toJson(currentSituation);

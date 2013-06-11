@@ -13,14 +13,19 @@ public class UIReasoner {
 
 	private ICapability user, device;
 	private HashMap<String, UIConfiguration> currentUI;
+	private HistoryManager historyManager;
 
 	public UIReasoner(){
 		super();
+		
+		historyManager = new HistoryManager();
 	}
 
 	public UIReasoner(ICapability user, ICapability device,
 			HashMap<String, UIConfiguration> currentUI) {
 		super();
+		
+		historyManager = new HistoryManager();
 		
 		this.currentUI 	= currentUI;
 		this.device 	= device;
@@ -35,7 +40,18 @@ public class UIReasoner {
 	 * @return a new UI configuration to be displayed in the device
 	 */
 	public UIConfiguration getAdaptedConfiguration() {
+		//TODO: 
+		//1. If there is a sufficient previous configuration for this
+		//user in the history, return it
+		if (checkAdaptationHistory()){
+			return historyManager.getAdaptedConfiguration();
+		}
+		//2. Else, generate a new one
 		return adaptConfiguration(this.user.getAllCapabilities(), this.device.getAllCapabilities());
+	}
+
+	private boolean checkAdaptationHistory() {
+		return historyManager.checkConfiguration(this.user, this.currentUI);
 	}
 
 	private UIConfiguration adaptConfiguration(
