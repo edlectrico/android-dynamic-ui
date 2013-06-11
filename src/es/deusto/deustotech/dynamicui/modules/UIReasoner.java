@@ -47,7 +47,19 @@ public class UIReasoner {
 			return historyManager.getAdaptedConfiguration();
 		}
 		//2. Else, generate a new one
-		return adaptConfiguration(this.user.getAllCapabilities(), this.device.getAllCapabilities());
+		//2.1 First, from a standard one
+		else {
+			StandardUIManager standardUIManager 	= new StandardUIManager();
+			UIConfiguration standardConfiguration 	= standardUIManager.getStandardConfiguration(user);
+			
+			if (StandardUIManager.isSufficient(standardConfiguration)){
+				return standardConfiguration;
+			} else {
+				//2.2 If it is not sufficient, a new one
+				//TODO: How do we determine if an adaptation is sufficient enough?
+				return adaptConfiguration(this.user.getAllCapabilities(), this.device.getAllCapabilities());
+			}
+		}
 	}
 
 	private boolean checkAdaptationHistory() {
