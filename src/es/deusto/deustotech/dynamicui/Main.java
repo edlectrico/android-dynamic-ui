@@ -3,10 +3,14 @@ package es.deusto.deustotech.dynamicui;
 import java.util.HashMap;
 
 import android.app.Activity;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
 import android.widget.GridLayout;
+
+import com.google.gson.Gson;
+
 import es.deusto.deustotech.dynamicui.components.UIConfiguration;
 import es.deusto.deustotech.dynamicui.components.WidgetName;
 import es.deusto.deustotech.dynamicui.model.ICapability;
@@ -29,12 +33,16 @@ public class Main extends Activity {
 	 */
 
 	private HashMap<String, View> viewsMap; //Current UI container
+	public SharedPreferences settings;
 
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 
 		setContentView(R.layout.main); // Default layout
+		
+		settings = getSharedPreferences(
+				getResources().getString(R.string.preferences_name), 0);
 
 		viewsMap = new HashMap<String, View>();
 
@@ -81,6 +89,7 @@ public class Main extends Activity {
 		final UIConfiguration conf 	= uiReasoner.getAdaptedConfiguration();
 
 		//TODO: Store current context and adapted configuration
+		storeSituation(context, conf);
 		
 		//Once the current UI is loaded, we call the AdaptationModule to
 		//perform the corresponding changes
@@ -89,6 +98,18 @@ public class Main extends Activity {
 
 		//The following code is just to @test the automatic adaptation each 1000 milliseconds 
 		//new Thread(adaptationModule).start();
+	}
+
+	private void storeSituation(ICapability context, UIConfiguration configuration) {
+		SharedPreferences.Editor editor = settings.edit();
+		
+		HashMap<ICapability, UIConfiguration> currentSituation = new HashMap<ICapability, UIConfiguration>();
+		currentSituation.put(context, configuration);
+		
+		Gson gson = new Gson();
+		String json = gson.toJson(currentSituation);
+		editor.putString(getResources().getString(R.string.current_situation), json);
+		editor.commit();
 	}
 
 }

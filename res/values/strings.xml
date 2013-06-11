@@ -9,4 +9,7 @@
 	<string name="mytextview">XML TextView</string>
 	<string name="myedittext">XML EditText</string>
 	<string name="android_button">Android Button</string>
+	
+	<string name="preferences_name">DynamicUIPreferences</string>
+	<string name="current_situation">Current Situation</string>
 </resources>
