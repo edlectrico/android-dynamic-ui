@@ -89,7 +89,7 @@ public class UIReasoner {
 		*/
 		
 		//VIEW_SIZE
-		if (userCapabilities.get(CAPABILITY.USER_VIEW_SIZE).equals(ICapability.VIEW_SIZE.BIG)){
+		if (userCapabilities.get(CAPABILITY.VIEW_SIZE).equals(ICapability.VIEW_SIZE.BIG)){
 //			if (currentUI.get(WidgetName.BUTTON).getHeight() == -2){ //wrap_content
 				uiConfiguration.setHeight(500);
 //			} else uiConfiguration.setHeight(200);
@@ -124,7 +124,7 @@ public class UIReasoner {
 		*/
 		
 		uiConfiguration.setTextColor(Color.GREEN);
-		uiConfiguration.setViewColor(Color.parseColor(userCapabilities.get(CAPABILITY.USER_VIEW_BACKGROUND_COLOR).toString()));
+		uiConfiguration.setViewColor(Color.parseColor(userCapabilities.get(CAPABILITY.VIEW_COLOR).toString()));
 		uiConfiguration.setText("TESTING");
 		
 		return uiConfiguration;

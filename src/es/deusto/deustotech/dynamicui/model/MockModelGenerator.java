@@ -24,8 +24,7 @@ public abstract class MockModelGenerator {
 	}
 
 	public static ICapability generateMockDevice() {
-		return	new DeviceCapabilities("Samsung Galaxy S3", 720, 1280, 0F, 0F,
-				"good", "high", "standard", "");
+		return	new DeviceCapabilities("good", "high", "standard", "");
 	}
 	
 	private static ILLUMINANCE randomContextIlluminance() {

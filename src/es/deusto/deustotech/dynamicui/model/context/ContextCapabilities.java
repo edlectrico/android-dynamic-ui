@@ -19,7 +19,7 @@ public class ContextCapabilities extends AbstractCapabilities {
 		
 		caps.put(CAPABILITY.CONTEXT_LIGHTNING, 		illuminance);
 		caps.put(CAPABILITY.CONTEXT_NOISE, 			noise);
-		caps.put(CAPABILITY.CONTEXT_PRESSURE, 		PRESSURE.NORMAL);
+//		caps.put(CAPABILITY.CONTEXT_PRESSURE, 		PRESSURE.NORMAL);
 		caps.put(CAPABILITY.CONTEXT_TEMPERATURE, 	20);
 //		caps.put(CAPABILITY.CONTEXT_CALENDAR, 		calendar);
 	};
