@@ -41,25 +41,31 @@ public class UserCapabilitiesUpdater {
 							ICapability.BRIGHTNESS.VERY_HIGH);
 					user.setCapabilityValue(CAPABILITY.VIEW_COLOR, ICapability.COLOR.WHITE);
 //					user.setCapabilityValue(CAPABILITY.USER_MAX_TEXT_SIZE, TEXT_SIZE.VERY_BIG);
+//				} else if (contextIlluminanceValue
+//						.equals(ICapability.ILLUMINANCE.DAYLIGHT)){
+//					user.setCapabilityValue(CAPABILITY.BRIGHTNESS,
+//							ICapability.BRIGHTNESS.HIGH);
+//					user.setCapabilityValue(CAPABILITY.VIEW_COLOR, ICapability.COLOR.RED);
+//				} else if ((contextIlluminanceValue
+//						.equals(ICapability.ILLUMINANCE.MOONLESS_CLEAR_NIGHT)) || (contextIlluminanceValue
+//								.equals(ICapability.ILLUMINANCE.MOONLESS_OVERCAST_NIGHT))
+//								|| (contextIlluminanceValue
+//										.equals(ICapability.ILLUMINANCE.FULL_MOON_CLEAR_NIGHT))
+//										|| (contextIlluminanceValue
+//												.equals(ICapability.ILLUMINANCE.TWILIGHT_SKY))) {
+//					user.setCapabilityValue(CAPABILITY.BRIGHTNESS,
+//							ICapability.BRIGHTNESS.LOW);
+//					user.setCapabilityValue(CAPABILITY.VIEW_COLOR, ICapability.COLOR.GRAY);
 				} else if (contextIlluminanceValue
-						.equals(ICapability.ILLUMINANCE.DAYLIGHT)){
-					user.setCapabilityValue(CAPABILITY.BRIGHTNESS,
-							ICapability.BRIGHTNESS.HIGH);
-					user.setCapabilityValue(CAPABILITY.VIEW_COLOR, ICapability.COLOR.RED);
-//					user.setCapabilityValue(CAPABILITY.USER_MAX_TEXT_SIZE, TEXT_SIZE.BIG);
-				} else if ((contextIlluminanceValue
-						.equals(ICapability.ILLUMINANCE.MOONLESS_CLEAR_NIGHT)) || (contextIlluminanceValue
-								.equals(ICapability.ILLUMINANCE.MOONLESS_OVERCAST_NIGHT))
-								|| (contextIlluminanceValue
-										.equals(ICapability.ILLUMINANCE.FULL_MOON_CLEAR_NIGHT))
-										|| (contextIlluminanceValue
-												.equals(ICapability.ILLUMINANCE.TWILIGHT_SKY))) {
-					user.setCapabilityValue(CAPABILITY.BRIGHTNESS,
-							ICapability.BRIGHTNESS.LOW);
-					user.setCapabilityValue(CAPABILITY.VIEW_COLOR, ICapability.COLOR.GRAY);
-//					user.setCapabilityValue(CAPABILITY.USER_MAX_TEXT_SIZE, TEXT_SIZE.DEFAULT);
-				}
-				
+                        .equals(ICapability.ILLUMINANCE.MOONLESS_OVERCAST_NIGHT)) {
+                    user.setCapabilityValue(CAPABILITY.BRIGHTNESS,
+                            ICapability.BRIGHTNESS.LOW);
+                    user.setCapabilityValue(CAPABILITY.VIEW_COLOR, ICapability.COLOR.GRAY);
+                    user.setCapabilityValue(CAPABILITY.TEXT_COLOR, ICapability.COLOR.BLUE);
+                }
+
+
+
 				//USER_VIEW_SIZE
 				final Object userViewSizeValue 	= user.getCapabilityValue(CAPABILITY.VIEW_SIZE);
 				final Object userTextSizeValue 	= user.getCapabilityValue(CAPABILITY.TEXT_SIZE);
@@ -77,14 +83,14 @@ public class UserCapabilitiesUpdater {
 						} else if (userTextSizeValue.equals(ICapability.TEXT_SIZE.BIG)){
 							user.setCapabilityValue(CAPABILITY.TEXT_SIZE, ICapability.TEXT_SIZE.VERY_BIG); //TODO: Is it correct?
 						}
-					} else if ((contextIlluminanceValue
-							.equals(ICapability.ILLUMINANCE.MOONLESS_CLEAR_NIGHT)) || (contextIlluminanceValue
-									.equals(ICapability.ILLUMINANCE.MOONLESS_OVERCAST_NIGHT))
-									|| (contextIlluminanceValue
-											.equals(ICapability.ILLUMINANCE.FULL_MOON_CLEAR_NIGHT))
-											|| (contextIlluminanceValue
-													.equals(ICapability.ILLUMINANCE.TWILIGHT_SKY))){ //SMALLER CONTROLS/TEXT
-						user.setCapabilityValue(CAPABILITY.VIEW_SIZE, ICapability.VIEW_SIZE.SMALL);
+//					} else if ((contextIlluminanceValue
+//							.equals(ICapability.ILLUMINANCE.MOONLESS_CLEAR_NIGHT)) || (contextIlluminanceValue
+//									.equals(ICapability.ILLUMINANCE.MOONLESS_OVERCAST_NIGHT))
+//									|| (contextIlluminanceValue
+//											.equals(ICapability.ILLUMINANCE.FULL_MOON_CLEAR_NIGHT))
+//											|| (contextIlluminanceValue
+//													.equals(ICapability.ILLUMINANCE.TWILIGHT_SKY))){ //SMALLER CONTROLS/TEXT
+//						user.setCapabilityValue(CAPABILITY.VIEW_SIZE, ICapability.VIEW_SIZE.SMALL);
 					}
 				}
 			}
@@ -128,13 +134,14 @@ public class UserCapabilitiesUpdater {
 			if ((userVolumeValue.equals(ICapability.VOLUME.DEFAULT))
 					|| (userVolumeValue.equals(ICapability.VOLUME.LOW))
 					|| (userVolumeValue.equals(ICapability.VOLUME.HIGH))) { //If VOLUME.VERY_HIGHT -> no applicable adaptation
-				if (contextNoiseValue.equals(ICapability.NOISE.NOISY)) { 
-					user.setCapabilityValue(CAPABILITY.VOLUME,
-							ICapability.VOLUME.VERY_HIGH);
-				} else if (contextNoiseValue.equals(ICapability.NOISE.STREET)) { 
-					user.setCapabilityValue(CAPABILITY.VOLUME,
-							ICapability.VOLUME.HIGH);
-				} else if (contextNoiseValue.equals(ICapability.NOISE.NOT_NOISY)) { 
+//				if (contextNoiseValue.equals(ICapability.NOISE.NOISY)) {
+//					user.setCapabilityValue(CAPABILITY.VOLUME,
+//							ICapability.VOLUME.VERY_HIGH);
+//				} else if (contextNoiseValue.equals(ICapability.NOISE.STREET)) {
+//					user.setCapabilityValue(CAPABILITY.VOLUME,
+//							ICapability.VOLUME.HIGH);
+//				} else
+                if (contextNoiseValue.equals(ICapability.NOISE.NOT_NOISY)) {
 					user.setCapabilityValue(CAPABILITY.VOLUME,
 							ICapability.VOLUME.DEFAULT); //TODO: Not using VOLUME.LOW
 				}

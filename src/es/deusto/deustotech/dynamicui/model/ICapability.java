@@ -120,9 +120,9 @@ public interface ICapability {
 	static enum ILLUMINANCE {
 		// extracted from http://en.wikipedia.org/wiki/Lux
 		MOONLESS_OVERCAST_NIGHT, 	// Moonless, overcast night sky (starlight)
-		MOONLESS_CLEAR_NIGHT, 		// Moonless clear night sky with airglow
-		FULL_MOON_CLEAR_NIGHT, 		// Full moon on a clear night
-		TWILIGHT_SKY, 				// Dark limit of civil twilight under a clear sky
+//		MOONLESS_CLEAR_NIGHT, 		// Moonless clear night sky with airglow
+//		FULL_MOON_CLEAR_NIGHT, 		// Full moon on a clear night
+//		TWILIGHT_SKY, 				// Dark limit of civil twilight under a clear sky
 //		LIVING_ROOM, 				// Family living room lights (Australia, 1998)
 //		TOILET, 					// Office building hallway/toilet lighting
 //		VERY_DARK_OVERCAST_DAY, 	// Very dark overcast day
@@ -130,7 +130,7 @@ public interface ICapability {
 //		SUNRISE_CLEAR_DAY, 			// Sunrise or sunset on a clear day
 //		OVERCAST_DAY, 				// Overcast day
 //		TV_STUDIO, 					// typical TV studio lighting
-		DAYLIGHT, 					// Full daylight (not direct sun)
+		//DAYLIGHT, 					// Full daylight (not direct sun)
 		SUNLIGHT, 					// Direct sunlight
 //		COMPARISON_UNAVAILABLE 		// None of the above
 	}
@@ -138,9 +138,9 @@ public interface ICapability {
 	static enum NOISE {
 		//extracted from http://es.wikipedia.org/wiki/Decibelio
 		VERY_NOISY, // x >= 110 dB
-		NOISY,		// 70 <= x < 110 dB
-		STREET,		// 50 <= x < 70 dB
-		NOT_NOISY	// 0 <= x < 50 dB 
+//		NOISY,		// 70 <= x < 110 dB
+//		STREET,		// 50 <= x < 70 dB
+		NOT_NOISY	// 0 <= x < 50 dB
 	};
 	
 	static enum PRESSURE {

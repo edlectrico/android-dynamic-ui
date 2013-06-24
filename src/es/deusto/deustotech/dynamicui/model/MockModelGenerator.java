@@ -2,6 +2,8 @@ package es.deusto.deustotech.dynamicui.model;
 
 import java.util.Random;
 
+import android.util.Log;
+
 import es.deusto.deustotech.dynamicui.model.ICapability.BRIGHTNESS;
 import es.deusto.deustotech.dynamicui.model.ICapability.ILLUMINANCE;
 import es.deusto.deustotech.dynamicui.model.ICapability.NOISE;
@@ -19,7 +21,8 @@ public abstract class MockModelGenerator {
 	}
 
 	public static ContextCapabilities generateMockContext() {
-//		return new ContextCapabilities(ILLUMINANCE.SUNLIGHT, NOISE.STREET);
+		Log.e(MockModelGenerator.class.getSimpleName(), randomContextIlluminance().toString());
+		Log.e(MockModelGenerator.class.getSimpleName(), randomContextNoise().toString());
 		return new ContextCapabilities(randomContextIlluminance(), randomContextNoise());
 	}
 
