@@ -22,7 +22,7 @@ public class UserCapabilitiesUpdater {
 	 * @return an updated user
 	 */
 	static public ICapability update(ICapability user, ICapability context) {
-		// TODO: for the moment just adapt NOISE and LIGHTNING
+		// TODO: for the moment just adapt NOISE and BRIGHTNESS
 
 		final Object userBrightnessValue 		= user.getCapabilityValue(CAPABILITY.BRIGHTNESS);
 		final Object contextIlluminanceValue 	= context.getCapabilityValue(CAPABILITY.CONTEXT_LIGHTNING);
@@ -38,7 +38,7 @@ public class UserCapabilitiesUpdater {
 				if (contextIlluminanceValue
 						.equals(ICapability.ILLUMINANCE.SUNLIGHT)) {
 					user.setCapabilityValue(CAPABILITY.BRIGHTNESS,
-							ICapability.BRIGHTNESS.VERY_HIGH);
+							ICapability.BRIGHTNESS.HIGH);
 					user.setCapabilityValue(CAPABILITY.VIEW_COLOR, ICapability.COLOR.WHITE);
 //					user.setCapabilityValue(CAPABILITY.USER_MAX_TEXT_SIZE, TEXT_SIZE.VERY_BIG);
 //				} else if (contextIlluminanceValue
@@ -95,6 +95,8 @@ public class UserCapabilitiesUpdater {
 				}
 			}
 		}
+
+        /*
 		
 		final Object userInputValue 	= user.getCapabilityValue(CAPABILITY.INPUT);
 		
@@ -107,7 +109,7 @@ public class UserCapabilitiesUpdater {
 //				user.setCapabilityValue(CAPABILITY.USER_IMAGES, IMAGES.ONLY_BIG);
 //				user.setCapabilityValue(CAPABILITY.USER_VIEW_BACKGROUND_COLOR, Color.RED);
 				
-				/*
+				*//*
 					caps.put(CAPABILITY.USER_CONTRAST, contrast);
 					caps.put(CAPABILITY.USER_IMAGES, IMAGES.DEFAULT);
 					caps.put(CAPABILITY.USER_INPUT, INPUT.HAPTIC);
@@ -122,7 +124,7 @@ public class UserCapabilitiesUpdater {
 					caps.put(CAPABILITY.USER_ACTIVITY, ACTIVITIES.NONE);
 					caps.put(CAPABILITY.USER_LOCATION, location); 	//TODO: configure default locations? (HOME/STREET/WORK...)
 					caps.put(CAPABILITY.USER_RELATIONSHIP, RELATIONSHIP.NONE);	//TODO: Does it mean anything?
-				 */
+				 *//*
 			}
 		}
 		
@@ -147,7 +149,7 @@ public class UserCapabilitiesUpdater {
 				}
 			}
 		}
-
+*/
 		return user; 
 	}
 
