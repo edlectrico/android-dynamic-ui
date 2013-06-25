@@ -4,6 +4,8 @@ import java.util.HashMap;
 
 import android.content.Context;
 import android.graphics.Color;
+
+import es.deusto.deustotech.dynamicui.components.FInalUIConfiguration;
 import es.deusto.deustotech.dynamicui.components.UIConfiguration;
 import es.deusto.deustotech.dynamicui.model.ICapability;
 import es.deusto.deustotech.dynamicui.model.ICapability.CAPABILITY;
@@ -38,7 +40,7 @@ public class UIReasoner {
 	 * 
 	 * @return a new UI configuration to be displayed in the device
 	 */
-	public UIConfiguration getAdaptedConfiguration() {
+	public FInalUIConfiguration getAdaptedConfiguration() {
 		//TODO: 
 		//1. Check if there is a previous configuration for this situation
 		if (checkAdaptationHistory()){
@@ -47,7 +49,7 @@ public class UIReasoner {
 			//2. Else, generate a new one
 			//2.1 First, from a standard one
 			StandardUIManager standardUIManager 	= new StandardUIManager();
-			UIConfiguration standardConfiguration 	= standardUIManager.getStandardConfiguration(user);
+			FInalUIConfiguration standardConfiguration 	= standardUIManager.getStandardConfiguration(user);
 			
 			if (StandardUIManager.isSufficient(standardConfiguration)){
 				return standardConfiguration;
@@ -63,7 +65,7 @@ public class UIReasoner {
 		return historyManager.checkConfiguration(this.user, this.currentUI);
 	}
 
-	private UIConfiguration adaptConfiguration(
+	private FInalUIConfiguration adaptConfiguration(
 			HashMap<CAPABILITY, Object> userCapabilities,
 			HashMap<CAPABILITY, Object> deviceCapabilities) {
 		
@@ -77,7 +79,7 @@ public class UIReasoner {
 		 * 3. If it is not enough, generate a new configuration
 		 */
 		
-		UIConfiguration uiConfiguration = new UIConfiguration();
+		FInalUIConfiguration finalUIConfiguration = new FInalUIConfiguration();
 		
 		//BRIGHTNESS
 		/*
@@ -91,16 +93,16 @@ public class UIReasoner {
 		//VIEW_SIZE
 		if (userCapabilities.get(CAPABILITY.VIEW_SIZE).equals(ICapability.VIEW_SIZE.BIG)){
 //			if (currentUI.get(WidgetName.BUTTON).getHeight() == -2){ //wrap_content
-				uiConfiguration.setHeight(500);
-//			} else uiConfiguration.setHeight(200);
+				finalUIConfiguration.setHeight(500);
+//			} else finalUIConfiguration.setHeight(200);
 			
 //			if (currentUI.get(WidgetName.BUTTON).getWidth() == -2){ //wrap_content
-				uiConfiguration.setWidth(500);
-//			} else uiConfiguration.setWidth(200);
+				finalUIConfiguration.setWidth(500);
+//			} else finalUIConfiguration.setWidth(200);
 			
 		} else {
-			uiConfiguration.setHeight(100);
-			uiConfiguration.setWidth(100);
+			finalUIConfiguration.setHeight(100);
+			finalUIConfiguration.setWidth(100);
 		}
 		
 		//TEXT_SIZE
@@ -123,11 +125,11 @@ public class UIReasoner {
 		return new UIConfiguration(Color.RED, Color.GREEN, 500, 500, "TEST");
 		*/
 		
-		uiConfiguration.setTextColor(Color.GREEN);
-		uiConfiguration.setViewColor(Color.parseColor(userCapabilities.get(CAPABILITY.VIEW_COLOR).toString()));
-		uiConfiguration.setText("TESTING");
+		finalUIConfiguration.setTextColor(Color.GREEN);
+		finalUIConfiguration.setViewColor(Color.parseColor(userCapabilities.get(CAPABILITY.VIEW_COLOR).toString()));
+		finalUIConfiguration.setText("TESTING");
 		
-		return uiConfiguration;
+		return finalUIConfiguration;
 	}
 
 	public ICapability getUser() {
