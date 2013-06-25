@@ -56,6 +56,7 @@ public class AdaptationManager {
 			@Override
 			public void run() {
 				componentsToAdapt.get(WidgetName.BUTTON).setBackgroundColor(configuration.getViewColor());
+                ((Button)componentsToAdapt.get(WidgetName.BUTTON)).setTextColor(configuration.getTextColor());
 				componentsToAdapt.get(WidgetName.BUTTON).setMinimumHeight(configuration.getHeight());
 				componentsToAdapt.get(WidgetName.BUTTON).setMinimumWidth(configuration.getWidth());
 			}
