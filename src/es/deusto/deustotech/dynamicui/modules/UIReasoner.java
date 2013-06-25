@@ -17,6 +17,8 @@ public class UIReasoner {
 	private HistoryManager historyManager;
 	private Context context;
 
+    private static final float MAX_BRIGHTNESS = 1.0F;
+
 	public UIReasoner(){
 		super();
 	}
@@ -76,21 +78,23 @@ public class UIReasoner {
 		/**
 		 * 1. Get user capabilities
 		 * 2. Get current UI configuration
-		 * 3. If it is not enough, generate a new configuration
+		 * 3. If it is not enough, generate a new configuration taking into account the
+         * defined taxonomy of how each component from context, user and device affects
+         * to the final UI result component
 		 */
 		
 		FinalUIConfiguration finalUIConfiguration = new FinalUIConfiguration();
 		
-		//BRIGHTNESS
-		/*
-		if (userCapabilities.get(CAPABILITY.USER_BRIGHTNESS).equals(ICapability.BRIGHTNESS.VERY_HIGH)){
-			if (!currentUI.get(CAPABILITY.DEVICE_BRIGHTNESS).equals(ICapability.BRIGHTNESS.VERY_HIGH)){
-				//TODO: Higher brightness value
-			}
-		}
-		*/
-		
-		//VIEW_SIZE
+        /*
+        * VIEW_SIZE
+        *
+        * Affected by:
+        * -Context:     luminosity, temperature
+        * -User;        output, view_size,
+        * -Device:      brightness, output, acceleration, view_size, orientation
+        *
+        * */
+
 		if (userCapabilities.get(CAPABILITY.VIEW_SIZE).equals(ICapability.VIEW_SIZE.BIG)){
 //			if (currentUI.get(WidgetName.BUTTON).getHeight() == -2){ //wrap_content
 				finalUIConfiguration.setHeight(500);
@@ -105,28 +109,112 @@ public class UIReasoner {
 			finalUIConfiguration.setWidth(100);
 		}
 		
-		//TEXT_SIZE
-//		if (userCapabilities.get(CAPABILITY.USER_TEXT_SIZE).equals(ICapability.TEXT_SIZE.BIG)){
+		/*
+        * TEXT_SIZE
+        *
+        * Affected by:
+        * -Context:     luminosity
+        * -User;        output, text_size
+        * -Device:      acceleration, text_size
+        *
+        * */
+
+ //		if (userCapabilities.get(CAPABILITY.USER_TEXT_SIZE).equals(ICapability.TEXT_SIZE.BIG)){
 //			if ((!currentUI.get(CAPABILITY.DEVICE_TEXT_SIZE).equals(ICapability.TEXT_SIZE.BIG)) && 
 //			(!currentUI.get(CAPABILITY.DEVICE_TEXT_SIZE).equals(ICapability.TEXT_SIZE.VERY_BIG))) {
 //				//TODO: BIG
 //			}
 //		}
 		
-		
+
+        /*
+        * BRIGHTNESS
+        *
+        * Affected by:
+        * -Context:     luminosity
+        * -User;        output, brightness
+        * -Device:      brightness, battery
+        *
+        * */
+
+        //http://stackoverflow.com/questions/7704961/screen-brightness-value-in-android
+        //http://stackoverflow.com/questions/3737579/changing-screen-brightness-programmatically-in-android
+
+
 		/*
+		if (userCapabilities.get(CAPABILITY.USER_BRIGHTNESS).equals(ICapability.BRIGHTNESS.VERY_HIGH)){
+			if (!currentUI.get(CAPABILITY.DEVICE_BRIGHTNESS).equals(ICapability.BRIGHTNESS.VERY_HIGH)){
+				//TODO: Higher brightness value
+			}
+		}
+		*/
+
+        finalUIConfiguration.setBrightness(ICapability.BRIGHTNESS.VERY_HIGH);
+
+
+        /*
+        * CONTRAST
+        *
+        * Affected by:
+        * -Context:     luminosity
+        * -User;        output, contrast
+        * -Device:      contrast
+        *
+        * */
+
+        //TODO: Can it be changed?
+
+        /*
+        * VIEW_COLOR
+        *
+        * Affected by:
+        * -Context:     luminosity
+        * -User;        output, text_color, view_color
+        * -Device:      brightness, text_color, view_color,
+        *
+        * */
+
+        finalUIConfiguration.setViewColor(Color.GREEN);
+
+        /*
+        * TEXT_COLOR
+        *
+        * Affected by:
+        * -Context:     luminosity
+        * -User;        output, text_color, view_color
+        * -Device:      brightness, text_color, view_color,
+        *
+        * */
+
+        finalUIConfiguration.setTextColor(Color.BLUE);
+
+
+        /*
+        * VOLUME
+        *
+        * Affected by:
+        * -Context:     noise
+        * -User;        output, volume
+        * -Device:      output, battery, volume
+        *
+        * */
+
+        //http://stackoverflow.com/questions/2539264/volume-control-in-android-application
+
+
+        /*
 		if (userCapabilities.get(CAPABILITY.USER_BRIGHTNESS).equals(ICapability.BRIGHTNESS.VERY_HIGH)){
 			if (this.currentUI.get(WidgetName.BUTTON).getHeight() == -2){ //wrap_content
 				//TODO: Bigger
 				return new UIConfiguration(Color.RED, Color.GREEN, 500, 700, "VERY BIG");
 			}
 		}
-		
+
 		return new UIConfiguration(Color.RED, Color.GREEN, 500, 500, "TEST");
 		*/
-		
-		finalUIConfiguration.setTextColor(Color.GREEN);
-		finalUIConfiguration.setViewColor(Color.parseColor(userCapabilities.get(CAPABILITY.VIEW_COLOR).toString()));
+
+//  		finalUIConfiguration.setTextColor(Color.GREEN);
+//		finalUIConfiguration.setViewColor(Color.WHITE );
 		finalUIConfiguration.setText("TESTING");
 		
 		return finalUIConfiguration;

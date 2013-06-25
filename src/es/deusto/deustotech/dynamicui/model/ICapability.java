@@ -104,10 +104,10 @@ public interface ICapability {
 	}
 	
 	//TODO: How do users specify that they cannot see, for example, blue?
-	static enum COLOR {
-		RED, BLUE, WHITE, GREEN, 
-		BLACK, YELLOW, DEFAULT, GRAY
-	};
+//	static enum COLOR {
+//		RED, BLUE, WHITE, GREEN,
+//		BLACK, YELLOW, DEFAULT, GRAY
+//	};
 
 	//If user cannot see he/she should have an option to 
 	//avoid HAPTIC -> ONLY_VOICE_CONTROL.

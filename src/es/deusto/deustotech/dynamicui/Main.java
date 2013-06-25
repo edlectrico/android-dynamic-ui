@@ -4,6 +4,7 @@ import java.util.HashMap;
 
 import android.app.Activity;
 import android.content.SharedPreferences;
+import android.graphics.Color;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
@@ -95,7 +96,7 @@ public class Main extends Activity implements android.view.View.OnClickListener{
 		//TODO: For each component...
 		HashMap<String, UIConfiguration> currentUI = new HashMap<String, UIConfiguration>();
 
-		currentUI.put(WidgetName.BUTTON, new UIConfiguration(0, 0, 
+		currentUI.put(WidgetName.BUTTON, new UIConfiguration(Color.DKGRAY, Color.BLACK,
 				button.getLayoutParams().height, button.getLayoutParams().width, null));
 
 

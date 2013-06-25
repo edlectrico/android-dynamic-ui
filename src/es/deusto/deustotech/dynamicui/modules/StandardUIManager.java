@@ -28,7 +28,7 @@ public class StandardUIManager {
 	public FinalUIConfiguration getStandardConfiguration(ICapability user) {
 		//TODO: Where is it stored?
 		
-		return new FinalUIConfiguration(Color.RED, Color.WHITE, 500, 500, null, 0, 0, 0, 0, 0, 0, 0);
+		return new FinalUIConfiguration(Color.RED, Color.WHITE, 500, 500, null, ICapability.BRIGHTNESS.VERY_HIGH, 0, 0, 0, 0, 0, 0);
 	}
 
 	/**

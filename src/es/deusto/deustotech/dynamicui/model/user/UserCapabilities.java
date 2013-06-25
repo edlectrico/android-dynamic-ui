@@ -1,5 +1,7 @@
 package es.deusto.deustotech.dynamicui.model.user;
 
+import android.graphics.Color;
+
 import java.util.HashMap;
 
 import es.deusto.deustotech.dynamicui.model.AbstractCapabilities;
@@ -38,7 +40,7 @@ public class UserCapabilities extends AbstractCapabilities {
 		caps.put(CAPABILITY.VIEW_SIZE, 	viewSize);
 		caps.put(CAPABILITY.TEXT_SIZE, 	textSize);
 		caps.put(CAPABILITY.OUTPUT, 	OUTPUT.VISUAL);
-		caps.put(CAPABILITY.TEXT_COLOR, COLOR.DEFAULT);
+		caps.put(CAPABILITY.TEXT_COLOR, Color.BLACK);
 		caps.put(CAPABILITY.VOLUME, 	volume);
 	}
 	

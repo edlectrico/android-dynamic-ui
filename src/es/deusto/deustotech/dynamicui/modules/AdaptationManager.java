@@ -4,7 +4,10 @@ import java.util.HashMap;
 
 import android.content.Context;
 import android.content.SharedPreferences;
+import android.content.res.ColorStateList;
+import android.graphics.Color;
 import android.view.View;
+import android.widget.Button;
 
 import com.google.gson.Gson;
 
@@ -48,6 +51,7 @@ public class AdaptationManager {
 	 * @return an adapted configuration HashMap
 	 */
 	public HashMap<String, View> adaptConfiguration(){
+
 		componentsToAdapt.get(WidgetName.BUTTON).post(new Runnable() {
 			@Override
 			public void run() {
@@ -67,7 +71,7 @@ public class AdaptationManager {
 
 		//TODO: for each component
 		final UIConfiguration configuration = new UIConfiguration(componentsToAdapt.get(WidgetName.BUTTON).getSolidColor(),
-				0,
+                ((Button) componentsToAdapt.get(WidgetName.BUTTON)).getCurrentTextColor(),
 				componentsToAdapt.get(WidgetName.BUTTON).getHeight(),
 				componentsToAdapt.get(WidgetName.BUTTON).getWidth(),
 				null);

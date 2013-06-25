@@ -1,5 +1,7 @@
 package es.deusto.deustotech.dynamicui.modules;
 
+import android.graphics.Color;
+
 import es.deusto.deustotech.dynamicui.model.ICapability;
 import es.deusto.deustotech.dynamicui.model.ICapability.CAPABILITY;
 import es.deusto.deustotech.dynamicui.model.user.UserCapabilities;
@@ -39,7 +41,7 @@ public class UserCapabilitiesUpdater {
 						.equals(ICapability.ILLUMINANCE.SUNLIGHT)) {
 					user.setCapabilityValue(CAPABILITY.BRIGHTNESS,
 							ICapability.BRIGHTNESS.HIGH);
-					user.setCapabilityValue(CAPABILITY.VIEW_COLOR, ICapability.COLOR.WHITE);
+					user.setCapabilityValue(CAPABILITY.VIEW_COLOR, Color.WHITE);
 //					user.setCapabilityValue(CAPABILITY.USER_MAX_TEXT_SIZE, TEXT_SIZE.VERY_BIG);
 //				} else if (contextIlluminanceValue
 //						.equals(ICapability.ILLUMINANCE.DAYLIGHT)){
@@ -60,8 +62,8 @@ public class UserCapabilitiesUpdater {
                         .equals(ICapability.ILLUMINANCE.MOONLESS_OVERCAST_NIGHT)) {
                     user.setCapabilityValue(CAPABILITY.BRIGHTNESS,
                             ICapability.BRIGHTNESS.LOW);
-                    user.setCapabilityValue(CAPABILITY.VIEW_COLOR, ICapability.COLOR.GRAY);
-                    user.setCapabilityValue(CAPABILITY.TEXT_COLOR, ICapability.COLOR.BLUE);
+                    user.setCapabilityValue(CAPABILITY.VIEW_COLOR, Color.DKGRAY);
+                    user.setCapabilityValue(CAPABILITY.TEXT_COLOR, Color.BLUE);
                 }
 
 
