@@ -9,7 +9,7 @@ import android.graphics.Color;
 import com.google.gson.Gson;
 
 import es.deusto.deustotech.dynamicui.R;
-import es.deusto.deustotech.dynamicui.components.FInalUIConfiguration;
+import es.deusto.deustotech.dynamicui.components.FinalUIConfiguration;
 import es.deusto.deustotech.dynamicui.components.UIConfiguration;
 import es.deusto.deustotech.dynamicui.model.ICapability;
 
@@ -73,10 +73,10 @@ public class HistoryManager {
 	 * 
 	 * @return the adaptation stored in the SharedPreferences
 	 */
-	public FInalUIConfiguration getAdaptedConfiguration() {
+	public FinalUIConfiguration getAdaptedConfiguration() {
 		
 		//TODO: return the corresponding UIConfiguration
 		
-		return new FInalUIConfiguration(Color.RED, Color.WHITE, 500, 500, null, 0, 0, 0, 0, 0, 0, 0);
+		return new FinalUIConfiguration(Color.RED, Color.WHITE, 500, 500, null, 0, 0, 0, 0, 0, 0, 0);
 	}
 }

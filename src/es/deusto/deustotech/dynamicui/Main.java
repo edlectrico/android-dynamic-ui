@@ -12,7 +12,7 @@ import android.widget.Toast;
 
 import com.google.gson.Gson;
 
-import es.deusto.deustotech.dynamicui.components.FInalUIConfiguration;
+import es.deusto.deustotech.dynamicui.components.FinalUIConfiguration;
 import es.deusto.deustotech.dynamicui.components.UIConfiguration;
 import es.deusto.deustotech.dynamicui.components.WidgetName;
 import es.deusto.deustotech.dynamicui.model.ICapability;
@@ -100,7 +100,7 @@ public class Main extends Activity implements android.view.View.OnClickListener{
 
 
 		final UIReasoner uiReasoner     = new UIReasoner(user, device, currentUI, getApplicationContext());
-		final FInalUIConfiguration finalUIConfiguration = uiReasoner.getAdaptedConfiguration();
+		final FinalUIConfiguration finalUIConfiguration = uiReasoner.getAdaptedConfiguration();
 
 		//TODO: Store updated user and adapted configuration
 		storeCurrentSituation(user, finalUIConfiguration);

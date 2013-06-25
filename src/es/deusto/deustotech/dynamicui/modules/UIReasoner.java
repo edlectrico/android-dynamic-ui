@@ -5,7 +5,7 @@ import java.util.HashMap;
 import android.content.Context;
 import android.graphics.Color;
 
-import es.deusto.deustotech.dynamicui.components.FInalUIConfiguration;
+import es.deusto.deustotech.dynamicui.components.FinalUIConfiguration;
 import es.deusto.deustotech.dynamicui.components.UIConfiguration;
 import es.deusto.deustotech.dynamicui.model.ICapability;
 import es.deusto.deustotech.dynamicui.model.ICapability.CAPABILITY;
@@ -40,7 +40,7 @@ public class UIReasoner {
 	 * 
 	 * @return a new UI configuration to be displayed in the device
 	 */
-	public FInalUIConfiguration getAdaptedConfiguration() {
+	public FinalUIConfiguration getAdaptedConfiguration() {
 		//TODO: 
 		//1. Check if there is a previous configuration for this situation
 		if (checkAdaptationHistory()){
@@ -49,7 +49,7 @@ public class UIReasoner {
 			//2. Else, generate a new one
 			//2.1 First, from a standard one
 			StandardUIManager standardUIManager 	= new StandardUIManager();
-			FInalUIConfiguration standardConfiguration 	= standardUIManager.getStandardConfiguration(user);
+			FinalUIConfiguration standardConfiguration 	= standardUIManager.getStandardConfiguration(user);
 			
 			if (StandardUIManager.isSufficient(standardConfiguration)){
 				return standardConfiguration;
@@ -65,7 +65,7 @@ public class UIReasoner {
 		return historyManager.checkConfiguration(this.user, this.currentUI);
 	}
 
-	private FInalUIConfiguration adaptConfiguration(
+	private FinalUIConfiguration adaptConfiguration(
 			HashMap<CAPABILITY, Object> userCapabilities,
 			HashMap<CAPABILITY, Object> deviceCapabilities) {
 		
@@ -79,7 +79,7 @@ public class UIReasoner {
 		 * 3. If it is not enough, generate a new configuration
 		 */
 		
-		FInalUIConfiguration finalUIConfiguration = new FInalUIConfiguration();
+		FinalUIConfiguration finalUIConfiguration = new FinalUIConfiguration();
 		
 		//BRIGHTNESS
 		/*
