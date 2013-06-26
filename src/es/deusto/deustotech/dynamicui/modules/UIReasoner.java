@@ -40,7 +40,7 @@ public class UIReasoner {
 	 * and the current configuration and returns the best suitable UI
 	 * for this situation.
 	 * 
-	 * @return a new UI configuration to be displayed in the device
+	 * @return a new UI configuration (FinalUIConfiguration) to be displayed in the device
 	 */
 	public FinalUIConfiguration getAdaptedConfiguration() {
 		//TODO: 
@@ -84,8 +84,13 @@ public class UIReasoner {
 		 */
 		
 		FinalUIConfiguration finalUIConfiguration = new FinalUIConfiguration();
-		
-        /*
+
+
+        //TODO: This class should obtain the corresponding output
+        //via certain rules in order to obtain the corresponding
+        //component adaptation
+
+        /**
         * VIEW_SIZE
         *
         * Affected by:
@@ -109,7 +114,7 @@ public class UIReasoner {
 			finalUIConfiguration.setWidth(100);
 		}
 		
-		/*
+		/**
         * TEXT_SIZE
         *
         * Affected by:
@@ -127,7 +132,7 @@ public class UIReasoner {
 //		}
 		
 
-        /*
+        /**
         * BRIGHTNESS
         *
         * Affected by:
@@ -152,7 +157,7 @@ public class UIReasoner {
         finalUIConfiguration.setBrightness(ICapability.BRIGHTNESS.VERY_HIGH);
 
 
-        /*
+        /**
         * CONTRAST
         *
         * Affected by:
@@ -164,7 +169,7 @@ public class UIReasoner {
 
         //TODO: Can it be changed?
 
-        /*
+        /**
         * VIEW_COLOR
         *
         * Affected by:
@@ -176,7 +181,7 @@ public class UIReasoner {
 
         finalUIConfiguration.setViewColor(Color.GREEN);
 
-        /*
+        /**
         * TEXT_COLOR
         *
         * Affected by:
@@ -189,7 +194,7 @@ public class UIReasoner {
         finalUIConfiguration.setTextColor(Color.BLUE);
 
 
-        /*
+        /**
         * VOLUME
         *
         * Affected by:
