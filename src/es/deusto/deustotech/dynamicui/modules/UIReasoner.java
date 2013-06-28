@@ -157,6 +157,7 @@ public class UIReasoner {
         finalUIConfiguration.setBrightness(ICapability.BRIGHTNESS.VERY_HIGH);
 
 
+        //TODO: Can it be changed?
         /**
         * CONTRAST
         *
@@ -167,28 +168,40 @@ public class UIReasoner {
         *
         * */
 
-        //TODO: Can it be changed?
-
         /**
         * VIEW_COLOR
         *
         * Affected by:
         * -Context:     luminosity
-        * -User;        output, text_color, view_color
-        * -Device:      brightness, text_color, view_color,
+        * -User;        output, input? text_color, view_color
+        * -Device:      brightness, text_color, view_color, output? input?
+         *
+         * rule_1.1: if user_input && user_output is HAPTIC (views available)
+         * rule_1.2: if device_input && device_output is HAPTIC
+         * //the last adaptation value will be made by context
+         * rule_1.3: if user_view_color != device_text_color (if not different, can't see the text)
+         * rule_1.4: if context_luminosity < value_x
+         *           if context_luminosity > value_y
+         *
+         * RULE_1_RESULT
         *
         * */
 
         finalUIConfiguration.setViewColor(Color.GREEN);
 
         /**
-        * TEXT_COLOR
+        * TEXT_COLOR (almost same VIEW_COLOR rules)
         *
         * Affected by:
         * -Context:     luminosity
         * -User;        output, text_color, view_color
         * -Device:      brightness, text_color, view_color,
         *
+         * Text is not just for HAPTIC interfaces, non-haptic
+         * ones also use text.
+         * Text color must be always different from the "button"
+         * or the control one.
+         *
         * */
 
         finalUIConfiguration.setTextColor(Color.BLUE);
@@ -202,6 +215,12 @@ public class UIReasoner {
         * -User;        output, volume
         * -Device:      output, battery, volume
         *
+         * rule_3.1: 
+         * rule_3.2:
+         * rule_3.3:
+         * rule_3.4:
+         *
+         * RULE_3_RESULT
         * */
 
         //http://stackoverflow.com/questions/2539264/volume-control-in-android-application
