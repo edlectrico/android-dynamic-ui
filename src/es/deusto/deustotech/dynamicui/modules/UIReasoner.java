@@ -215,10 +215,10 @@ public class UIReasoner {
         * -User;        output, volume
         * -Device:      output, battery, volume
         *
-         * rule_3.1: 
-         * rule_3.2:
-         * rule_3.3:
-         * rule_3.4:
+         * rule_3.1: if device_output is VOLUME
+         * rule_3.2: if context_noise > device_volume
+         * rule_3.3: if user_volume < context_noise
+         * rule_3.4: if device_battery is OK
          *
          * RULE_3_RESULT
         * */
