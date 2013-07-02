@@ -109,14 +109,14 @@ public class UIReasoner {
         if (userCapabilities.get(CAPABILITY.OUTPUT).equals(ICapability.OUTPUT.DEFAULT)){ //User can read text and hear audio
             if (deviceCapabilities.get(CAPABILITY.OUTPUT).equals(ICapability.OUTPUT.DEFAULT)){ //device can use text and audio outputs
                 if (userCapabilities.get(CAPABILITY.VIEW_SIZE).equals(deviceCapabilities.get(CAPABILITY.VIEW_SIZE))){ //the ui is updated to user preference
-                    if (brightnessComparison(deviceCapabilities.get(CAPABILITY.BRIGHTNESS), contextCapabilities.get(CAPABILITY.ILLUMINANCE)) == 1){
+                    if (brightnessComparison((ICapability.BRIGHTNESS) deviceCapabilities.get(CAPABILITY.BRIGHTNESS), (ICapability.ILLUMINANCE) contextCapabilities.get(CAPABILITY.ILLUMINANCE)) == 1){
                         //TODO: increase brightness
-                    } else if (brightnessComparison(deviceCapabilities.get(CAPABILITY.BRIGHTNESS), contextCapabilities.get(CAPABILITY.ILLUMINANCE)) == -1){
+                    } else if (brightnessComparison((ICapability.BRIGHTNESS)deviceCapabilities.get(CAPABILITY.BRIGHTNESS), (ICapability.ILLUMINANCE)contextCapabilities.get(CAPABILITY.ILLUMINANCE)) == -1){
                         //TODO: decrease brightness
                     }
-                } else if (viewSizeComparison(userCapabilities.get(CAPABILITY.VIEW_SIZE), deviceCapabilities.get(CAPABILITY.VIEW_SIZE)) == 1){ //the ui is NOT updated to user preference
+                } else if (viewSizeComparison((ICapability.VIEW_SIZE)userCapabilities.get(CAPABILITY.VIEW_SIZE), (ICapability.VIEW_SIZE)deviceCapabilities.get(CAPABILITY.VIEW_SIZE)) == 1){ //the ui is NOT updated to user preference
                     //TODO: increase view size
-                } else if (viewSizeComparison(userCapabilities.get(CAPABILITY.VIEW_SIZE), deviceCapabilities.get(CAPABILITY.VIEW_SIZE)) == -1){
+                } else if (viewSizeComparison((ICapability.VIEW_SIZE)userCapabilities.get(CAPABILITY.VIEW_SIZE), (ICapability.VIEW_SIZE)deviceCapabilities.get(CAPABILITY.VIEW_SIZE)) == -1){
                     //TODO: decrease view size
                 }
             }
@@ -284,7 +284,7 @@ public class UIReasoner {
      *   0: if both are the same (adaptation is ok) or
      *   1: if context brightness is higher than the device configuration screen brightness
      */
-    private int brightnessComparison(Object deviceBrightness, Object contextBrightness){
+    private int brightnessComparison(ICapability.BRIGHTNESS deviceBrightness, ICapability.ILLUMINANCE contextBrightness){
         if (deviceBrightness.equals(ICapability.BRIGHTNESS.LOW) || deviceBrightness.equals(ICapability.BRIGHTNESS.DEFAULT)
         || deviceBrightness.equals(ICapability.BRIGHTNESS.HIGH)){
             if (contextBrightness.equals(ICapability.ILLUMINANCE.SUNLIGHT)){
@@ -306,14 +306,13 @@ public class UIReasoner {
      *   0: if both are the same (adaptation is ok) or
      *   1: if device view size is higher than the user's
      */
-    private int viewSizeComparison(Object userViewSize, Object deviceViewSize){
+    private int viewSizeComparison(ICapability.VIEW_SIZE userViewSize, ICapability.VIEW_SIZE deviceViewSize){
         if (userViewSize.equals(deviceViewSize)){
             return 0;
-        }
+        } else if (userViewSize.compareTo(deviceViewSize) == -1){
+            return -1;
+        } else return 1;
         //TODO: compare enum cardinal order, if User > Device -> return -1; else return 1;
-        // else if (userViewSize.equals(ICapability.VIEW_SIZE.) && (deviceViewSize.equals(ICapability.VIEW_SIZE.)))
-
-        return -1;
     }
 
 
