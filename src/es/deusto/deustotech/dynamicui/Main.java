@@ -88,7 +88,7 @@ public class Main extends Activity implements android.view.View.OnClickListener{
 	}
 		
 	private void adapt(ICapability user, ICapability context){
-		Log.e(Main.class.getSimpleName(), context.getCapabilityValue(CAPABILITY.CONTEXT_LIGHTNING).toString());
+		Log.e(Main.class.getSimpleName(), context.getCapabilityValue(CAPABILITY.ILLUMINANCE).toString());
 		
 		//Context and users are directly related since context affect user capabilities
 		user = UserCapabilitiesUpdater.update(user, context);
@@ -100,7 +100,7 @@ public class Main extends Activity implements android.view.View.OnClickListener{
 				button.getLayoutParams().height, button.getLayoutParams().width, null));
 
 
-		final UIReasoner uiReasoner     = new UIReasoner(user, device, currentUI, getApplicationContext());
+		final UIReasoner uiReasoner     = new UIReasoner(user, device, context, currentUI, getApplicationContext());
 		final FinalUIConfiguration finalUIConfiguration = uiReasoner.getAdaptedConfiguration();
 
 		//TODO: Store updated user and adapted configuration

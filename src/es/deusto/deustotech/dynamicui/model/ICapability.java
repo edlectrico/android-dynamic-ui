@@ -53,8 +53,8 @@ public interface ICapability {
 		ORIENTATION,
 		
 		//CONTEXT EXCLUSIVE
-		CONTEXT_LIGHTNING, CONTEXT_NOISE,
-		CONTEXT_TEMPERATURE,
+        ILLUMINANCE, NOISE,
+		TEMPERATURE,
 	};
 	
 	//User
@@ -114,9 +114,16 @@ public interface ICapability {
 	static enum INPUT {
 		GESTURES, HAPTIC, VOICE_CONTROL,				//Common and adaptable configuration
 		ONLY_VOICE_CONTROL, ONLY_HAPTIC, ONLY_GESTURES	//Priority demands for disabled users
-	}; 
-	
-	//Context
+	};
+
+    //If user cannot see he/she should have an option to
+    //avoid HAPTIC -> ONLY_VOICE_CONTROL.
+    static enum OUTPUT {
+        ONLY_TEXT, DEFAULT, //text and images and audio
+        ONLY_AUDIO
+    };
+
+    //Context
 	static enum ILLUMINANCE {
 		// extracted from http://en.wikipedia.org/wiki/Lux
 		MOONLESS_OVERCAST_NIGHT, 	// Moonless, overcast night sky (starlight)

@@ -12,10 +12,10 @@ import es.deusto.deustotech.dynamicui.model.ICapability.CAPABILITY;
 
 public class UIReasoner {
 
-	private ICapability user, device;
+	private ICapability user, device, context;
 	private HashMap<String, UIConfiguration> currentUI;
 	private HistoryManager historyManager;
-	private Context context;
+	private Context appContext;
 
     private static final float MAX_BRIGHTNESS = 1.0F;
 
@@ -23,16 +23,17 @@ public class UIReasoner {
 		super();
 	}
 
-	public UIReasoner(ICapability user, ICapability device,
+	public UIReasoner(ICapability user, ICapability device, ICapability context,
 			HashMap<String, UIConfiguration> currentUI, Context appContext) {
 		super();
 		
-		this.currentUI 	= currentUI;
-		this.device 	= device;
-		this.user 		= user;
-		this.context 	= appContext;
-		
-		historyManager = new HistoryManager(this.context);
+        this.user 		= user;
+        this.device 	= device;
+		this.context    = context;
+
+		this.historyManager = new HistoryManager(this.appContext);
+        this.currentUI 	    = currentUI;
+        this.appContext	    = appContext;
 	}
 
 	/**
@@ -58,7 +59,7 @@ public class UIReasoner {
 			} else {
 				//2.2 If it is not sufficient, a new one
 				//TODO: How do we determine if an adaptation is sufficient enough?
-				return adaptConfiguration(this.user.getAllCapabilities(), this.device.getAllCapabilities());
+				return adaptConfiguration(this.user.getAllCapabilities(), this.device.getAllCapabilities(), this.context.getAllCapabilities());
 			}
 		}
 	}
@@ -69,7 +70,8 @@ public class UIReasoner {
 
 	private FinalUIConfiguration adaptConfiguration(
 			HashMap<CAPABILITY, Object> userCapabilities,
-			HashMap<CAPABILITY, Object> deviceCapabilities) {
+			HashMap<CAPABILITY, Object> deviceCapabilities,
+            HashMap<CAPABILITY, Object> contextCapabilities) {
 		
 		//TODO: This is a mock configuration. The logic of this method
 		//should return the corresponding UIConfiguration object so
@@ -95,10 +97,37 @@ public class UIReasoner {
         *
         * Affected by:
         * -Context:     luminosity, temperature
-        * -User;        output, view_size,
+        * -User;        output, view_size, brightness
         * -Device:      brightness, output, acceleration, view_size, orientation
         *
+        * Priorities order:
+        * -user_output, device_output, user_view_size, device_view_size, context_luminosity, device_brightness.
+        * context_temperature, device_orientation, device_acceleration
+        *
         * */
+
+        if (userCapabilities.get(CAPABILITY.OUTPUT).equals(ICapability.OUTPUT.DEFAULT)){ //User can read text and hear audio
+            if (deviceCapabilities.get(CAPABILITY.OUTPUT).equals(ICapability.OUTPUT.DEFAULT)){ //device can use text and audio outputs
+                if (userCapabilities.get(CAPABILITY.VIEW_SIZE).equals(deviceCapabilities.get(CAPABILITY.VIEW_SIZE))){ //the ui is updated to user preference
+                    if (brightnessComparison(deviceCapabilities.get(CAPABILITY.BRIGHTNESS), contextCapabilities.get(CAPABILITY.ILLUMINANCE)) == 1){
+                        //TODO: increase brightness
+                    } else if (brightnessComparison(deviceCapabilities.get(CAPABILITY.BRIGHTNESS), contextCapabilities.get(CAPABILITY.ILLUMINANCE)) == -1){
+                        //TODO: decrease brightness
+                    }
+                } else if (viewSizeComparison(userCapabilities.get(CAPABILITY.VIEW_SIZE), deviceCapabilities.get(CAPABILITY.VIEW_SIZE)) == 1){ //the ui is NOT updated to user preference
+                    //TODO: increase view size
+                } else if (viewSizeComparison(userCapabilities.get(CAPABILITY.VIEW_SIZE), deviceCapabilities.get(CAPABILITY.VIEW_SIZE)) == -1){
+                    //TODO: decrease view size
+                }
+            }
+        } else if (userCapabilities.get(CAPABILITY.OUTPUT).equals(ICapability.OUTPUT.ONLY_TEXT)){
+
+        } else if (userCapabilities.get(CAPABILITY.OUTPUT).equals(ICapability.OUTPUT.ONLY_AUDIO)){
+
+        }
+
+
+
 
 		if (userCapabilities.get(CAPABILITY.VIEW_SIZE).equals(ICapability.VIEW_SIZE.BIG)){
 //			if (currentUI.get(WidgetName.BUTTON).getHeight() == -2){ //wrap_content
@@ -244,7 +273,51 @@ public class UIReasoner {
 		return finalUIConfiguration;
 	}
 
-	public ICapability getUser() {
+
+    /**
+     * This method compares current device brightness status with the context brightness levels
+     *
+     * @param deviceBrightness
+     * @param contextBrightness
+     * @return a number indicting if
+     *  -1: device brightness level is higher than the context one,
+     *   0: if both are the same (adaptation is ok) or
+     *   1: if context brightness is higher than the device configuration screen brightness
+     */
+    private int brightnessComparison(Object deviceBrightness, Object contextBrightness){
+        if (deviceBrightness.equals(ICapability.BRIGHTNESS.LOW) || deviceBrightness.equals(ICapability.BRIGHTNESS.DEFAULT)
+        || deviceBrightness.equals(ICapability.BRIGHTNESS.HIGH)){
+            if (contextBrightness.equals(ICapability.ILLUMINANCE.SUNLIGHT)){
+                return 1; //context value higher than device current brightness level
+            } else return -1;
+        } else if (((deviceBrightness.equals(ICapability.BRIGHTNESS.VERY_HIGH)) && contextBrightness.equals(ICapability.ILLUMINANCE.SUNLIGHT)) ||
+                (((deviceBrightness.equals(ICapability.BRIGHTNESS.DEFAULT)) || deviceBrightness.equals(ICapability.BRIGHTNESS.LOW)
+                        && contextBrightness.equals(ICapability.ILLUMINANCE.MOONLESS_OVERCAST_NIGHT)))){
+                return 0;
+            } else return -1;
+        }
+
+    /**
+     *This method compares current device view size status with the user's
+     * @param userViewSize
+     * @param deviceViewSize
+     * @return a number indicting if
+     *  -1: user view size is higher than the device's,
+     *   0: if both are the same (adaptation is ok) or
+     *   1: if device view size is higher than the user's
+     */
+    private int viewSizeComparison(Object userViewSize, Object deviceViewSize){
+        if (userViewSize.equals(deviceViewSize)){
+            return 0;
+        }
+        //TODO: compare enum cardinal order, if User > Device -> return -1; else return 1;
+        // else if (userViewSize.equals(ICapability.VIEW_SIZE.) && (deviceViewSize.equals(ICapability.VIEW_SIZE.)))
+
+        return -1;
+    }
+
+
+    public ICapability getUser() {
 		return user;
 	}
 
@@ -256,3 +329,4 @@ public class UIReasoner {
 		return currentUI;
 	}
 }
+

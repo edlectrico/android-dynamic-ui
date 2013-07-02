@@ -27,7 +27,7 @@ public class UserCapabilitiesUpdater {
 		// TODO: for the moment just adapt NOISE and BRIGHTNESS
 
 		final Object userBrightnessValue 		= user.getCapabilityValue(CAPABILITY.BRIGHTNESS);
-		final Object contextIlluminanceValue 	= context.getCapabilityValue(CAPABILITY.CONTEXT_LIGHTNING);
+		final Object contextIlluminanceValue 	= context.getCapabilityValue(CAPABILITY.ILLUMINANCE);
 
 		if (!(userBrightnessValue.equals(ICapability.BRIGHTNESS.ONLY_HIGH)) 	//These configurations allow no adaptation
 				&& !(userBrightnessValue.equals(ICapability.BRIGHTNESS.ONLY_LOW) )

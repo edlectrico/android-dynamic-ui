@@ -17,10 +17,10 @@ public class ContextCapabilities extends AbstractCapabilities {
 		
 		this.caps = new HashMap<CAPABILITY, Object>();
 		
-		caps.put(CAPABILITY.CONTEXT_LIGHTNING, 		illuminance);
-		caps.put(CAPABILITY.CONTEXT_NOISE, 			noise);
+		caps.put(CAPABILITY.ILLUMINANCE, 	illuminance);
+		caps.put(CAPABILITY.NOISE, 			noise);
+		caps.put(CAPABILITY.TEMPERATURE, 	20);
 //		caps.put(CAPABILITY.CONTEXT_PRESSURE, 		PRESSURE.NORMAL);
-		caps.put(CAPABILITY.CONTEXT_TEMPERATURE, 	20);
 //		caps.put(CAPABILITY.CONTEXT_CALENDAR, 		calendar);
 	};
 	
