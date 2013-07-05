@@ -78,31 +78,37 @@ public class UIReasoner {
     public Individual addInstanceWithJena(String id) {
         Individual individual = this.ontClass.createIndividual(NS + id);
 
-        Property viewSize = this.ontModel.getProperty(NS + "view_size");
-        Literal literal = this.ontModel.createTypedLiteral("default");
+        Property viewSize = this.ontModel.getProperty(NS + "VIEW_SIZE");
+        Literal literal = this.ontModel.createTypedLiteral("DEFAULT");
         individual.setPropertyValue(viewSize, literal);
 
-        Property output = this.ontModel.getProperty(NS + "output");
-        literal = this.ontModel.createTypedLiteral("default");
+        Property output = this.ontModel.getProperty(NS + "OUTPUT");
+        literal = this.ontModel.createTypedLiteral("DEFAULT");
         individual.setPropertyValue(output, literal);
 
-        Property brightness = this.ontModel.getProperty(NS + "brightness");
-        literal = this.ontModel.createTypedLiteral("default");
+        Property brightness = this.ontModel.getProperty(NS + "BRIGHTNESS");
+        literal = this.ontModel.createTypedLiteral("DEFAULT");
         individual.setPropertyValue(brightness, literal);
 
         return individual;
     }
 
     private String loadRules() {
-        return "[adaptViewSize: " +
-                "print(\"0\") " +
+        String rules = "";
+
+        String adaptViewSize =  "[adaptViewSize: " +
+//                "print(\"0\") " +
                 "(?u http://www.w3.org/1999/02/22-rdf-syntax-ns#type http://www.deustotech.es/prueba.owl#User) " +
                 "(?u http://www.deustotech.es/prueba.owl#view_size ?vs) " +
-                "equal(?vs, \"default\") " +
+                "equal(?vs, \"DEFAULT\") " +
 
                 " -> " +
 
-                "(?u http://edu.ontology.es#fakeproperty \"rule_executed\")] ";
+                "(?u http://edu.ontology.es#fakeproperty \"RULE_EXECUTED\")] ";
+
+        rules = adaptViewSize + "";
+
+        return rules;
     }
 
     public void executeRules(Model dataModel) {
