@@ -1,7 +1,5 @@
 package es.deusto.deustotech.dynamicui.components;
 
-import android.graphics.Color;
-
 public class UIConfiguration {
 
 	private int viewColor;

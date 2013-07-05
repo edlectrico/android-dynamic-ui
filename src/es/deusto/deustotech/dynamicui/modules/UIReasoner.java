@@ -4,6 +4,21 @@ import java.util.HashMap;
 
 import android.content.Context;
 import android.graphics.Color;
+import android.util.Log;
+
+import com.hp.hpl.jena.ontology.Individual;
+import com.hp.hpl.jena.ontology.OntClass;
+import com.hp.hpl.jena.ontology.OntModel;
+import com.hp.hpl.jena.ontology.OntModelSpec;
+import com.hp.hpl.jena.rdf.model.InfModel;
+import com.hp.hpl.jena.rdf.model.Literal;
+import com.hp.hpl.jena.rdf.model.Model;
+import com.hp.hpl.jena.rdf.model.ModelFactory;
+import com.hp.hpl.jena.rdf.model.Property;
+import com.hp.hpl.jena.rdf.model.Statement;
+import com.hp.hpl.jena.reasoner.Reasoner;
+import com.hp.hpl.jena.reasoner.rulesys.GenericRuleReasoner;
+import com.hp.hpl.jena.reasoner.rulesys.Rule;
 
 import es.deusto.deustotech.dynamicui.components.FinalUIConfiguration;
 import es.deusto.deustotech.dynamicui.components.UIConfiguration;
@@ -17,7 +32,14 @@ public class UIReasoner {
 	private HistoryManager historyManager;
 	private Context appContext;
 
-    private static final float MAX_BRIGHTNESS = 1.0F;
+    public static final String NS = "http://www.deustotech.es/prueba.owl#";
+    public OntModel ontModel = null;
+    public OntClass ontClass = null;
+
+    Reasoner reasoner;
+    InfModel infModel;
+
+//    private static final float MAX_BRIGHTNESS = 1.0F;
 
 	public UIReasoner(){
 		super();
@@ -34,7 +56,64 @@ public class UIReasoner {
 		this.historyManager = new HistoryManager(this.appContext);
         this.currentUI 	    = currentUI;
         this.appContext	    = appContext;
+
+        generateModel();
+
+        reasoner = new GenericRuleReasoner(Rule.parseRules(loadRules()));
 	}
+
+    private Model generateModel() {
+        this.ontModel = ModelFactory.createOntologyModel(OntModelSpec.OWL_MEM);
+        this.ontModel.setNsPrefix("prueba", NS);
+
+        this.ontClass = ontModel.createClass(NS +"User");
+
+        addInstanceWithJena("edu");
+
+        this.ontModel.write(System.out);
+
+        return this.ontModel;
+    }
+
+    public Individual addInstanceWithJena(String id) {
+        Individual individual = this.ontClass.createIndividual(NS + id);
+
+        Property viewSize = this.ontModel.getProperty(NS + "view_size");
+        Literal literal = this.ontModel.createTypedLiteral("default");
+        individual.setPropertyValue(viewSize, literal);
+
+        Property output = this.ontModel.getProperty(NS + "output");
+        literal = this.ontModel.createTypedLiteral("default");
+        individual.setPropertyValue(output, literal);
+
+        Property brightness = this.ontModel.getProperty(NS + "brightness");
+        literal = this.ontModel.createTypedLiteral("default");
+        individual.setPropertyValue(brightness, literal);
+
+        return individual;
+    }
+
+    private String loadRules() {
+        return "[adaptViewSize: " +
+                "print(\"0\") " +
+                "(?u http://www.w3.org/1999/02/22-rdf-syntax-ns#type http://www.deustotech.es/prueba.owl#User) " +
+                "(?u http://www.deustotech.es/prueba.owl#view_size ?vs) " +
+                "equal(?vs, \"default\") " +
+
+                " -> " +
+
+                "(?u http://edu.ontology.es#fakeproperty \"rule_executed\")] ";
+    }
+
+    public void executeRules(Model dataModel) {
+        infModel = ModelFactory.createInfModel(reasoner, dataModel);
+        infModel.prepare();
+
+        for (Statement st : infModel.listStatements().toList())
+        {
+            Log.d("InfModel", st.toString());
+        }
+    }
 
 	/**
 	 * This method takes the updated user, the current device's capabilities
