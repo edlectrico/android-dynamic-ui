@@ -100,17 +100,21 @@ public class Main extends Activity implements android.view.View.OnClickListener{
 				button.getLayoutParams().height, button.getLayoutParams().width, null));
 
 
-		final UIReasoner uiReasoner     = new UIReasoner(user, device, context, currentUI, getApplicationContext());
-		final FinalUIConfiguration finalUIConfiguration = uiReasoner.getAdaptedConfiguration();
-
-		//TODO: Store updated user and adapted configuration
-		storeCurrentSituation(user, finalUIConfiguration);
-
-		//Once the current UI is loaded, we call the AdaptationModule to
-		//perform the corresponding changes
-		AdaptationManager adaptationModule = new AdaptationManager(viewsMap, finalUIConfiguration, getApplicationContext(), user);
-		adaptationModule.adaptConfiguration();
-
+		final UIReasoner uiReasoner = new UIReasoner(user, device, context, currentUI, getApplicationContext());
+		
+		//TODO: Uncomment this code. It's just to test the UIReasoner rules
+		/*
+		 * final FinalUIConfiguration finalUIConfiguration = uiReasoner.getAdaptedConfiguration();
+		 * 
+		 * //TODO: Store updated user and adapted configuration
+		 * storeCurrentSituation(user, finalUIConfiguration);
+		 * 
+		 * //Once the current UI is loaded, we call the AdaptationModule to
+		 * //perform the corresponding changes
+		 * AdaptationManager adaptationModule = new AdaptationManager(viewsMap, finalUIConfiguration, getApplicationContext(), user);
+		 * adaptationModule.adaptConfiguration();
+		 */
+		
 		//The following code is just to @test the automatic adaptation each 1000 milliseconds 
 		//new Thread(adaptationModule).start();
 	}
