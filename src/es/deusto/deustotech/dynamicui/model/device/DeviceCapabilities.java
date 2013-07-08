@@ -21,7 +21,7 @@ public class DeviceCapabilities extends AbstractCapabilities {
 	}
 	
 	public DeviceCapabilities(String battery,
-			String brightness, String volume, String acceleration) {
+			String brightness, String volume, String acceleration, String input) {
 		super();
 
 		this.caps = new HashMap<CAPABILITY, Object>();
@@ -31,6 +31,8 @@ public class DeviceCapabilities extends AbstractCapabilities {
 		caps.put(CAPABILITY.BRIGHTNESS, brightness);
 		caps.put(CAPABILITY.VOLUME, volume);
 		caps.put(CAPABILITY.ACCELERATION, acceleration);
+		caps.put(CAPABILITY.VIEW_SIZE, VIEW_SIZE.DEFAULT);
+		caps.put(CAPABILITY.INPUT, INPUT.DEFAULT);
 	}
 
 	/*

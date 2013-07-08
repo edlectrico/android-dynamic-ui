@@ -34,10 +34,12 @@ public class UIReasoner {
 
     public static final String NS = "http://www.deustotech.es/prueba.owl#";
     public OntModel ontModel = null;
-    public OntClass ontClass = null;
+    public OntClass ontUserClass = null;
+    public OntClass ontDeviceClass = null;
+    public OntClass ontContextClass = null;
 
-    Reasoner reasoner;
-    InfModel infModel;
+    public Reasoner reasoner;
+    public InfModel infModel;
 
 //    private static final float MAX_BRIGHTNESS = 1.0F;
 
@@ -60,35 +62,87 @@ public class UIReasoner {
         generateModel();
 
         reasoner = new GenericRuleReasoner(Rule.parseRules(loadRules()));
+        
+        executeRules(generateModel());
+		
+		Log.d("FIN", "FIN");
 	}
 
     private Model generateModel() {
         this.ontModel = ModelFactory.createOntologyModel(OntModelSpec.OWL_MEM);
         this.ontModel.setNsPrefix("prueba", NS);
 
-        this.ontClass = ontModel.createClass(NS +"User");
+        this.ontUserClass 	 = ontModel.createClass(NS + "User");
+        this.ontDeviceClass  = ontModel.createClass(NS + "Device");
+        this.ontContextClass = ontModel.createClass(NS + "Context");
 
-        addInstanceWithJena("edu");
+        addInstancesWithJena("user", "device", "context");
 
         this.ontModel.write(System.out);
 
         return this.ontModel;
     }
+    
+    private void addInstancesWithJena(final String userId, final String deviceId, final String contextId){
+    	addUserInstanceWithJena(userId);
+    	addDeviceInstanceWithJena(deviceId);
+    	addContextInstanceWithJena(contextId);
+    }
 
-    public Individual addInstanceWithJena(String id) {
-        Individual individual = this.ontClass.createIndividual(NS + id);
+    private Individual addUserInstanceWithJena(String id) {
+        Individual individual = this.ontUserClass.createIndividual(NS + id);
 
         Property viewSize = this.ontModel.getProperty(NS + "VIEW_SIZE");
         Literal literal = this.ontModel.createTypedLiteral("DEFAULT");
         individual.setPropertyValue(viewSize, literal);
 
-        Property output = this.ontModel.getProperty(NS + "OUTPUT");
-        literal = this.ontModel.createTypedLiteral("DEFAULT");
-        individual.setPropertyValue(output, literal);
+        Property input = this.ontModel.getProperty(NS + "INPUT");
+        literal = this.ontModel.createTypedLiteral(this.user.getCapabilityValue(ICapability.CAPABILITY.INPUT));
+        individual.setPropertyValue(input, literal);
 
         Property brightness = this.ontModel.getProperty(NS + "BRIGHTNESS");
-        literal = this.ontModel.createTypedLiteral("DEFAULT");
+        literal = this.ontModel.createTypedLiteral(this.user.getCapabilityValue(ICapability.CAPABILITY.BRIGHTNESS));
         individual.setPropertyValue(brightness, literal);
+
+        return individual;
+    }
+    
+    private Individual addDeviceInstanceWithJena(String id) {
+        Individual individual = this.ontDeviceClass.createIndividual(NS + id);
+
+        Property viewSize = this.ontModel.getProperty(NS + "VIEW_SIZE");
+        Literal literal = this.ontModel.createTypedLiteral(this.device.getCapabilityValue(ICapability.CAPABILITY.VIEW_SIZE));
+        individual.setPropertyValue(viewSize, literal);
+
+        Property input = this.ontModel.getProperty(NS + "INPUT");
+        literal = this.ontModel.createTypedLiteral(this.device.getCapabilityValue(ICapability.CAPABILITY.INPUT));
+        individual.setPropertyValue(input, literal);
+
+        Property brightness = this.ontModel.getProperty(NS + "BRIGHTNESS");
+        literal = this.ontModel.createTypedLiteral(this.device.getCapabilityValue(ICapability.CAPABILITY.BRIGHTNESS));
+        individual.setPropertyValue(brightness, literal);
+        
+        Property orientation = this.ontModel.getProperty(NS + "ORIENTATION");
+        literal = this.ontModel.createTypedLiteral(this.device.getCapabilityValue(ICapability.CAPABILITY.ORIENTATION));
+        individual.setPropertyValue(orientation, literal);
+        
+        Property acceleration = this.ontModel.getProperty(NS + "ACCELERATION");
+        literal = this.ontModel.createTypedLiteral(this.device.getCapabilityValue(ICapability.CAPABILITY.ORIENTATION));
+        individual.setPropertyValue(acceleration, literal);
+
+        return individual;
+    }
+    
+    private Individual addContextInstanceWithJena(String id) {
+        Individual individual = this.ontContextClass.createIndividual(NS + id);
+
+        Property viewSize = this.ontModel.getProperty(NS + "TEMPERATURE");
+        Literal literal = this.ontModel.createTypedLiteral(this.context.getCapabilityValue(ICapability.CAPABILITY.TEMPERATURE));
+        individual.setPropertyValue(viewSize, literal);
+
+        Property input = this.ontModel.getProperty(NS + "ILLUMINANCE");
+        literal = this.ontModel.createTypedLiteral(this.context.getCapabilityValue(ICapability.CAPABILITY.ILLUMINANCE));
+        individual.setPropertyValue(input, literal);
 
         return individual;
     }
@@ -96,27 +150,35 @@ public class UIReasoner {
     private String loadRules() {
         String rules = "";
 
-        String adaptViewSize =  "[adaptViewSize: " +
-//                "print(\"0\") " +
+        String adaptViewSize_1 =  "[adaptViewSize1: " +
                 "(?u http://www.w3.org/1999/02/22-rdf-syntax-ns#type http://www.deustotech.es/prueba.owl#User) " +
-                "(?u http://www.deustotech.es/prueba.owl#view_size ?vs) " +
+                "(?u http://www.deustotech.es/prueba.owl#VIEW_SIZE ?vs) " +
                 "equal(?vs, \"DEFAULT\") " +
 
                 " -> " +
 
-                "(?u http://edu.ontology.es#fakeproperty \"RULE_EXECUTED\")] ";
+                "(?u http://user.ontology.es#fakeproperty \"RULE_EXECUTED_DEFAULT\")] ";
+        
+        
+        String adaptViewSize_2 = "[adaptViewSize2: " +
+              "(?u http://www.w3.org/1999/02/22-rdf-syntax-ns#type http://www.deustotech.es/prueba.owl#User) " +
+              "(?u http://www.deustotech.es/prueba.owl#VIEW_SIZE ?vs) " +
+              "equal(?vs, \"BIG\") " +
 
-        rules = adaptViewSize + "";
+              " -> " +
+
+              "(?u http://user.ontology.es#fakeproperty \"RULE_EXECUTED_BIG\")] ";
+
+        rules = adaptViewSize_1 + adaptViewSize_2 + "";
 
         return rules;
     }
 
-    public void executeRules(Model dataModel) {
+    private void executeRules(Model dataModel) {
         infModel = ModelFactory.createInfModel(reasoner, dataModel);
         infModel.prepare();
 
-        for (Statement st : infModel.listStatements().toList())
-        {
+        for (Statement st : infModel.listStatements().toList()){
             Log.d("InfModel", st.toString());
         }
     }

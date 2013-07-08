@@ -28,7 +28,7 @@ public abstract class MockModelGenerator {
 
     //TODO: good? high?
 	public static ICapability generateMockDevice() {
-		return	new DeviceCapabilities("good", "high", "standard", "");
+		return	new DeviceCapabilities("good", "high", "standard", "", "DEFAULT");
 	}
 	
 	private static ILLUMINANCE randomContextIlluminance() {

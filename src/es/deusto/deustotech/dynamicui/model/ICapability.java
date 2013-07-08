@@ -112,7 +112,7 @@ public interface ICapability {
 	//If user cannot see he/she should have an option to 
 	//avoid HAPTIC -> ONLY_VOICE_CONTROL.
 	static enum INPUT {
-		GESTURES, HAPTIC, VOICE_CONTROL,				//Common and adaptable configuration
+		GESTURES, HAPTIC, VOICE_CONTROL, DEFAULT,		//Common and adaptable configuration
 		ONLY_VOICE_CONTROL, ONLY_HAPTIC, ONLY_GESTURES	//Priority demands for disabled users
 	};
 
