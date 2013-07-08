@@ -17,12 +17,14 @@ import com.hp.hpl.jena.rdf.model.Property;
 import com.hp.hpl.jena.rdf.model.Resource;
 import com.hp.hpl.jena.rdf.model.Statement;
 import com.hp.hpl.jena.reasoner.Reasoner;
+import com.hp.hpl.jena.reasoner.rulesys.BuiltinRegistry;
 import com.hp.hpl.jena.reasoner.rulesys.GenericRuleReasoner;
 import com.hp.hpl.jena.reasoner.rulesys.Rule;
 
 import es.deusto.deustotech.dynamicui.components.FinalUIConfiguration;
 import es.deusto.deustotech.dynamicui.components.UIConfiguration;
 import es.deusto.deustotech.dynamicui.model.ICapability;
+import es.deusto.deustotech.utils.jena.ListContainsValue;
 
 public class UIReasoner {
 
@@ -64,6 +66,8 @@ public class UIReasoner {
         
         generateModel();
 
+        BuiltinRegistry.theRegistry.register(new ListContainsValue());
+        
         reasoner = new GenericRuleReasoner(Rule.parseRules(loadRules()));
         
         executeRules(generateModel());
@@ -171,7 +175,7 @@ public class UIReasoner {
 		String adaptViewSize_1 = "[adaptViewSize1: "
 				+ "(?u http://www.w3.org/1999/02/22-rdf-syntax-ns#type http://www.deustotech.es/prueba.owl#User) "
 				+ "(?u http://www.deustotech.es/prueba.owl#VIEW_SIZE ?vs) "
-				+ "equal(?vs, \"DEFAULT\") "
+				+ "listContainsValue(?vs, \"BIG\", \"DEFAULT\") "
 				+
 
 				" -> "
