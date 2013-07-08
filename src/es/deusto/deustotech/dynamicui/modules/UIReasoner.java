@@ -165,34 +165,35 @@ public class UIReasoner {
      * This method loads any rule to be executed by the reasoner
      * @return A String containing every rule
      */
-    private String loadRules() {
-        String rules = "";
+	private String loadRules() {
+		String rules = "";
 
-        String adaptViewSize_1 =  "[adaptViewSize1: " +
-                "(?u http://www.w3.org/1999/02/22-rdf-syntax-ns#type http://www.deustotech.es/prueba.owl#User) " +
-                "(?u http://www.deustotech.es/prueba.owl#VIEW_SIZE ?vs) " +
-                "equal(?vs, \"DEFAULT\") " +
+		String adaptViewSize_1 = "[adaptViewSize1: "
+				+ "(?u http://www.w3.org/1999/02/22-rdf-syntax-ns#type http://www.deustotech.es/prueba.owl#User) "
+				+ "(?u http://www.deustotech.es/prueba.owl#VIEW_SIZE ?vs) "
+				+ "equal(?vs, \"DEFAULT\") "
+				+
 
-                " -> " +
+				" -> "
+				+
 
-				"print(\"ADAPTING CONFIGURATION\") " + 
-				"(http://www.deustotech.es/prueba.owl#FinalUIConfigurationInstance http://www.w3.org/1999/02/22-rdf-syntax-ns#type http://www.deustotech.es/prueba.owl#FinalUIConfiguration) " +
-				"(http://www.deustotech.es/prueba.owl#FinalUIConfigurationInstance http://www.deustotech.es/prueba.owl#VIEW_SIZE \"VERY_BIG\") ]";
-                
-        
-        String adaptViewSize_2 = "[adaptViewSize2: " +
-              "(?u http://www.w3.org/1999/02/22-rdf-syntax-ns#type http://www.deustotech.es/prueba.owl#User) " +
-              "(?u http://www.deustotech.es/prueba.owl#VIEW_SIZE ?vs) " +
-              "equal(?vs, \"BIG\") " +
+				"print(\"ADAPTING CONFIGURATION\") "
+				+ "(http://www.deustotech.es/prueba.owl#FinalUIConfigurationInstance http://www.w3.org/1999/02/22-rdf-syntax-ns#type http://www.deustotech.es/prueba.owl#FinalUIConfiguration) "
+				+ "(http://www.deustotech.es/prueba.owl#FinalUIConfigurationInstance http://www.deustotech.es/prueba.owl#VIEW_SIZE \"VERY_BIG\") ]";
 
-              " -> " +
+		String adaptViewSize_2 = "[adaptViewSize2: "
+				+ "(?u http://www.w3.org/1999/02/22-rdf-syntax-ns#type http://www.deustotech.es/prueba.owl#User) "
+				+ "(?u http://www.deustotech.es/prueba.owl#VIEW_SIZE ?vs) "
+				+ "equal(?vs, \"BIG\") " +
 
-              "(?u http://user.ontology.es#fakeproperty \"RULE_EXECUTED_BIG\")] ";
+				" -> " +
 
-        rules = adaptViewSize_1 + adaptViewSize_2 + "";
+				"(?u http://user.ontology.es#fakeproperty \"RULE_EXECUTED_BIG\")] ";
 
-        return rules;
-    }
+		rules = adaptViewSize_1 + adaptViewSize_2 + "";
+
+		return rules;
+	}
 
     private void executeRules(Model dataModel) {
         infModel = ModelFactory.createInfModel(reasoner, dataModel);
