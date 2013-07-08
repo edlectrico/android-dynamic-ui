@@ -4,11 +4,10 @@ import com.hp.hpl.jena.graph.Node;
 import com.hp.hpl.jena.reasoner.rulesys.RuleContext;
 import com.hp.hpl.jena.reasoner.rulesys.builtins.BaseBuiltin;
 
-public class ListContainsValue extends BaseBuiltin {
-
+public class ListNotContainsValueBuiltin extends BaseBuiltin{
 	@Override
 	public String getName() {
-		return "listContainsValue";
+		return "listNotContainsValue";
 	}
 	
 	public boolean bodyCall(Node[] args, int length, RuleContext context) {
@@ -18,11 +17,10 @@ public class ListContainsValue extends BaseBuiltin {
 			Node n = getArg(i, args, context);
 			
 			if (n.getLiteralValue().equals(element)){
-				return true;
+				return false;
 			}
 		}
 
-		return false;
+		return true;
 	}
-
 }

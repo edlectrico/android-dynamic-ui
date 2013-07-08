@@ -24,7 +24,7 @@ import com.hp.hpl.jena.reasoner.rulesys.Rule;
 import es.deusto.deustotech.dynamicui.components.FinalUIConfiguration;
 import es.deusto.deustotech.dynamicui.components.UIConfiguration;
 import es.deusto.deustotech.dynamicui.model.ICapability;
-import es.deusto.deustotech.utils.jena.ListContainsValue;
+import es.deusto.deustotech.utils.jena.ListContainsValueBuiltin;
 
 public class UIReasoner {
 
@@ -66,7 +66,7 @@ public class UIReasoner {
         
         generateModel();
 
-        BuiltinRegistry.theRegistry.register(new ListContainsValue());
+        BuiltinRegistry.theRegistry.register(new ListContainsValueBuiltin());
         
         reasoner = new GenericRuleReasoner(Rule.parseRules(loadRules()));
         
@@ -170,33 +170,71 @@ public class UIReasoner {
      * @return A String containing every rule
      */
 	private String loadRules() {
-		String rules = "";
-
-		String adaptViewSize_1 = "[adaptViewSize1: "
+		return viewSizeRules(); //TODO: + adaptTextViewRule()...
+	}
+	
+	/**
+	 * VIEW_SIZE
+	 *
+	 * Affected by:
+	 * -Context:     illuminance, temperature
+	 * -User;        input, view_size, brightness
+	 * -Device:      brightness, input, acceleration, view_size, orientation
+	 *
+	 * Priorities order:
+	 * -user_input, device_input, user_view_size, device_view_size, context_luminosity, device_brightness.
+	 * context_temperature, device_orientation, device_acceleration
+	 *
+	 * */
+	private String viewSizeRules(){
+		//Default user and device with a high brightness environment
+		final String adaptViewSize_1 = "[adaptViewSize1: "
 				+ "(?u http://www.w3.org/1999/02/22-rdf-syntax-ns#type http://www.deustotech.es/prueba.owl#User) "
-				+ "(?u http://www.deustotech.es/prueba.owl#VIEW_SIZE ?vs) "
-				+ "listContainsValue(?vs, \"BIG\", \"DEFAULT\") "
+				+ "(?d http://www.w3.org/1999/02/22-rdf-syntax-ns#type http://www.deustotech.es/prueba.owl#Device) "
+				+ "(?c http://www.w3.org/1999/02/22-rdf-syntax-ns#type http://www.deustotech.es/prueba.owl#Context) "
+				+ "(?u http://www.deustotech.es/prueba.owl#VIEW_SIZE ?u_vs) "
+				+ "(?u http://www.deustotech.es/prueba.owl#VIEW_COLOR ?u_vc) "
+				+ "(?u http://www.deustotech.es/prueba.owl#TEXT_COLOR ?u_tc) "
+				+ "(?u http://www.deustotech.es/prueba.owl#INPUT ?u_i) "
+				+ "(?d http://www.deustotech.es/prueba.owl#INPUT ?d_i) "
+				+ "(?c http://www.deustotech.es/prueba.owl#ILLUMINANCE ?c_ill) "
+				+ "(?d http://www.deustotech.es/prueba.owl#BRIGHTNESS ?d_b) "
+				+ "listContainsValue(?u_i, \"DEFAULT\", \"HAPTIC\") "
+				+ "listContainsValue(?d_i, \"DEFAULT\", \"HAPTIC\") "
+				+ "equals(?u_vs, ?d_vs) "
+				+ "notEquals(?c_ill, ?d_b) "
+				+ "notEquals(?u_vc, ?u_tc) "
+				+ "listContainsValue(?c_ill, \"HIGH\", \"VERY_HIGH\") "
+				//Increase brightness
 				+
-
 				" -> "
-				+
-
-				"print(\"ADAPTING CONFIGURATION\") "
 				+ "(http://www.deustotech.es/prueba.owl#FinalUIConfigurationInstance http://www.w3.org/1999/02/22-rdf-syntax-ns#type http://www.deustotech.es/prueba.owl#FinalUIConfiguration) "
-				+ "(http://www.deustotech.es/prueba.owl#FinalUIConfigurationInstance http://www.deustotech.es/prueba.owl#VIEW_SIZE \"VERY_BIG\") ]";
-
-		String adaptViewSize_2 = "[adaptViewSize2: "
+				+ "(http://www.deustotech.es/prueba.owl#FinalUIConfigurationInstance http://www.deustotech.es/prueba.owl#VIEW_SIZE \"HIGH\") "
+				+ "(http://www.deustotech.es/prueba.owl#FinalUIConfigurationInstance http://www.deustotech.es/prueba.owl#VIEW_COLOR \"WHITE\") "
+				+ "(http://www.deustotech.es/prueba.owl#FinalUIConfigurationInstance http://www.deustotech.es/prueba.owl#TEXT_COLOR \"BLACK\") "
+				+ "(http://www.deustotech.es/prueba.owl#FinalUIConfigurationInstance http://www.deustotech.es/prueba.owl#BRIGHTNESS \"VERY_HIGH\") ]";
+		
+		final String adaptViewSize_2 = "[adaptViewSize2: "
 				+ "(?u http://www.w3.org/1999/02/22-rdf-syntax-ns#type http://www.deustotech.es/prueba.owl#User) "
-				+ "(?u http://www.deustotech.es/prueba.owl#VIEW_SIZE ?vs) "
-				+ "equal(?vs, \"BIG\") " +
+				+ "(?d http://www.w3.org/1999/02/22-rdf-syntax-ns#type http://www.deustotech.es/prueba.owl#Device) "
+				+ "(?c http://www.w3.org/1999/02/22-rdf-syntax-ns#type http://www.deustotech.es/prueba.owl#Context) "
+				+ "(?u http://www.deustotech.es/prueba.owl#VIEW_SIZE ?u_vs) "
+				+ "(?u http://www.deustotech.es/prueba.owl#INPUT ?u_i) "
+				+ "(?d http://www.deustotech.es/prueba.owl#INPUT ?d_i) "
+				+ "(?c http://www.deustotech.es/prueba.owl#ILLUMINANCE ?c_ill) "
+				+ "(?d http://www.deustotech.es/prueba.owl#BRIGHTNESS ?d_b) "
+				+ "listContainsValue(?u_i, \"DEFAULT\", \"HAPTIC\") "
+				+ "listContainsValue(?d_i, \"DEFAULT\", \"HAPTIC\") "
+				+ "equals(?u_vs, ?d_vs) "
+				+ "notEquals(?c_ill, ?d_b) "
+				+ "listContainsValue(?c_ill, \"LOW\", \"LOW_HIGH\") "
+				//Increase brightness
+				+
+				" -> "
+				+ "(http://www.deustotech.es/prueba.owl#FinalUIConfigurationInstance http://www.w3.org/1999/02/22-rdf-syntax-ns#type http://www.deustotech.es/prueba.owl#FinalUIConfiguration) "
+				+ "(http://www.deustotech.es/prueba.owl#FinalUIConfigurationInstance http://www.deustotech.es/prueba.owl#BRIGHTNESS \"VERY_LOW\") ]";
 
-				" -> " +
-
-				"(?u http://user.ontology.es#fakeproperty \"RULE_EXECUTED_BIG\")] ";
-
-		rules = adaptViewSize_1 + adaptViewSize_2 + "";
-
-		return rules;
+		return adaptViewSize_1 + adaptViewSize_2 + "";
 	}
 
     private void executeRules(Model dataModel) {
@@ -215,15 +253,18 @@ public class UIReasoner {
      * @return The Java Object corresponding to the same FinalUIConfiguration semantic model
      */
     private FinalUIConfiguration parseConfiguration(){
-    	finalConfiguration = new FinalUIConfiguration();
-    	
     	final Resource resource = infModel.getResource("http://www.deustotech.es/prueba.owl#FinalUIConfigurationInstance");
     	
-    	final Statement statement = resource.getProperty(this.ontModel.getProperty(NS + "VIEW_SIZE"));
+    	final Statement viewSizeStmt 	= resource.getProperty(this.ontModel.getProperty(NS + "VIEW_SIZE"));
+    	final Statement viewColorStmt 	= resource.getProperty(this.ontModel.getProperty(NS + "VIEW_COLOR"));
+    	final Statement textSizeStmt 	= resource.getProperty(this.ontModel.getProperty(NS + "TEXT_SIZE"));
+    	final Statement textColorStmt 	= resource.getProperty(this.ontModel.getProperty(NS + "TEXT_COLOR"));
+    	final Statement brightnessStmt 	= resource.getProperty(this.ontModel.getProperty(NS + "BRIGHTNESS"));
     	
-    	finalConfiguration.setViewSize(statement.getObject().toString());
+//    	finalConfiguration.setViewSize(viewSize.getObject().toString());
     	
-    	return finalConfiguration;
+    	return new FinalUIConfiguration(viewColorStmt.getObject().toString(), textColorStmt.getObject().toString(), 0, 0, "", 
+    			brightnessStmt.getObject().toString(), 0, textSizeStmt.getObject().toString(), viewSizeStmt.getObject().toString(), 0, 0, 0);
     }
 
 	/**

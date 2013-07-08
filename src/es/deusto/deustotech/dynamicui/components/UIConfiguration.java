@@ -2,11 +2,10 @@ package es.deusto.deustotech.dynamicui.components;
 
 public class UIConfiguration {
 
-	private int viewColor;
-	private int textColor;
+	private String viewColor;
+	private String textColor;
 	private int height;
 	private int width;
-	private String text;
 	
 //	private int volume;
 //	private int brightness;
@@ -15,29 +14,28 @@ public class UIConfiguration {
 		super();
 	}
 
-	public UIConfiguration(int viewColor, int textColor, int height, int width,
+	public UIConfiguration(String viewColor, String textColor, int height, int width,
 			String text) {
 		super();
 		this.viewColor = viewColor;
 		this.textColor = textColor;
 		this.height = height;
 		this.width = width;
-		this.text = text;
 	}
 
-	public int getViewColor() {
+	public String getViewColor() {
 		return viewColor;
 	}
 
-	public void setViewColor(int viewColor) {
+	public void setViewColor(String viewColor) {
 		this.viewColor = viewColor;
 	}
 
-	public int getTextColor() {
+	public String getTextColor() {
 		return textColor;
 	}
 
-	public void setTextColor(int textColor) {
+	public void setTextColor(String textColor) {
 		this.textColor = textColor;
 	}
 
@@ -55,13 +53,5 @@ public class UIConfiguration {
 
 	public void setWidth(int width) {
 		this.width = width;
-	}
-
-	public String getText() {
-		return text;
-	}
-
-	public void setText(String text) {
-		this.text = text;
 	}
 }

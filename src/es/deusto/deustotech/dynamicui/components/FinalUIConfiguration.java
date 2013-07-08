@@ -1,6 +1,5 @@
 package es.deusto.deustotech.dynamicui.components;
 
-import es.deusto.deustotech.dynamicui.model.ICapability;
 
 /**
  * Created by edlectrico on 6/25/13.
@@ -12,9 +11,9 @@ import es.deusto.deustotech.dynamicui.model.ICapability;
  */
 public class FinalUIConfiguration extends UIConfiguration{
 
-    private ICapability.BRIGHTNESS brightness;
+    private String brightness;
     private int contrast;
-    private int textSize;
+    private String textSize;
     private String viewSize;
     private int volume;
     private int input;
@@ -23,7 +22,7 @@ public class FinalUIConfiguration extends UIConfiguration{
     public FinalUIConfiguration() {
     }
 
-    public FinalUIConfiguration(ICapability.BRIGHTNESS brightness, int contrast, int textSize, String viewSize, int volume, int input, int output) {
+    public FinalUIConfiguration(String brightness, int contrast, String textSize, String viewSize, int volume, int input, int output) {
         this.brightness = brightness;
         this.contrast = contrast;
         this.textSize = textSize;
@@ -33,8 +32,8 @@ public class FinalUIConfiguration extends UIConfiguration{
         this.output = output;
     }
 
-    public FinalUIConfiguration(int viewColor, int textColor, int height, int width, String text, ICapability.BRIGHTNESS brightness, int contrast,
-                                int textSize, String viewSize, int volume, int input, int output) {
+    public FinalUIConfiguration(String viewColor, String textColor, int height, int width, String text, String brightness, int contrast,
+                                String textSize, String viewSize, int volume, int input, int output) {
         super(viewColor, textColor, height, width, text);
         this.brightness = brightness;
         this.contrast = contrast;
@@ -45,11 +44,11 @@ public class FinalUIConfiguration extends UIConfiguration{
         this.output = output;
     }
 
-    public ICapability.BRIGHTNESS getBrightness() {
+    public String getBrightness() {
         return brightness;
     }
 
-    public void setBrightness(ICapability.BRIGHTNESS brightness) {
+    public void setBrightness(String brightness) {
         this.brightness = brightness;
     }
 
@@ -61,11 +60,11 @@ public class FinalUIConfiguration extends UIConfiguration{
         this.contrast = contrast;
     }
 
-    public int getTextSize() {
+    public String getTextSize() {
         return textSize;
     }
 
-    public void setTextSize(int textSize) {
+    public void setTextSize(String textSize) {
         this.textSize = textSize;
     }
 
