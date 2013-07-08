@@ -89,6 +89,14 @@ public class UIReasoner {
         return this.ontModel;
     }
     
+    /**
+     * This method adds the corresponding classes to the model
+     * 
+     * @param userId
+     * @param deviceId
+     * @param contextId
+     * @param finalUIConf
+     */
     private void addInstancesWithJena(final String userId, final String deviceId, final String contextId, final String finalUIConf){
     	addUserInstance(userId);
     	addDeviceInstance(deviceId);
@@ -153,6 +161,10 @@ public class UIReasoner {
         return individual;
     }
     
+    /**
+     * This method loads any rule to be executed by the reasoner
+     * @return A String containing every rule
+     */
     private String loadRules() {
         String rules = "";
 
@@ -191,6 +203,12 @@ public class UIReasoner {
         }
     }
     
+    /**
+     * This method extracts the FinalUIConfiguration from the model
+     * to create the corresponding Java Object
+     * 
+     * @return The Java Object corresponding to the same FinalUIConfiguration semantic model
+     */
     private FinalUIConfiguration parseConfiguration(){
     	finalConfiguration = new FinalUIConfiguration();
     	
