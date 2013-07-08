@@ -3,7 +3,6 @@ package es.deusto.deustotech.dynamicui.modules;
 import java.util.HashMap;
 
 import android.content.Context;
-import android.graphics.Color;
 import android.util.Log;
 
 import com.hp.hpl.jena.ontology.Individual;
@@ -15,6 +14,7 @@ import com.hp.hpl.jena.rdf.model.Literal;
 import com.hp.hpl.jena.rdf.model.Model;
 import com.hp.hpl.jena.rdf.model.ModelFactory;
 import com.hp.hpl.jena.rdf.model.Property;
+import com.hp.hpl.jena.rdf.model.Resource;
 import com.hp.hpl.jena.rdf.model.Statement;
 import com.hp.hpl.jena.reasoner.Reasoner;
 import com.hp.hpl.jena.reasoner.rulesys.GenericRuleReasoner;
@@ -23,7 +23,6 @@ import com.hp.hpl.jena.reasoner.rulesys.Rule;
 import es.deusto.deustotech.dynamicui.components.FinalUIConfiguration;
 import es.deusto.deustotech.dynamicui.components.UIConfiguration;
 import es.deusto.deustotech.dynamicui.model.ICapability;
-import es.deusto.deustotech.dynamicui.model.ICapability.CAPABILITY;
 
 public class UIReasoner {
 
@@ -63,13 +62,13 @@ public class UIReasoner {
         this.currentUI 	    = currentUI;
         this.appContext	    = appContext;
         
-        finalConfiguration = new FinalUIConfiguration();
-
         generateModel();
 
         reasoner = new GenericRuleReasoner(Rule.parseRules(loadRules()));
         
         executeRules(generateModel());
+        
+        finalConfiguration = parseConfiguration();
 		
 		Log.d(UIReasoner.class.getSimpleName(), "Rules ended");
 	}
@@ -190,6 +189,18 @@ public class UIReasoner {
         for (Statement st : infModel.listStatements().toList()){
             Log.d("InfModel", st.toString());
         }
+    }
+    
+    private FinalUIConfiguration parseConfiguration(){
+    	finalConfiguration = new FinalUIConfiguration();
+    	
+    	final Resource resource = infModel.getResource("http://www.deustotech.es/prueba.owl#FinalUIConfigurationInstance");
+    	
+    	final Statement statement = resource.getProperty(this.ontModel.getProperty(NS + "VIEW_SIZE"));
+    	
+    	finalConfiguration.setViewSize(statement.getObject().toString());
+    	
+    	return finalConfiguration;
     }
 
 	/**

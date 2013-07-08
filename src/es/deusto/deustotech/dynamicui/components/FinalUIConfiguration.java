@@ -15,7 +15,7 @@ public class FinalUIConfiguration extends UIConfiguration{
     private ICapability.BRIGHTNESS brightness;
     private int contrast;
     private int textSize;
-    private int viewSize;
+    private String viewSize;
     private int volume;
     private int input;
     private int output;
@@ -23,7 +23,7 @@ public class FinalUIConfiguration extends UIConfiguration{
     public FinalUIConfiguration() {
     }
 
-    public FinalUIConfiguration(ICapability.BRIGHTNESS brightness, int contrast, int textSize, int viewSize, int volume, int input, int output) {
+    public FinalUIConfiguration(ICapability.BRIGHTNESS brightness, int contrast, int textSize, String viewSize, int volume, int input, int output) {
         this.brightness = brightness;
         this.contrast = contrast;
         this.textSize = textSize;
@@ -34,7 +34,7 @@ public class FinalUIConfiguration extends UIConfiguration{
     }
 
     public FinalUIConfiguration(int viewColor, int textColor, int height, int width, String text, ICapability.BRIGHTNESS brightness, int contrast,
-                                int textSize, int viewSize, int volume, int input, int output) {
+                                int textSize, String viewSize, int volume, int input, int output) {
         super(viewColor, textColor, height, width, text);
         this.brightness = brightness;
         this.contrast = contrast;
@@ -69,11 +69,11 @@ public class FinalUIConfiguration extends UIConfiguration{
         this.textSize = textSize;
     }
 
-    public int getViewSize() {
+    public String getViewSize() {
         return viewSize;
     }
 
-    public void setViewSize(int viewSize) {
+    public void setViewSize(String viewSize) {
         this.viewSize = viewSize;
     }
 
