@@ -11,7 +11,7 @@ import es.deusto.deustotech.dynamicui.model.ICapability;
  * taxonomy.
  *
  */
-public class FinalUIConfiguration extends UIConfiguration{
+//public class FinalUIConfiguration extends UIConfiguration{
 
 //    private String brightness;
 //    private int contrast;
@@ -21,14 +21,14 @@ public class FinalUIConfiguration extends UIConfiguration{
 //    private int input;
 //    private int output;
 	
-	private ICapability.VIEW_SIZE viewSize;
-
-    public FinalUIConfiguration() {
-    }
-    
-    public FinalUIConfiguration(ICapability.VIEW_SIZE vs){
-    	this.viewSize = vs;
-    }
+//	private ICapability.VIEW_SIZE viewSize;
+//
+//    public FinalUIConfiguration() {
+//    }
+//    
+//    public FinalUIConfiguration(ICapability.VIEW_SIZE vs){
+//    	this.viewSize = vs;
+//    }
 
 //    public FinalUIConfiguration(String brightness, int contrast, String textSize, String viewSize, int volume, int input, int output) {
 //        this.brightness = brightness;
@@ -52,4 +52,4 @@ public class FinalUIConfiguration extends UIConfiguration{
 //        this.output = output;
 //    }
 
-}
+//}

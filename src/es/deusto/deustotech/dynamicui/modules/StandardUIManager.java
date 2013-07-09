@@ -1,8 +1,5 @@
 package es.deusto.deustotech.dynamicui.modules;
 
-import android.graphics.Color;
-
-import es.deusto.deustotech.dynamicui.components.FinalUIConfiguration;
 import es.deusto.deustotech.dynamicui.components.UIConfiguration;
 import es.deusto.deustotech.dynamicui.model.ICapability;
 
@@ -25,10 +22,10 @@ public class StandardUIManager {
 	 * @param user
 	 * @return
 	 */
-	public FinalUIConfiguration getStandardConfiguration(ICapability user) {
+	public UIConfiguration getStandardConfiguration(ICapability user) {
 		//TODO: Where is it stored?
 		
-		return new FinalUIConfiguration(ICapability.VIEW_SIZE.VERY_BIG);
+		return new UIConfiguration(ICapability.VIEW_SIZE.VERY_BIG);
 //		return new FinalUIConfiguration(Color.RED, Color.WHITE, 500, 500, null, ICapability.BRIGHTNESS.VERY_HIGH, 0, 0, "", 0, 0, 0);
 	}
 

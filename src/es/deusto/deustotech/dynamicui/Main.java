@@ -4,7 +4,6 @@ import java.util.HashMap;
 
 import android.app.Activity;
 import android.content.SharedPreferences;
-import android.graphics.Color;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
@@ -13,7 +12,6 @@ import android.widget.Toast;
 
 import com.google.gson.Gson;
 
-import es.deusto.deustotech.dynamicui.components.FinalUIConfiguration;
 import es.deusto.deustotech.dynamicui.components.UIConfiguration;
 import es.deusto.deustotech.dynamicui.components.WidgetName;
 import es.deusto.deustotech.dynamicui.model.ICapability;
@@ -97,24 +95,26 @@ public class Main extends Activity implements android.view.View.OnClickListener{
 		//TODO: For each component...
 		HashMap<String, UIConfiguration> currentUI = new HashMap<String, UIConfiguration>();
 
-		currentUI.put(WidgetName.BUTTON, new UIConfiguration(Color.DKGRAY, Color.BLACK,
-				button.getLayoutParams().height, button.getLayoutParams().width));
+//		currentUI.put(WidgetName.BUTTON, new UIConfiguration(Color.DKGRAY, Color.BLACK,
+//				button.getLayoutParams().height, button.getLayoutParams().width));
+		
+		currentUI.put(WidgetName.BUTTON, new UIConfiguration(ICapability.VIEW_SIZE.DEFAULT));
 
 
 		final UIReasoner uiReasoner = new UIReasoner(user, device, context, currentUI, getApplicationContext());
 		
 		//TODO: Uncomment this code. It's just to test the UIReasoner rules
-		/*
-		 * final FinalUIConfiguration finalUIConfiguration = uiReasoner.getAdaptedConfiguration();
-		 * 
-		 * //TODO: Store updated user and adapted configuration
-		 * storeCurrentSituation(user, finalUIConfiguration);
-		 * 
-		 * //Once the current UI is loaded, we call the AdaptationModule to
-		 * //perform the corresponding changes
-		 * AdaptationManager adaptationModule = new AdaptationManager(viewsMap, finalUIConfiguration, getApplicationContext(), user);
-		 * adaptationModule.adaptConfiguration();
-		 */
+		
+		 final UIConfiguration finalUIConfiguration = uiReasoner.getAdaptedConfiguration();
+		  
+		 //TODO: Store updated user and adapted configuration
+		 storeCurrentSituation(user, finalUIConfiguration);
+		 
+		 //Once the current UI is loaded, we call the AdaptationModule to
+		 //perform the corresponding changes
+		 AdaptationManager adaptationModule = new AdaptationManager(viewsMap, finalUIConfiguration, getApplicationContext(), user);
+		 adaptationModule.adaptConfiguration();
+		 
 		
 		//The following code is just to @test the automatic adaptation each 1000 milliseconds 
 		//new Thread(adaptationModule).start();

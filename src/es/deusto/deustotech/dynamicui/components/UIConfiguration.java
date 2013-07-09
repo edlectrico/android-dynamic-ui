@@ -1,11 +1,14 @@
 package es.deusto.deustotech.dynamicui.components;
 
+import es.deusto.deustotech.dynamicui.model.ICapability;
+
 public class UIConfiguration {
 
-	private int viewColor;
-	private int textColor;
-	private int height;
-	private int width;
+//	private int viewColor;
+//	private int textColor;
+//	private int height;
+//	private int width;
+	private ICapability.VIEW_SIZE viewSize;
 	
 //	private int volume;
 //	private int brightness;
@@ -14,43 +17,21 @@ public class UIConfiguration {
 		super();
 	}
 
-	public UIConfiguration(int viewColor, int textColor, int height, int width) {
+	public UIConfiguration(ICapability.VIEW_SIZE vs/*int viewColor, int textColor, int height, int width*/) {
 		super();
-		this.viewColor = viewColor;
-		this.textColor = textColor;
-		this.height = height;
-		this.width = width;
+		this.viewSize = vs;
+//		this.viewColor = viewColor;
+//		this.textColor = textColor;
+//		this.height = height;
+//		this.width = width;
 	}
 
-	public int getViewColor() {
-		return viewColor;
+	public ICapability.VIEW_SIZE getViewSize() {
+		return viewSize;
 	}
 
-	public void setViewColor(int viewColor) {
-		this.viewColor = viewColor;
+	public void setViewSize(ICapability.VIEW_SIZE viewSize) {
+		this.viewSize = viewSize;
 	}
 
-	public int getTextColor() {
-		return textColor;
-	}
-
-	public void setTextColor(int textColor) {
-		this.textColor = textColor;
-	}
-
-	public int getHeight() {
-		return height;
-	}
-
-	public void setHeight(int height) {
-		this.height = height;
-	}
-
-	public int getWidth() {
-		return width;
-	}
-
-	public void setWidth(int width) {
-		this.width = width;
-	}
 }

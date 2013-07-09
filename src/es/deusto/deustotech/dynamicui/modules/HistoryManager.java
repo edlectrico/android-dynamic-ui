@@ -4,12 +4,10 @@ import java.util.HashMap;
 
 import android.content.Context;
 import android.content.SharedPreferences;
-import android.graphics.Color;
 
 import com.google.gson.Gson;
 
 import es.deusto.deustotech.dynamicui.R;
-import es.deusto.deustotech.dynamicui.components.FinalUIConfiguration;
 import es.deusto.deustotech.dynamicui.components.UIConfiguration;
 import es.deusto.deustotech.dynamicui.model.ICapability;
 
@@ -73,11 +71,11 @@ public class HistoryManager {
 	 * 
 	 * @return the adaptation stored in the SharedPreferences
 	 */
-	public FinalUIConfiguration getAdaptedConfiguration() {
+	public UIConfiguration getAdaptedConfiguration() {
 		
 		//TODO: return the corresponding UIConfiguration
 		
 //		return new FinalUIConfiguration(Color.RED, Color.WHITE, 500, 500, null, ICapability.BRIGHTNESS.VERY_HIGH, 0, 0, "", 0, 0, 0);
-		return new FinalUIConfiguration(ICapability.VIEW_SIZE.VERY_BIG);
+		return new UIConfiguration(ICapability.VIEW_SIZE.VERY_BIG);
 	}
 }

@@ -22,7 +22,6 @@ import com.hp.hpl.jena.reasoner.rulesys.BuiltinRegistry;
 import com.hp.hpl.jena.reasoner.rulesys.GenericRuleReasoner;
 import com.hp.hpl.jena.reasoner.rulesys.Rule;
 
-import es.deusto.deustotech.dynamicui.components.FinalUIConfiguration;
 import es.deusto.deustotech.dynamicui.components.UIConfiguration;
 import es.deusto.deustotech.dynamicui.model.ICapability;
 import es.deusto.deustotech.utils.jena.ListContainsValueBuiltin;
@@ -31,7 +30,7 @@ public class UIReasoner {
 
 	private ICapability user, device, context;
 	
-	private FinalUIConfiguration finalConfiguration;
+	private UIConfiguration finalConfiguration;
 	
 	private HashMap<String, UIConfiguration> currentUI;
 	private HistoryManager historyManager;
@@ -279,7 +278,7 @@ public class UIReasoner {
      * 
      * @return The Java Object corresponding to the same FinalUIConfiguration semantic model
      */
-    private FinalUIConfiguration parseConfiguration(){
+    private UIConfiguration parseConfiguration(){
     	final Resource resource = infModel.getResource("http://www.deustotech.es/prueba.owl#FinalUIConfigurationInstance");
     	
     	final Statement viewSizeStmt 	= resource.getProperty(this.ontModel.getProperty(NS + "VIEW_SIZE"));
@@ -291,14 +290,19 @@ public class UIReasoner {
 //    	finalConfiguration.setViewSize(viewSize.getObject().toString());
     	if (viewSizeStmt != null){
     		final ICapability.VIEW_SIZE viewSize = ICapability.VIEW_SIZE.valueOf(viewSizeStmt.getObject().toString());
-    		
-    		return new FinalUIConfiguration(viewSize);
+    		UIConfiguration finalConf = new UIConfiguration();
+    		finalConf.setViewSize(viewSize);
+    		return finalConf;
     	}
     	
-    	return new FinalUIConfiguration();
+    	return new UIConfiguration();
     	
 //    	return new FinalUIConfiguration(viewColorStmt.getObject().toString(), textColorStmt.getObject().toString(), 0, 0, "", 
 //    			brightnessStmt.getObject().toString(), 0, textSizeStmt.getObject().toString(), viewSizeStmt.getObject().toString(), 0, 0, 0);
+    }
+    
+    public UIConfiguration getAdaptedConfiguration(){
+    	return this.finalConfiguration;
     }
 
 	/**

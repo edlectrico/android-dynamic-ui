@@ -55,10 +55,12 @@ public class AdaptationManager {
 		componentsToAdapt.get(WidgetName.BUTTON).post(new Runnable() {
 			@Override
 			public void run() {
-				componentsToAdapt.get(WidgetName.BUTTON).setBackgroundColor(configuration.getViewColor());
-                ((Button)componentsToAdapt.get(WidgetName.BUTTON)).setTextColor(configuration.getTextColor());
-				componentsToAdapt.get(WidgetName.BUTTON).setMinimumHeight(configuration.getHeight());
-				componentsToAdapt.get(WidgetName.BUTTON).setMinimumWidth(configuration.getWidth());
+//				componentsToAdapt.get(WidgetName.BUTTON).setBackgroundColor(configuration.getViewColor());
+//                ((Button)componentsToAdapt.get(WidgetName.BUTTON)).setTextColor(configuration.getTextColor());
+                if (configuration.getViewSize().equals(ICapability.VIEW_SIZE.BIG)){
+                	componentsToAdapt.get(WidgetName.BUTTON).setMinimumHeight(500);
+                	componentsToAdapt.get(WidgetName.BUTTON).setMinimumWidth(500);
+                }
 			}
 		});
 		
@@ -71,11 +73,11 @@ public class AdaptationManager {
 		SharedPreferences.Editor editor = preferences.edit();
 
 		//TODO: for each component
-		final UIConfiguration configuration = new UIConfiguration(componentsToAdapt.get(WidgetName.BUTTON).getSolidColor(),
-                ((Button) componentsToAdapt.get(WidgetName.BUTTON)).getCurrentTextColor(),
-				componentsToAdapt.get(WidgetName.BUTTON).getHeight(),
-				componentsToAdapt.get(WidgetName.BUTTON).getWidth());
-		
+//		final UIConfiguration configuration = new UIConfiguration(componentsToAdapt.get(WidgetName.BUTTON).getSolidColor(),
+//                ((Button) componentsToAdapt.get(WidgetName.BUTTON)).getCurrentTextColor(),
+//				componentsToAdapt.get(WidgetName.BUTTON).getHeight(),
+//				componentsToAdapt.get(WidgetName.BUTTON).getWidth());
+		final UIConfiguration configuration = new UIConfiguration(ICapability.VIEW_SIZE.DEFAULT);
 		
 		
 //		HashMap<ICapability, HashMap<String, View>> currentSituation = new HashMap<ICapability, HashMap<String, View>>();
