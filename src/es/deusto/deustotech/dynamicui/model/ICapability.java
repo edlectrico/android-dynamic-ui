@@ -42,7 +42,7 @@ public interface ICapability {
 	 */
 	
 	static enum CAPABILITY {
-		//USER & DEVICE
+		//USER & DEVICE (CONTEXT has BRIGHTNESS TOO)
 		BRIGHTNESS, CONTRAST, 
 		VIEW_SIZE, TEXT_SIZE,
 		VIEW_COLOR, TEXT_COLOR,
@@ -53,7 +53,7 @@ public interface ICapability {
 		ORIENTATION,
 		
 		//CONTEXT EXCLUSIVE
-        ILLUMINANCE, NOISE,
+        NOISE,
 		TEMPERATURE,
 	};
 	
@@ -124,6 +124,7 @@ public interface ICapability {
     };
 
     //Context
+    /*
 	static enum ILLUMINANCE {
 		// extracted from http://en.wikipedia.org/wiki/Lux
 		MOONLESS_OVERCAST_NIGHT, 	// Moonless, overcast night sky (starlight)
@@ -141,7 +142,7 @@ public interface ICapability {
 		SUNLIGHT, 					// Direct sunlight
 //		COMPARISON_UNAVAILABLE 		// None of the above
 	}
-	
+	*/
 	static enum NOISE {
 		//extracted from http://es.wikipedia.org/wiki/Decibelio
 		VERY_NOISY, // x >= 110 dB

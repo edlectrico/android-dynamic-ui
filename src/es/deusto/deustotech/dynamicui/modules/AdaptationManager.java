@@ -74,8 +74,7 @@ public class AdaptationManager {
 		final UIConfiguration configuration = new UIConfiguration(componentsToAdapt.get(WidgetName.BUTTON).getSolidColor(),
                 ((Button) componentsToAdapt.get(WidgetName.BUTTON)).getCurrentTextColor(),
 				componentsToAdapt.get(WidgetName.BUTTON).getHeight(),
-				componentsToAdapt.get(WidgetName.BUTTON).getWidth(),
-				null);
+				componentsToAdapt.get(WidgetName.BUTTON).getWidth());
 		
 		
 		

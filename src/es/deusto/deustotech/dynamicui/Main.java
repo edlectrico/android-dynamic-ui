@@ -88,16 +88,17 @@ public class Main extends Activity implements android.view.View.OnClickListener{
 	}
 		
 	private void adapt(ICapability user, ICapability context){
-		Log.e(Main.class.getSimpleName(), context.getCapabilityValue(CAPABILITY.ILLUMINANCE).toString());
+		Log.e(Main.class.getSimpleName(), context.getCapabilityValue(CAPABILITY.BRIGHTNESS).toString());
 		
 		//Context and users are directly related since context affect user capabilities
+		//TODO: rules here?
 		user = UserCapabilitiesUpdater.update(user, context);
 
 		//TODO: For each component...
 		HashMap<String, UIConfiguration> currentUI = new HashMap<String, UIConfiguration>();
 
 		currentUI.put(WidgetName.BUTTON, new UIConfiguration(Color.DKGRAY, Color.BLACK,
-				button.getLayoutParams().height, button.getLayoutParams().width, null));
+				button.getLayoutParams().height, button.getLayoutParams().width));
 
 
 		final UIReasoner uiReasoner = new UIReasoner(user, device, context, currentUI, getApplicationContext());

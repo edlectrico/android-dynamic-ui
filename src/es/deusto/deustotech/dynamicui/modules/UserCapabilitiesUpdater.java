@@ -1,10 +1,8 @@
 package es.deusto.deustotech.dynamicui.modules;
 
 import android.graphics.Color;
-
 import es.deusto.deustotech.dynamicui.model.ICapability;
 import es.deusto.deustotech.dynamicui.model.ICapability.CAPABILITY;
-import es.deusto.deustotech.dynamicui.model.user.UserCapabilities;
 
 public class UserCapabilitiesUpdater {
 
@@ -27,7 +25,7 @@ public class UserCapabilitiesUpdater {
 		// TODO: for the moment just adapt NOISE and BRIGHTNESS
 
 		final Object userBrightnessValue 		= user.getCapabilityValue(CAPABILITY.BRIGHTNESS);
-		final Object contextIlluminanceValue 	= context.getCapabilityValue(CAPABILITY.ILLUMINANCE);
+		final Object contextIlluminanceValue 	= context.getCapabilityValue(CAPABILITY.BRIGHTNESS);
 
 		if (!(userBrightnessValue.equals(ICapability.BRIGHTNESS.ONLY_HIGH)) 	//These configurations allow no adaptation
 				&& !(userBrightnessValue.equals(ICapability.BRIGHTNESS.ONLY_LOW) )
@@ -38,7 +36,7 @@ public class UserCapabilitiesUpdater {
 					|| userBrightnessValue.equals(ICapability.BRIGHTNESS.HIGH))) { //If BRIGHTNESS.VERY_HIGHT -> no applicable adaptation
 				//CONTEXT_ILLUMINANCE
 				if (contextIlluminanceValue
-						.equals(ICapability.ILLUMINANCE.SUNLIGHT)) {
+						.equals(ICapability.BRIGHTNESS.VERY_HIGH)) {
 					user.setCapabilityValue(CAPABILITY.BRIGHTNESS,
 							ICapability.BRIGHTNESS.HIGH);
 					user.setCapabilityValue(CAPABILITY.VIEW_COLOR, Color.WHITE);
@@ -59,7 +57,7 @@ public class UserCapabilitiesUpdater {
 //							ICapability.BRIGHTNESS.LOW);
 //					user.setCapabilityValue(CAPABILITY.VIEW_COLOR, ICapability.COLOR.GRAY);
 				} else if (contextIlluminanceValue
-                        .equals(ICapability.ILLUMINANCE.MOONLESS_OVERCAST_NIGHT)) {
+                        .equals(ICapability.BRIGHTNESS.LOW)) {
                     user.setCapabilityValue(CAPABILITY.BRIGHTNESS,
                             ICapability.BRIGHTNESS.LOW);
                     user.setCapabilityValue(CAPABILITY.VIEW_COLOR, Color.DKGRAY);
@@ -73,7 +71,7 @@ public class UserCapabilitiesUpdater {
 				final Object userTextSizeValue 	= user.getCapabilityValue(CAPABILITY.TEXT_SIZE);
 				
 				if (!userViewSizeValue.equals(ICapability.VIEW_SIZE.ONLY_VERY_BIG)){
-					if (contextIlluminanceValue.equals(ICapability.ILLUMINANCE.SUNLIGHT)){ //BIGGER CONTROLS/TEXT
+					if (contextIlluminanceValue.equals(ICapability.BRIGHTNESS.VERY_HIGH)){ //BIGGER CONTROLS/TEXT
 						if (userViewSizeValue.equals(ICapability.VIEW_SIZE.DEFAULT)){
 							user.setCapabilityValue(CAPABILITY.VIEW_SIZE, ICapability.VIEW_SIZE.BIG);
 						} else if (userViewSizeValue.equals(ICapability.VIEW_SIZE.BIG)){

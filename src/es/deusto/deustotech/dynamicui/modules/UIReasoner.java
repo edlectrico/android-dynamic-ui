@@ -3,6 +3,7 @@ package es.deusto.deustotech.dynamicui.modules;
 import java.util.HashMap;
 
 import android.content.Context;
+import android.graphics.Color;
 import android.util.Log;
 
 import com.hp.hpl.jena.ontology.Individual;
@@ -61,7 +62,7 @@ public class UIReasoner {
 		this.context    = context;
 
 		this.historyManager = new HistoryManager(this.appContext);
-        this.currentUI 	    = currentUI;
+        this.currentUI 	    = currentUI; //TODO: Use this
         this.appContext	    = appContext;
         
         generateModel();
@@ -102,6 +103,7 @@ public class UIReasoner {
      * @param finalUIConf
      */
     private void addInstancesWithJena(final String userId, final String deviceId, final String contextId, final String finalUIConf){
+    	//TODO: remove usages of ICapability.VIEW_SIZE.XXX and use this.YYY.getCapabilityValue(ICapability.CAPABILITY.VIEW_SIZE) instead
     	addUserInstance(userId);
     	addDeviceInstance(deviceId);
     	addContextInstance(contextId);
@@ -111,11 +113,19 @@ public class UIReasoner {
         Individual individual = this.ontUserClass.createIndividual(NS + id);
 
         Property viewSize = this.ontModel.getProperty(NS + "VIEW_SIZE");
-        Literal literal = this.ontModel.createTypedLiteral("DEFAULT");
+        Literal literal = this.ontModel.createTypedLiteral(ICapability.VIEW_SIZE.DEFAULT);
         individual.setPropertyValue(viewSize, literal);
+        
+        Property viewColor = this.ontModel.getProperty(NS + "VIEW_COLOR");
+        literal = this.ontModel.createTypedLiteral(Color.WHITE);
+        individual.setPropertyValue(viewColor, literal);
+        
+        Property textColor = this.ontModel.getProperty(NS + "TEXT_COLOR");
+        literal = this.ontModel.createTypedLiteral(Color.BLACK);
+        individual.setPropertyValue(textColor, literal);
 
         Property input = this.ontModel.getProperty(NS + "INPUT");
-        literal = this.ontModel.createTypedLiteral(this.user.getCapabilityValue(ICapability.CAPABILITY.INPUT));
+        literal = this.ontModel.createTypedLiteral(ICapability.INPUT.HAPTIC);
         individual.setPropertyValue(input, literal);
 
         Property brightness = this.ontModel.getProperty(NS + "BRIGHTNESS");
@@ -129,15 +139,16 @@ public class UIReasoner {
         Individual individual = this.ontDeviceClass.createIndividual(NS + id);
 
         Property viewSize = this.ontModel.getProperty(NS + "VIEW_SIZE");
-        Literal literal = this.ontModel.createTypedLiteral(this.device.getCapabilityValue(ICapability.CAPABILITY.VIEW_SIZE));
+//        Literal literal = this.ontModel.createTypedLiteral(this.device.getCapabilityValue(ICapability.CAPABILITY.VIEW_SIZE));
+        Literal literal = this.ontModel.createTypedLiteral(ICapability.VIEW_SIZE.DEFAULT);
         individual.setPropertyValue(viewSize, literal);
 
         Property input = this.ontModel.getProperty(NS + "INPUT");
-        literal = this.ontModel.createTypedLiteral(this.device.getCapabilityValue(ICapability.CAPABILITY.INPUT));
+        literal = this.ontModel.createTypedLiteral(ICapability.INPUT.HAPTIC);
         individual.setPropertyValue(input, literal);
 
         Property brightness = this.ontModel.getProperty(NS + "BRIGHTNESS");
-        literal = this.ontModel.createTypedLiteral(this.device.getCapabilityValue(ICapability.CAPABILITY.BRIGHTNESS));
+        literal = this.ontModel.createTypedLiteral(ICapability.BRIGHTNESS.DEFAULT);
         individual.setPropertyValue(brightness, literal);
         
         Property orientation = this.ontModel.getProperty(NS + "ORIENTATION");
@@ -145,7 +156,7 @@ public class UIReasoner {
         individual.setPropertyValue(orientation, literal);
         
         Property acceleration = this.ontModel.getProperty(NS + "ACCELERATION");
-        literal = this.ontModel.createTypedLiteral(this.device.getCapabilityValue(ICapability.CAPABILITY.ORIENTATION));
+        literal = this.ontModel.createTypedLiteral(this.device.getCapabilityValue(ICapability.CAPABILITY.ACCELERATION));
         individual.setPropertyValue(acceleration, literal);
 
         return individual;
@@ -154,13 +165,13 @@ public class UIReasoner {
     private Individual addContextInstance(String id) {
         Individual individual = this.ontContextClass.createIndividual(NS + id);
 
-        Property viewSize = this.ontModel.getProperty(NS + "TEMPERATURE");
+        Property temperature = this.ontModel.getProperty(NS + "TEMPERATURE");
         Literal literal = this.ontModel.createTypedLiteral(this.context.getCapabilityValue(ICapability.CAPABILITY.TEMPERATURE));
-        individual.setPropertyValue(viewSize, literal);
+        individual.setPropertyValue(temperature, literal);
 
-        Property input = this.ontModel.getProperty(NS + "ILLUMINANCE");
-        literal = this.ontModel.createTypedLiteral(this.context.getCapabilityValue(ICapability.CAPABILITY.ILLUMINANCE));
-        individual.setPropertyValue(input, literal);
+        Property brightness = this.ontModel.getProperty(NS + "BRIGHTNESS");
+        literal = this.ontModel.createTypedLiteral(ICapability.BRIGHTNESS.VERY_HIGH);
+        individual.setPropertyValue(brightness, literal);
 
         return individual;
     }
@@ -177,7 +188,7 @@ public class UIReasoner {
 	 * VIEW_SIZE
 	 *
 	 * Affected by:
-	 * -Context:     illuminance, temperature
+	 * -Context:     brightness, temperature
 	 * -User;        input, view_size, brightness
 	 * -Device:      brightness, input, acceleration, view_size, orientation
 	 *
@@ -189,31 +200,46 @@ public class UIReasoner {
 	private String viewSizeRules(){
 		//Default user and device with a high brightness environment
 		final String adaptViewSize_1 = "[adaptViewSize1: "
+				+ "print(\"RULE_1\") "
 				+ "(?u http://www.w3.org/1999/02/22-rdf-syntax-ns#type http://www.deustotech.es/prueba.owl#User) "
 				+ "(?d http://www.w3.org/1999/02/22-rdf-syntax-ns#type http://www.deustotech.es/prueba.owl#Device) "
 				+ "(?c http://www.w3.org/1999/02/22-rdf-syntax-ns#type http://www.deustotech.es/prueba.owl#Context) "
+				+ "print(\"RULE_1: taking properties\") "
 				+ "(?u http://www.deustotech.es/prueba.owl#VIEW_SIZE ?u_vs) "
 				+ "(?u http://www.deustotech.es/prueba.owl#VIEW_COLOR ?u_vc) "
 				+ "(?u http://www.deustotech.es/prueba.owl#TEXT_COLOR ?u_tc) "
 				+ "(?u http://www.deustotech.es/prueba.owl#INPUT ?u_i) "
-				+ "(?d http://www.deustotech.es/prueba.owl#INPUT ?d_i) "
-				+ "(?c http://www.deustotech.es/prueba.owl#ILLUMINANCE ?c_ill) "
+				+ "(?d http://www.deustotech.es/prueba.owl#VIEW_SIZE ?d_vs) "
 				+ "(?d http://www.deustotech.es/prueba.owl#BRIGHTNESS ?d_b) "
+				+ "(?d http://www.deustotech.es/prueba.owl#INPUT ?d_i) "
+				+ "(?c http://www.deustotech.es/prueba.owl#BRIGHTNESS ?c_b) "
+				+ "print(\"RULE_1: properties stored\") "
 				+ "listContainsValue(?u_i, \"DEFAULT\", \"HAPTIC\") "
+				+ "print(\"RULE_1: listContainsValue(?u_i, DEFAULT, HAPTIC)\") "
 				+ "listContainsValue(?d_i, \"DEFAULT\", \"HAPTIC\") "
-				+ "equals(?u_vs, ?d_vs) "
-				+ "notEquals(?c_ill, ?d_b) "
-				+ "notEquals(?u_vc, ?u_tc) "
-				+ "listContainsValue(?c_ill, \"HIGH\", \"VERY_HIGH\") "
-				//Increase brightness
+				+ "print(\"RULE_1: listContainsValue(?d_i, DEFAULT, HAPTIC)\") "
+				+ "equal(?u_vs, ?d_vs) "
+				+ "print(\"RULE_1: equal(?u_vs, ?d_vs)\") "
+				+ "notEqual(?c_b, ?d_b) "
+				+ "print(\"RULE_1: notEqual(?c_b, ?d_b)\") "
+				+ "notEqual(?u_vc, ?u_tc) "
+				+ "print(\"RULE_1: notEqual(?u_vc, ?u_tc)\") "
+				+ "listContainsValue(?c_b, \"HIGH\", \"VERY_HIGH\", \"LOW\", \"DEFAULT\") "
+				+ "print(\"RULE_1: listContainsValue(?c_b, HIGH, VERY_HIGH, LOW, DEFAULT)\") "
+				//Brightness to HIGH
+				//View color to WHITE
+				//Text color to BLACK
+				//View size to BIG
 				+
 				" -> "
+				+ "print(\"EXECUTING_RULE_1\") "
 				+ "(http://www.deustotech.es/prueba.owl#FinalUIConfigurationInstance http://www.w3.org/1999/02/22-rdf-syntax-ns#type http://www.deustotech.es/prueba.owl#FinalUIConfiguration) "
-				+ "(http://www.deustotech.es/prueba.owl#FinalUIConfigurationInstance http://www.deustotech.es/prueba.owl#VIEW_SIZE \"HIGH\") "
+				+ "(http://www.deustotech.es/prueba.owl#FinalUIConfigurationInstance http://www.deustotech.es/prueba.owl#VIEW_SIZE \"BIG\") "
 				+ "(http://www.deustotech.es/prueba.owl#FinalUIConfigurationInstance http://www.deustotech.es/prueba.owl#VIEW_COLOR \"WHITE\") "
 				+ "(http://www.deustotech.es/prueba.owl#FinalUIConfigurationInstance http://www.deustotech.es/prueba.owl#TEXT_COLOR \"BLACK\") "
 				+ "(http://www.deustotech.es/prueba.owl#FinalUIConfigurationInstance http://www.deustotech.es/prueba.owl#BRIGHTNESS \"VERY_HIGH\") ]";
 		
+		/*
 		final String adaptViewSize_2 = "[adaptViewSize2: "
 				+ "(?u http://www.w3.org/1999/02/22-rdf-syntax-ns#type http://www.deustotech.es/prueba.owl#User) "
 				+ "(?d http://www.w3.org/1999/02/22-rdf-syntax-ns#type http://www.deustotech.es/prueba.owl#Device) "
@@ -225,16 +251,17 @@ public class UIReasoner {
 				+ "(?d http://www.deustotech.es/prueba.owl#BRIGHTNESS ?d_b) "
 				+ "listContainsValue(?u_i, \"DEFAULT\", \"HAPTIC\") "
 				+ "listContainsValue(?d_i, \"DEFAULT\", \"HAPTIC\") "
-				+ "equals(?u_vs, ?d_vs) "
-				+ "notEquals(?c_ill, ?d_b) "
+				+ "equal(?u_vs, ?d_vs) "
+				+ "notEqual(?c_ill, ?d_b) "
 				+ "listContainsValue(?c_ill, \"LOW\", \"LOW_HIGH\") "
 				//Increase brightness
 				+
 				" -> "
+				+ "print(\"EXECUTING_RULE_2\") "
 				+ "(http://www.deustotech.es/prueba.owl#FinalUIConfigurationInstance http://www.w3.org/1999/02/22-rdf-syntax-ns#type http://www.deustotech.es/prueba.owl#FinalUIConfiguration) "
 				+ "(http://www.deustotech.es/prueba.owl#FinalUIConfigurationInstance http://www.deustotech.es/prueba.owl#BRIGHTNESS \"VERY_LOW\") ]";
-
-		return adaptViewSize_1 + adaptViewSize_2 + "";
+*/
+		return adaptViewSize_1; //+ adaptViewSize_2 + "";
 	}
 
     private void executeRules(Model dataModel) {
@@ -262,9 +289,16 @@ public class UIReasoner {
     	final Statement brightnessStmt 	= resource.getProperty(this.ontModel.getProperty(NS + "BRIGHTNESS"));
     	
 //    	finalConfiguration.setViewSize(viewSize.getObject().toString());
+    	if (viewSizeStmt != null){
+    		final ICapability.VIEW_SIZE viewSize = ICapability.VIEW_SIZE.valueOf(viewSizeStmt.getObject().toString());
+    		
+    		return new FinalUIConfiguration(viewSize);
+    	}
     	
-    	return new FinalUIConfiguration(viewColorStmt.getObject().toString(), textColorStmt.getObject().toString(), 0, 0, "", 
-    			brightnessStmt.getObject().toString(), 0, textSizeStmt.getObject().toString(), viewSizeStmt.getObject().toString(), 0, 0, 0);
+    	return new FinalUIConfiguration();
+    	
+//    	return new FinalUIConfiguration(viewColorStmt.getObject().toString(), textColorStmt.getObject().toString(), 0, 0, "", 
+//    			brightnessStmt.getObject().toString(), 0, textSizeStmt.getObject().toString(), viewSizeStmt.getObject().toString(), 0, 0, 0);
     }
 
 	/**
@@ -510,20 +544,20 @@ public class UIReasoner {
      *
      * @param deviceBrightness
      * @param contextBrightness
-     * @return a number indicting if
+     * @return a number indicating if
      *  -1: device brightness level is higher than the context one,
-     *   0: if both are the same (adaptation is ok) or
+     *   0: if both are the same (adaptation is OK) or
      *   1: if context brightness is higher than the device configuration screen brightness
      */
-    private int brightnessComparison(ICapability.BRIGHTNESS deviceBrightness, ICapability.ILLUMINANCE contextBrightness){
+    private int brightnessComparison(ICapability.BRIGHTNESS deviceBrightness, ICapability.BRIGHTNESS contextBrightness){
         if (deviceBrightness.equals(ICapability.BRIGHTNESS.LOW) || deviceBrightness.equals(ICapability.BRIGHTNESS.DEFAULT)
         || deviceBrightness.equals(ICapability.BRIGHTNESS.HIGH)){
-            if (contextBrightness.equals(ICapability.ILLUMINANCE.SUNLIGHT)){
+            if (contextBrightness.equals(ICapability.BRIGHTNESS.VERY_HIGH)){
                 return 1; //context value higher than device current brightness level
             } else return -1;
-        } else if (((deviceBrightness.equals(ICapability.BRIGHTNESS.VERY_HIGH)) && contextBrightness.equals(ICapability.ILLUMINANCE.SUNLIGHT)) ||
+        } else if (((deviceBrightness.equals(ICapability.BRIGHTNESS.VERY_HIGH)) && contextBrightness.equals(ICapability.BRIGHTNESS.VERY_HIGH)) ||
                 (((deviceBrightness.equals(ICapability.BRIGHTNESS.DEFAULT)) || deviceBrightness.equals(ICapability.BRIGHTNESS.LOW)
-                        && contextBrightness.equals(ICapability.ILLUMINANCE.MOONLESS_OVERCAST_NIGHT)))){
+                        && contextBrightness.equals(ICapability.BRIGHTNESS.LOW)))){
                 return 0;
             } else return -1;
         }

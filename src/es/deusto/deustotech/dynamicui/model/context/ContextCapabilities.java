@@ -12,12 +12,12 @@ public class ContextCapabilities extends AbstractCapabilities {
 		this.caps = new HashMap<CAPABILITY, Object>();
 	}
 
-	public ContextCapabilities(ILLUMINANCE illuminance, NOISE noise) {
+	public ContextCapabilities(BRIGHTNESS brightness, NOISE noise) {
 		super();
 		
 		this.caps = new HashMap<CAPABILITY, Object>();
 		
-		caps.put(CAPABILITY.ILLUMINANCE, 	illuminance);
+		caps.put(CAPABILITY.BRIGHTNESS, 	brightness);
 		caps.put(CAPABILITY.NOISE, 			noise);
 		caps.put(CAPABILITY.TEMPERATURE, 	20);
 //		caps.put(CAPABILITY.CONTEXT_PRESSURE, 		PRESSURE.NORMAL);

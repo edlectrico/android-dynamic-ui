@@ -77,6 +77,7 @@ public class HistoryManager {
 		
 		//TODO: return the corresponding UIConfiguration
 		
-		return new FinalUIConfiguration(Color.RED, Color.WHITE, 500, 500, null, ICapability.BRIGHTNESS.VERY_HIGH, 0, 0, "", 0, 0, 0);
+//		return new FinalUIConfiguration(Color.RED, Color.WHITE, 500, 500, null, ICapability.BRIGHTNESS.VERY_HIGH, 0, 0, "", 0, 0, 0);
+		return new FinalUIConfiguration(ICapability.VIEW_SIZE.VERY_BIG);
 	}
 }

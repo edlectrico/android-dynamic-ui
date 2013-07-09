@@ -17,7 +17,7 @@ public class ListContainsValueBuiltin extends BaseBuiltin {
 		for (int i = 1 ; i < length; i++) {
 			Node n = getArg(i, args, context);
 			
-			if (n.getLiteralValue().equals(element)){
+			if (n.getLiteralValue().equals(element.toString())){
 				return true;
 			}
 		}
