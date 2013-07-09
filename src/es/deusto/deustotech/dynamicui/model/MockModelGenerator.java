@@ -39,6 +39,8 @@ public abstract class MockModelGenerator {
 	    	pick = new Random().nextInt(BRIGHTNESS.values().length);
 	    }
 	    
+	    System.out.println("Context brightness value: " + BRIGHTNESS.values()[pick]);
+	    
 	    return BRIGHTNESS.values()[pick];
 	}
 	

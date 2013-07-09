@@ -169,7 +169,7 @@ public class UIReasoner {
         individual.setPropertyValue(temperature, literal);
 
         Property brightness = this.ontModel.getProperty(NS + "BRIGHTNESS");
-        literal = this.ontModel.createTypedLiteral(ICapability.BRIGHTNESS.VERY_HIGH);
+        literal = this.ontModel.createTypedLiteral(this.context.getCapabilityValue(ICapability.CAPABILITY.BRIGHTNESS));
         individual.setPropertyValue(brightness, literal);
 
         return individual;
@@ -199,11 +199,9 @@ public class UIReasoner {
 	private String viewSizeRules(){
 		//Default user and device with a high brightness environment
 		final String adaptViewSize_1 = "[adaptViewSize1: "
-				+ "print(\"RULE_1\") "
 				+ "(?u http://www.w3.org/1999/02/22-rdf-syntax-ns#type http://www.deustotech.es/prueba.owl#User) "
 				+ "(?d http://www.w3.org/1999/02/22-rdf-syntax-ns#type http://www.deustotech.es/prueba.owl#Device) "
 				+ "(?c http://www.w3.org/1999/02/22-rdf-syntax-ns#type http://www.deustotech.es/prueba.owl#Context) "
-				+ "print(\"RULE_1: taking properties\") "
 				+ "(?u http://www.deustotech.es/prueba.owl#VIEW_SIZE ?u_vs) "
 				+ "(?u http://www.deustotech.es/prueba.owl#VIEW_COLOR ?u_vc) "
 				+ "(?u http://www.deustotech.es/prueba.owl#TEXT_COLOR ?u_tc) "
@@ -212,19 +210,12 @@ public class UIReasoner {
 				+ "(?d http://www.deustotech.es/prueba.owl#BRIGHTNESS ?d_b) "
 				+ "(?d http://www.deustotech.es/prueba.owl#INPUT ?d_i) "
 				+ "(?c http://www.deustotech.es/prueba.owl#BRIGHTNESS ?c_b) "
-				+ "print(\"RULE_1: properties stored\") "
 				+ "listContainsValue(?u_i, \"DEFAULT\", \"HAPTIC\") "
-				+ "print(\"RULE_1: listContainsValue(?u_i, DEFAULT, HAPTIC)\") "
 				+ "listContainsValue(?d_i, \"DEFAULT\", \"HAPTIC\") "
-				+ "print(\"RULE_1: listContainsValue(?d_i, DEFAULT, HAPTIC)\") "
 				+ "equal(?u_vs, ?d_vs) "
-				+ "print(\"RULE_1: equal(?u_vs, ?d_vs)\") "
 				+ "notEqual(?c_b, ?d_b) "
-				+ "print(\"RULE_1: notEqual(?c_b, ?d_b)\") "
 				+ "notEqual(?u_vc, ?u_tc) "
-				+ "print(\"RULE_1: notEqual(?u_vc, ?u_tc)\") "
-				+ "listContainsValue(?c_b, \"HIGH\", \"VERY_HIGH\", \"LOW\", \"DEFAULT\") "
-				+ "print(\"RULE_1: listContainsValue(?c_b, HIGH, VERY_HIGH, LOW, DEFAULT)\") "
+				+ "listContainsValue(?c_b, \"HIGH\", \"VERY_HIGH\", \"DEFAULT\") "
 				//Brightness to HIGH
 				//View color to WHITE
 				//Text color to BLACK
@@ -238,29 +229,38 @@ public class UIReasoner {
 				+ "(http://www.deustotech.es/prueba.owl#FinalUIConfigurationInstance http://www.deustotech.es/prueba.owl#TEXT_COLOR \"BLACK\") "
 				+ "(http://www.deustotech.es/prueba.owl#FinalUIConfigurationInstance http://www.deustotech.es/prueba.owl#BRIGHTNESS \"VERY_HIGH\") ]";
 		
-		/*
 		final String adaptViewSize_2 = "[adaptViewSize2: "
 				+ "(?u http://www.w3.org/1999/02/22-rdf-syntax-ns#type http://www.deustotech.es/prueba.owl#User) "
 				+ "(?d http://www.w3.org/1999/02/22-rdf-syntax-ns#type http://www.deustotech.es/prueba.owl#Device) "
 				+ "(?c http://www.w3.org/1999/02/22-rdf-syntax-ns#type http://www.deustotech.es/prueba.owl#Context) "
 				+ "(?u http://www.deustotech.es/prueba.owl#VIEW_SIZE ?u_vs) "
+				+ "(?u http://www.deustotech.es/prueba.owl#VIEW_COLOR ?u_vc) "
+				+ "(?u http://www.deustotech.es/prueba.owl#TEXT_COLOR ?u_tc) "
 				+ "(?u http://www.deustotech.es/prueba.owl#INPUT ?u_i) "
-				+ "(?d http://www.deustotech.es/prueba.owl#INPUT ?d_i) "
-				+ "(?c http://www.deustotech.es/prueba.owl#ILLUMINANCE ?c_ill) "
+				+ "(?d http://www.deustotech.es/prueba.owl#VIEW_SIZE ?d_vs) "
 				+ "(?d http://www.deustotech.es/prueba.owl#BRIGHTNESS ?d_b) "
+				+ "(?d http://www.deustotech.es/prueba.owl#INPUT ?d_i) "
+				+ "(?c http://www.deustotech.es/prueba.owl#BRIGHTNESS ?c_b) "
 				+ "listContainsValue(?u_i, \"DEFAULT\", \"HAPTIC\") "
 				+ "listContainsValue(?d_i, \"DEFAULT\", \"HAPTIC\") "
 				+ "equal(?u_vs, ?d_vs) "
-				+ "notEqual(?c_ill, ?d_b) "
-				+ "listContainsValue(?c_ill, \"LOW\", \"LOW_HIGH\") "
-				//Increase brightness
+				+ "notEqual(?c_b, ?d_b) "
+				+ "notEqual(?u_vc, ?u_tc) "
+				+ "equal(?c_b, \"LOW\") "
+				//Brightness to HIGH
+				//View color to WHITE
+				//Text color to BLACK
+				//View size to SMALL
 				+
 				" -> "
 				+ "print(\"EXECUTING_RULE_2\") "
 				+ "(http://www.deustotech.es/prueba.owl#FinalUIConfigurationInstance http://www.w3.org/1999/02/22-rdf-syntax-ns#type http://www.deustotech.es/prueba.owl#FinalUIConfiguration) "
-				+ "(http://www.deustotech.es/prueba.owl#FinalUIConfigurationInstance http://www.deustotech.es/prueba.owl#BRIGHTNESS \"VERY_LOW\") ]";
-*/
-		return adaptViewSize_1; //+ adaptViewSize_2 + "";
+				+ "(http://www.deustotech.es/prueba.owl#FinalUIConfigurationInstance http://www.deustotech.es/prueba.owl#VIEW_SIZE \"SMALL\") "
+				+ "(http://www.deustotech.es/prueba.owl#FinalUIConfigurationInstance http://www.deustotech.es/prueba.owl#VIEW_COLOR \"WHITE\") "
+				+ "(http://www.deustotech.es/prueba.owl#FinalUIConfigurationInstance http://www.deustotech.es/prueba.owl#TEXT_COLOR \"BLACK\") "
+				+ "(http://www.deustotech.es/prueba.owl#FinalUIConfigurationInstance http://www.deustotech.es/prueba.owl#BRIGHTNESS \"VERY_HIGH\") ]";
+		
+		return adaptViewSize_1 + adaptViewSize_2 + "";
 	}
 
     private void executeRules(Model dataModel) {
@@ -290,9 +290,8 @@ public class UIReasoner {
 //    	finalConfiguration.setViewSize(viewSize.getObject().toString());
     	if (viewSizeStmt != null){
     		final ICapability.VIEW_SIZE viewSize = ICapability.VIEW_SIZE.valueOf(viewSizeStmt.getObject().toString());
-    		UIConfiguration finalConf = new UIConfiguration();
-    		finalConf.setViewSize(viewSize);
-    		return finalConf;
+    		
+    		return new UIConfiguration(viewSize);
     	}
     	
     	return new UIConfiguration();

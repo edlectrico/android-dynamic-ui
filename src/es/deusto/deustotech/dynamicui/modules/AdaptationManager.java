@@ -58,8 +58,11 @@ public class AdaptationManager {
 //				componentsToAdapt.get(WidgetName.BUTTON).setBackgroundColor(configuration.getViewColor());
 //                ((Button)componentsToAdapt.get(WidgetName.BUTTON)).setTextColor(configuration.getTextColor());
                 if (configuration.getViewSize().equals(ICapability.VIEW_SIZE.BIG)){
-                	componentsToAdapt.get(WidgetName.BUTTON).setMinimumHeight(500);
+                	componentsToAdapt.get(WidgetName.BUTTON).setMinimumHeight(300);
                 	componentsToAdapt.get(WidgetName.BUTTON).setMinimumWidth(500);
+                } else if (configuration.getViewSize().equals(ICapability.VIEW_SIZE.SMALL)){
+                	componentsToAdapt.get(WidgetName.BUTTON).setMinimumHeight(50);
+                	componentsToAdapt.get(WidgetName.BUTTON).setMinimumWidth(100);
                 }
 			}
 		});

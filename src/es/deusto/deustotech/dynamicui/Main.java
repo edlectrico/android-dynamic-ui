@@ -55,7 +55,7 @@ public class Main extends Activity implements android.view.View.OnClickListener{
 
 		GridLayout layout = (GridLayout) findViewById(R.id.default_layout); //main.xml
 
-		button 	= findViewById(R.id.mybutton);
+		button 			= findViewById(R.id.mybutton);
 		View textView 	= findViewById(R.id.mytexview);
 		View editText	= findViewById(R.id.myedittext);
 
