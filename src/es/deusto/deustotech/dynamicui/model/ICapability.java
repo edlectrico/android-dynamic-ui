@@ -103,6 +103,14 @@ public interface ICapability {
 		ONLY_VERY_BIG
 	}
 	
+	static enum VIEW_COLOR {
+		WHITE, BLACK
+	}
+	
+	static enum TEXT_COLOR {
+		WHITE, BLACK
+	}
+	
 	//TODO: How do users specify that they cannot see, for example, blue?
 //	static enum COLOR {
 //		RED, BLUE, WHITE, GREEN,

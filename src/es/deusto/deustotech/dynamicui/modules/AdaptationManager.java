@@ -80,7 +80,8 @@ public class AdaptationManager {
 //                ((Button) componentsToAdapt.get(WidgetName.BUTTON)).getCurrentTextColor(),
 //				componentsToAdapt.get(WidgetName.BUTTON).getHeight(),
 //				componentsToAdapt.get(WidgetName.BUTTON).getWidth());
-		final UIConfiguration configuration = new UIConfiguration(ICapability.VIEW_SIZE.DEFAULT);
+		final UIConfiguration configuration = new UIConfiguration(ICapability.VIEW_SIZE.DEFAULT,ICapability.TEXT_SIZE.DEFAULT,
+				ICapability.BRIGHTNESS.DEFAULT, Color.DKGRAY, Color.WHITE);
 		
 		
 //		HashMap<ICapability, HashMap<String, View>> currentSituation = new HashMap<ICapability, HashMap<String, View>>();

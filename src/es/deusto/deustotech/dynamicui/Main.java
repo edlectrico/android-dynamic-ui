@@ -4,6 +4,7 @@ import java.util.HashMap;
 
 import android.app.Activity;
 import android.content.SharedPreferences;
+import android.graphics.Color;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
@@ -100,7 +101,8 @@ public class Main extends Activity implements android.view.View.OnClickListener{
 		//		currentUI.put(WidgetName.BUTTON, new UIConfiguration(Color.DKGRAY, Color.BLACK,
 		//				button.getLayoutParams().height, button.getLayoutParams().width));
 
-		currentUI.put(WidgetName.BUTTON, new UIConfiguration(ICapability.VIEW_SIZE.DEFAULT));
+		currentUI.put(WidgetName.BUTTON, new UIConfiguration(ICapability.VIEW_SIZE.DEFAULT,ICapability.TEXT_SIZE.DEFAULT,
+				ICapability.BRIGHTNESS.DEFAULT, Color.DKGRAY, Color.WHITE));
 
 
 		final UIReasoner uiReasoner = new UIReasoner(user, device, context, currentUI, getApplicationContext());

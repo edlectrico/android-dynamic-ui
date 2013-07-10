@@ -295,9 +295,13 @@ public class UIReasoner {
     	
 //    	finalConfiguration.setViewSize(viewSize.getObject().toString());
     	if (viewSizeStmt != null){
-    		final ICapability.VIEW_SIZE viewSize = ICapability.VIEW_SIZE.valueOf(viewSizeStmt.getObject().toString());
+    		final ICapability.VIEW_SIZE viewSize 	= ICapability.VIEW_SIZE.valueOf(viewSizeStmt.getObject().toString());
+    		final ICapability.TEXT_SIZE textSize 	= ICapability.TEXT_SIZE.valueOf(viewSizeStmt.getObject().toString());
+    		final ICapability.BRIGHTNESS brightness = ICapability.BRIGHTNESS.valueOf(viewSizeStmt.getObject().toString());
+    		final int viewColor = Color.parseColor(viewSizeStmt.getObject().toString());
+    		final int textColor = Color.parseColor(viewSizeStmt.getObject().toString());
     		
-    		return new UIConfiguration(viewSize);
+    		return new UIConfiguration(viewSize, textSize, brightness, viewColor, textColor);
     	}
     	
     	return new UIConfiguration();
