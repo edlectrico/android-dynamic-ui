@@ -1,0 +1,61 @@
+@prefix adpt: http://www.deustotech.es/adaptation.owl#
+@prefix rdf: http://www.w3.org/1999/02/22-rdf-syntax-ns#
+@prefix owl: http://www.w3.org/2002/07/owl#
+
+[ViewSizeAction_1: 	
+					print("ViewSizeAction_1")
+					(?u rdf:type adpt:User)
+					(?d rdf:type adpt:Device)
+					(?c rdf:type adpt:Context)
+					(?u adpt:VIEW_SIZE ?u_vs)
+					(?u adpt:VIEW_COLOR ?u_vc)
+					(?u adpt:TEXT_COLOR ?u_tc)
+					(?u adpt:INPUT ?u_i)
+					(?d adpt:VIEW_SIZE ?d_vs)
+					(?d adpt:BRIGHTNESS ?d_b)
+					(?d adpt:INPUT ?d_i)
+					(?c adpt:BRIGHTNESS ?c_b)
+					listContainsValue(?u_i, "DEFAULT", "HAPTIC")
+					listContainsValue(?d_i, "DEFAULT", "HAPTIC")
+					equal(?u_vs, ?d_vs)
+					notEqual(?c_b, ?d_b)
+					notEqual(?u_vc, ?u_tc)
+					listContainsValue(?c_b, "HIGH", "VERY_HIGH", "DEFAULT")
+					
+					->
+					print("EXECUTING_RULE_1")
+					(adpt:FinalUIConfigurationInstance rdf:type adpt:FinalUIConfiguration)
+					(adpt:FinalUIConfigurationInstance adpt:VIEW_SIZE "BIG")
+					(adpt:FinalUIConfigurationInstance adpt:VIEW_COLOR "WHITE")
+					(adpt:FinalUIConfigurationInstance adpt:TEXT_COLOR "BLACK")
+					(adpt:FinalUIConfigurationInstance adpt:BRIGHTNESS "VERY_HIGH")
+]
+
+[ViewSizeAction_2: 	
+					print("ViewSizeAction_2")
+					(?u rdf:type adpt:User)
+					(?d rdf:type adpt:Device)
+					(?c rdf:type adpt:Context)
+					(?u adpt:VIEW_SIZE ?u_vs)
+					(?u adpt:VIEW_COLOR ?u_vc)
+					(?u adpt:TEXT_COLOR ?u_tc)
+					(?u adpt:INPUT ?u_i)
+					(?d adpt:VIEW_SIZE ?d_vs)
+					(?d adpt:BRIGHTNESS ?d_b)
+					(?d adpt:INPUT ?d_i)
+					(?c adpt:BRIGHTNESS ?c_b)
+					listContainsValue(?u_i, "DEFAULT", "HAPTIC")
+					listContainsValue(?d_i, "DEFAULT", "HAPTIC")
+					equal(?u_vs, ?d_vs)
+					notEqual(?c_b, ?d_b)
+					notEqual(?u_vc, ?u_tc)
+					equal(?c_b, \"LOW\")
+					
+					->
+					print("EXECUTING_RULE_2")
+					(adpt:FinalUIConfigurationInstance rdf:type adpt:FinalUIConfiguration)
+					(adpt:FinalUIConfigurationInstance adpt:VIEW_SIZE "SMALL")
+					(adpt:FinalUIConfigurationInstance adpt:VIEW_COLOR "WHITE")
+					(adpt:FinalUIConfigurationInstance adpt:TEXT_COLOR "BLACK")
+					(adpt:FinalUIConfigurationInstance adpt:BRIGHTNESS "VERY_HIGH")
+]

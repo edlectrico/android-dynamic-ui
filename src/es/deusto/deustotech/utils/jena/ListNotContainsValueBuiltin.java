@@ -5,6 +5,7 @@ import com.hp.hpl.jena.reasoner.rulesys.RuleContext;
 import com.hp.hpl.jena.reasoner.rulesys.builtins.BaseBuiltin;
 
 public class ListNotContainsValueBuiltin extends BaseBuiltin{
+	
 	@Override
 	public String getName() {
 		return "listNotContainsValue";
