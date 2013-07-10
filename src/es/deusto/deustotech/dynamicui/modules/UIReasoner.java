@@ -68,8 +68,6 @@ public class UIReasoner {
         this.currentUI 	    = currentUI; //TODO: Use this
         this.appContext	    = appContext;
         
-//        generateModel();
-
         BuiltinRegistry.theRegistry.register(new ListContainsValueBuiltin());
         BuiltinRegistry.theRegistry.register(new ListNotContainsValueBuiltin());
         
@@ -188,7 +186,7 @@ public class UIReasoner {
      * @return A String containing every rule
      */
 	private String loadRules() {
-		return viewSizeRules(); //TODO: + adaptTextViewRule()...
+		return viewSizeRules(); 
 	}
 	
 	/**
@@ -275,9 +273,9 @@ public class UIReasoner {
         infModel = ModelFactory.createInfModel(reasoner, dataModel);
         infModel.prepare();
 
-        for (Statement st : infModel.listStatements().toList()){
-            Log.d("InfModel", st.toString());
-        }
+//        for (Statement st : infModel.listStatements().toList()){
+//            Log.d("InfModel", st.toString());
+//        }
     }
     
     /**

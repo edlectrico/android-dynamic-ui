@@ -49,7 +49,7 @@
 					equal(?u_vs, ?d_vs)
 					notEqual(?c_b, ?d_b)
 					notEqual(?u_vc, ?u_tc)
-					equal(?c_b, \"LOW\")
+					equal(?c_b, "LOW")
 					
 					->
 					print("EXECUTING_RULE_2")
