@@ -14,5 +14,7 @@
 	<string name="current_situation">Current Situation</string>
 	<string name="adapted_configuration">Adapted Configuration</string>
 	
-	<string name="trigger">Trigger Context</string>
+	<!-- <string name="trigger">Trigger Context</string> -->
+	<string name="force_high">High Bright. Ctx</string>
+	<string name="force_low">Low Bright. Ctx</string>
 </resources>

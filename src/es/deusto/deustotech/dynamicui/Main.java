@@ -16,6 +16,7 @@ import es.deusto.deustotech.dynamicui.components.UIConfiguration;
 import es.deusto.deustotech.dynamicui.components.WidgetName;
 import es.deusto.deustotech.dynamicui.model.ICapability;
 import es.deusto.deustotech.dynamicui.model.ICapability.CAPABILITY;
+import es.deusto.deustotech.dynamicui.model.context.ContextCapabilities;
 import es.deusto.deustotech.dynamicui.model.MockModelGenerator;
 import es.deusto.deustotech.dynamicui.modules.AdaptationManager;
 import es.deusto.deustotech.dynamicui.modules.UIReasoner;
@@ -46,7 +47,8 @@ public class Main extends Activity implements android.view.View.OnClickListener{
 		setContentView(R.layout.main); // Default layout
 
 		//Button for triggering other context
-		findViewById(R.id.context_trigger_button).setOnClickListener(this);
+		findViewById(R.id.context_force_high_button).setOnClickListener(this);
+		findViewById(R.id.context_force_low_button).setOnClickListener(this);
 		
 		preferences = getSharedPreferences(
 				getResources().getString(R.string.preferences_name), 0);
@@ -87,7 +89,7 @@ public class Main extends Activity implements android.view.View.OnClickListener{
 		
 	private void adapt(ICapability user, ICapability context){
 		Log.e(Main.class.getSimpleName(), context.getCapabilityValue(CAPABILITY.BRIGHTNESS).toString());
-		
+
 		//Context and users are directly related since context affect user capabilities
 		//TODO: rules here?
 		user = UserCapabilitiesUpdater.update(user, context);
@@ -95,27 +97,27 @@ public class Main extends Activity implements android.view.View.OnClickListener{
 		//TODO: For each component...
 		HashMap<String, UIConfiguration> currentUI = new HashMap<String, UIConfiguration>();
 
-//		currentUI.put(WidgetName.BUTTON, new UIConfiguration(Color.DKGRAY, Color.BLACK,
-//				button.getLayoutParams().height, button.getLayoutParams().width));
-		
+		//		currentUI.put(WidgetName.BUTTON, new UIConfiguration(Color.DKGRAY, Color.BLACK,
+		//				button.getLayoutParams().height, button.getLayoutParams().width));
+
 		currentUI.put(WidgetName.BUTTON, new UIConfiguration(ICapability.VIEW_SIZE.DEFAULT));
 
 
 		final UIReasoner uiReasoner = new UIReasoner(user, device, context, currentUI, getApplicationContext());
-		
+
 		//TODO: Uncomment this code. It's just to test the UIReasoner rules
-		
-		 final UIConfiguration finalUIConfiguration = uiReasoner.getAdaptedConfiguration();
-		  
-		 //TODO: Store updated user and adapted configuration
-		 storeCurrentSituation(user, finalUIConfiguration);
-		 
-		 //Once the current UI is loaded, we call the AdaptationModule to
-		 //perform the corresponding changes
-		 AdaptationManager adaptationModule = new AdaptationManager(viewsMap, finalUIConfiguration, getApplicationContext(), user);
-		 adaptationModule.adaptConfiguration();
-		 
-		
+
+		final UIConfiguration finalUIConfiguration = uiReasoner.getAdaptedConfiguration();
+
+		//TODO: Store updated user and adapted configuration
+		storeCurrentSituation(user, finalUIConfiguration);
+
+		//Once the current UI is loaded, we call the AdaptationModule to
+		//perform the corresponding changes
+		AdaptationManager adaptationModule = new AdaptationManager(viewsMap, finalUIConfiguration, getApplicationContext(), user);
+		adaptationModule.adaptConfiguration();
+
+
 		//The following code is just to @test the automatic adaptation each 1000 milliseconds 
 		//new Thread(adaptationModule).start();
 	}
@@ -140,8 +142,13 @@ public class Main extends Activity implements android.view.View.OnClickListener{
 	@Override
 	public void onClick(View view) {
 		switch (view.getId()) {
-		case R.id.context_trigger_button:
-			adapt(user, MockModelGenerator.generateMockContext());
+		case R.id.context_force_high_button:
+//			adapt(user, MockModelGenerator.generateMockContext());
+			adapt(user, new ContextCapabilities(ICapability.BRIGHTNESS.HIGH, ICapability.NOISE.NOT_NOISY));
+			break;
+			
+		case R.id.context_force_low_button:
+			adapt(user, new ContextCapabilities(ICapability.BRIGHTNESS.LOW, ICapability.NOISE.NOT_NOISY));
 			break;
 			
 		case R.id.mybutton:
