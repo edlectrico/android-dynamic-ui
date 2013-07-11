@@ -6,6 +6,7 @@ import android.content.Context;
 import android.content.SharedPreferences;
 import android.graphics.Color;
 import android.view.View;
+import android.widget.Button;
 
 import com.google.gson.Gson;
 
@@ -51,15 +52,22 @@ public class AdaptationManager {
 		componentsToAdapt.get(WidgetName.BUTTON).post(new Runnable() {
 			@Override
 			public void run() {
-//				componentsToAdapt.get(WidgetName.BUTTON).setBackgroundColor(configuration.getViewColor());
-//                ((Button)componentsToAdapt.get(WidgetName.BUTTON)).setTextColor(configuration.getTextColor());
-                if (configuration.getViewSize().equals(ICapability.VIEW_SIZE.BIG)){
-                	componentsToAdapt.get(WidgetName.BUTTON).setMinimumHeight(300);
-                	componentsToAdapt.get(WidgetName.BUTTON).setMinimumWidth(500);
-                } else if (configuration.getViewSize().equals(ICapability.VIEW_SIZE.SMALL)){
-                	componentsToAdapt.get(WidgetName.BUTTON).setMinimumHeight(50);
-                	componentsToAdapt.get(WidgetName.BUTTON).setMinimumWidth(100);
-                }
+				if (configuration.getViewSize().equals(ICapability.VIEW_SIZE.BIG)){
+					componentsToAdapt.get(WidgetName.BUTTON).setMinimumHeight(300);
+					componentsToAdapt.get(WidgetName.BUTTON).setMinimumWidth(500);
+				} else if (configuration.getViewSize().equals(ICapability.VIEW_SIZE.SMALL)){
+					componentsToAdapt.get(WidgetName.BUTTON).setMinimumHeight(50);
+					componentsToAdapt.get(WidgetName.BUTTON).setMinimumWidth(100);
+				}
+				componentsToAdapt.get(WidgetName.BUTTON).setBackgroundColor(configuration.getViewColor());
+				((Button) componentsToAdapt.get(WidgetName.BUTTON)).setTextColor(configuration.getTextColor());
+
+				if (configuration.getBrightness().equals(ICapability.BRIGHTNESS.VERY_HIGH)){
+					//TODO: adapt brightness
+				} else if (configuration.getBrightness().equals(ICapability.BRIGHTNESS.LOW)){
+					//TODO: adapt brightness
+				}
+
 			}
 		});
 		

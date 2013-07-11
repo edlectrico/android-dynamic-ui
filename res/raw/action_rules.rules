@@ -68,8 +68,8 @@
 					print("EXECUTING_RULE_2")
 					(adpt:FinalUIConfigurationInstance rdf:type adpt:FinalUIConfiguration)
 					(adpt:FinalUIConfigurationInstance adpt:VIEW_SIZE "SMALL")
-					(adpt:FinalUIConfigurationInstance adpt:VIEW_COLOR "WHITE")
-					(adpt:FinalUIConfigurationInstance adpt:TEXT_COLOR "BLACK")
+					(adpt:FinalUIConfigurationInstance adpt:VIEW_COLOR "GREEN")
+					(adpt:FinalUIConfigurationInstance adpt:TEXT_COLOR "WHITE")
 					(adpt:FinalUIConfigurationInstance adpt:TEXT_SIZE "SMALL")
 					(adpt:FinalUIConfigurationInstance adpt:BRIGHTNESS "VERY_HIGH")
 ]

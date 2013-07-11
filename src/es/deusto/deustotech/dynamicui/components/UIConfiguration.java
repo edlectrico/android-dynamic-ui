@@ -27,12 +27,44 @@ public class UIConfiguration {
 		this.textColor 	= tc;
 	}
 
+	public int getViewColor() {
+		return viewColor;
+	}
+
+	public void setViewColor(int viewColor) {
+		this.viewColor = viewColor;
+	}
+
+	public int getTextColor() {
+		return textColor;
+	}
+
+	public void setTextColor(int textColor) {
+		this.textColor = textColor;
+	}
+
 	public ICapability.VIEW_SIZE getViewSize() {
 		return viewSize;
 	}
 
 	public void setViewSize(ICapability.VIEW_SIZE viewSize) {
 		this.viewSize = viewSize;
+	}
+
+	public ICapability.TEXT_SIZE getTextSize() {
+		return textSize;
+	}
+
+	public void setTextSize(ICapability.TEXT_SIZE textSize) {
+		this.textSize = textSize;
+	}
+
+	public ICapability.BRIGHTNESS getBrightness() {
+		return brightness;
+	}
+
+	public void setBrightness(ICapability.BRIGHTNESS brightness) {
+		this.brightness = brightness;
 	}
 
 }
