@@ -111,6 +111,14 @@ public interface ICapability {
 		WHITE, BLACK
 	}
 	
+	static enum BATTERY_LEVEL {
+		NORMAL, LOW
+	}
+	
+	static enum ACCELERATION {
+		NORMAL, HIGH, NONE
+	}
+	
 	//TODO: How do users specify that they cannot see, for example, blue?
 //	static enum COLOR {
 //		RED, BLUE, WHITE, GREEN,

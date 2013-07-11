@@ -3,6 +3,7 @@ package es.deusto.deustotech.dynamicui.model.device;
 import java.util.HashMap;
 
 import es.deusto.deustotech.dynamicui.model.AbstractCapabilities;
+import es.deusto.deustotech.dynamicui.model.ICapability;
 
 public class DeviceCapabilities extends AbstractCapabilities {
 
@@ -10,51 +11,26 @@ public class DeviceCapabilities extends AbstractCapabilities {
 		LANDSCAPE, PORTRAIT
 	};
 
-//	private static enum AVAILABLE_NETWORKS {
-//		WIFI, BLUETOOTH, GPRS, NO_NETWORK
-//	}
-
 	public DeviceCapabilities() {
 		super();
-		
-		this.caps = new HashMap<CAPABILITY, Object>();
 	}
 	
-	public DeviceCapabilities(String battery,
-			String brightness, String volume, String acceleration, String input) {
+	public DeviceCapabilities(BRIGHTNESS b, VOLUME v,
+			VIEW_SIZE vs, TEXT_SIZE ts) {
 		super();
 
 		this.caps = new HashMap<CAPABILITY, Object>();
+		
+		caps.put(CAPABILITY.BRIGHTNESS, b);
+		caps.put(CAPABILITY.VOLUME, v);
+		caps.put(CAPABILITY.VIEW_SIZE, vs);
+		caps.put(CAPABILITY.TEXT_SIZE, ts);
 
-		caps.put(CAPABILITY.BATTERY_LEVEL, battery);
+		//Automatic and default capabilities
+		caps.put(CAPABILITY.BATTERY_LEVEL, ICapability.BATTERY_LEVEL.NORMAL);
 		caps.put(CAPABILITY.ORIENTATION, ORIENTATION.PORTRAIT);
-		caps.put(CAPABILITY.BRIGHTNESS, brightness);
-		caps.put(CAPABILITY.VOLUME, volume);
-		caps.put(CAPABILITY.ACCELERATION, acceleration);
-		caps.put(CAPABILITY.VIEW_SIZE, VIEW_SIZE.DEFAULT);
+		caps.put(CAPABILITY.VOLUME, ICapability.VOLUME.DEFAULT);
+		caps.put(CAPABILITY.ACCELERATION, ICapability.ACCELERATION.NONE);
 		caps.put(CAPABILITY.INPUT, INPUT.DEFAULT);
 	}
-
-	/*
-	public DeviceCapabilities(String deviceID, int resolution_width,
-			int resolution_height, float screen_width, float screen_height, String battery,
-			String brightness, String volume, String acceleration) {
-		super();
-
-		this.caps = new HashMap<CAPABILITY, Object>();
-
-//		caps.put(CAPABILITY.DEVICE_RESOLUTION_WIDTH, resolution_width);
-//		caps.put(CAPABILITY.DEVICE_RESOLUTION_HEIGTH, resolution_height);
-//		caps.put(CAPABILITY.DEVICE_SCREEN_WIDTH, screen_width);
-//		caps.put(CAPABILITY.DEVICE_SCREEN_HEIGTH, screen_height);
-		caps.put(CAPABILITY.BATTERY_LEVEL, battery);
-		caps.put(CAPABILITY.ORIENTATION, ORIENTATION.PORTRAIT);
-//		caps.put(CAPABILITY.DEVICE_AVAILABLE_NETWORKS,
-//				AVAILABLE_NETWORKS.NO_NETWORK);
-		caps.put(CAPABILITY.BRIGHTNESS, brightness);
-		caps.put(CAPABILITY.VOLUME, volume);
-		caps.put(CAPABILITY.ACCELERATION, acceleration);
-	}
-	*/
-	
 }

@@ -17,7 +17,7 @@ public class ListNotContainsValueBuiltin extends BaseBuiltin{
 		for (int i = 1 ; i < length; i++) {
 			Node n = getArg(i, args, context);
 			
-			if (n.getLiteralValue().equals(element.toString())){
+			if (n.getLiteralValue().toString().equals(element.toString())){
 				return false;
 			}
 		}

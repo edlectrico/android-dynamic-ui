@@ -4,10 +4,8 @@ import java.util.HashMap;
 
 import android.content.Context;
 import android.content.SharedPreferences;
-import android.content.res.ColorStateList;
 import android.graphics.Color;
 import android.view.View;
-import android.widget.Button;
 
 import com.google.gson.Gson;
 
@@ -17,9 +15,6 @@ import es.deusto.deustotech.dynamicui.components.WidgetName;
 import es.deusto.deustotech.dynamicui.model.ICapability;
 
 public class AdaptationManager {
-
-//	private static final String[] COMPONENT_BACKGROUND_COLOR = { "blue", "red",
-//			"yellow", "green", "black", "white" };
 
 	private HashMap<String, View> componentsToAdapt;
 	private UIConfiguration configuration;
@@ -52,6 +47,7 @@ public class AdaptationManager {
 	 */
 	public HashMap<String, View> adaptConfiguration(){
 
+		//TODO: Adapt more than Size (Color, Brightness, etc).
 		componentsToAdapt.get(WidgetName.BUTTON).post(new Runnable() {
 			@Override
 			public void run() {
@@ -98,40 +94,6 @@ public class AdaptationManager {
 //		System.out.println(json);
 	}
 
-	//Not used
-	/*
-	public HashMap<String, View> adapt() {
-		//Previously it should check entities status
-		componentsToAdapt.get(WidgetName.BUTTON).post(new Runnable() {
-			@Override
-			public void run() {
-				componentsToAdapt.get(WidgetName.BUTTON).setBackgroundColor(Color.parseColor(COMPONENT_BACKGROUND_COLOR[generateRandomValue()]));
-				componentsToAdapt.get(WidgetName.BUTTON).setMinimumHeight(generateRandomValue() * 100);
-				componentsToAdapt.get(WidgetName.BUTTON).setMinimumWidth(generateRandomValue() * 100);
-			}
-		});
-		
-		componentsToAdapt.get(WidgetName.EDIT_TEXT).post(new Runnable() {
-			@Override
-			public void run() {
-				componentsToAdapt.get(WidgetName.EDIT_TEXT).setBackgroundColor(Color.parseColor(COMPONENT_BACKGROUND_COLOR[generateRandomValue()]));
-				componentsToAdapt.get(WidgetName.EDIT_TEXT).setMinimumHeight(generateRandomValue() * 100);
-				componentsToAdapt.get(WidgetName.EDIT_TEXT).setMinimumWidth(generateRandomValue() * 100);
-			}
-		});
-		
-		componentsToAdapt.get(WidgetName.TEXT_VIEW).post(new Runnable() {
-			@Override
-			public void run() {
-				componentsToAdapt.get(WidgetName.TEXT_VIEW).setBackgroundColor(Color.parseColor(COMPONENT_BACKGROUND_COLOR[generateRandomValue()]));
-				componentsToAdapt.get(WidgetName.TEXT_VIEW).setMinimumHeight(generateRandomValue() * 100);
-				componentsToAdapt.get(WidgetName.TEXT_VIEW).setMinimumWidth(generateRandomValue() * 100);
-			}
-		});
-		
-		return componentsToAdapt;
-	}
-	*/
 	
 	//TODO: Remove the following methods, they're just to test 
 	//the automatic adaptation each 1000 milliseconds 

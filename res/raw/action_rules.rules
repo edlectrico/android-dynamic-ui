@@ -15,12 +15,18 @@
 					(?d adpt:BRIGHTNESS ?d_b)
 					(?d adpt:INPUT ?d_i)
 					(?c adpt:BRIGHTNESS ?c_b)
+					print("config")
 					listContainsValue(?u_i, "DEFAULT", "HAPTIC")
+					print("listContainsValue(?u_i, DEFAULT, HAPTIC)")
 					listContainsValue(?d_i, "DEFAULT", "HAPTIC")
-					equal(?u_vs, ?d_vs)
+					print("listContainsValue(?d_i, DEFAULT, HAPTIC)")
+					print("listContainsValue x 2")
 					notEqual(?c_b, ?d_b)
+					print("notEqual(?c_b, ?d_b)")
 					notEqual(?u_vc, ?u_tc)
+					print("notEqual(?u_vc, ?u_tc)")
 					listContainsValue(?c_b, "HIGH", "VERY_HIGH", "DEFAULT")
+					print("listContainsValue(?c_b, HIGH, VERY_HIGH, DEFAULT)")
 					
 					->
 					print("EXECUTING_RULE_1")
@@ -28,6 +34,7 @@
 					(adpt:FinalUIConfigurationInstance adpt:VIEW_SIZE "BIG")
 					(adpt:FinalUIConfigurationInstance adpt:VIEW_COLOR "WHITE")
 					(adpt:FinalUIConfigurationInstance adpt:TEXT_COLOR "BLACK")
+					(adpt:FinalUIConfigurationInstance adpt:TEXT_SIZE "BIG")
 					(adpt:FinalUIConfigurationInstance adpt:BRIGHTNESS "VERY_HIGH")
 ]
 
@@ -44,12 +51,18 @@
 					(?d adpt:BRIGHTNESS ?d_b)
 					(?d adpt:INPUT ?d_i)
 					(?c adpt:BRIGHTNESS ?c_b)
+					print("config")
 					listContainsValue(?u_i, "DEFAULT", "HAPTIC")
+					print("listContainsValue(?u_i, DEFAULT, HAPTIC)")
 					listContainsValue(?d_i, "DEFAULT", "HAPTIC")
-					equal(?u_vs, ?d_vs)
+					print("listContainsValue(?d_i, DEFAULT, HAPTIC)")
+					print("listContainsValue x 2")
 					notEqual(?c_b, ?d_b)
+					print("notEqual(?c_b, ?d_b)")
 					notEqual(?u_vc, ?u_tc)
+					print("notEqual(?u_vc, ?u_tc)")
 					equal(?c_b, "LOW")
+					print("equal(?c_b, LOW)")
 					
 					->
 					print("EXECUTING_RULE_2")
@@ -57,5 +70,6 @@
 					(adpt:FinalUIConfigurationInstance adpt:VIEW_SIZE "SMALL")
 					(adpt:FinalUIConfigurationInstance adpt:VIEW_COLOR "WHITE")
 					(adpt:FinalUIConfigurationInstance adpt:TEXT_COLOR "BLACK")
+					(adpt:FinalUIConfigurationInstance adpt:TEXT_SIZE "SMALL")
 					(adpt:FinalUIConfigurationInstance adpt:BRIGHTNESS "VERY_HIGH")
 ]

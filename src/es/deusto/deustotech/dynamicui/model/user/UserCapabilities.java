@@ -40,7 +40,8 @@ public class UserCapabilities extends AbstractCapabilities {
 		caps.put(CAPABILITY.VIEW_SIZE, 	viewSize);
 		caps.put(CAPABILITY.TEXT_SIZE, 	textSize);
 		caps.put(CAPABILITY.OUTPUT, 	OUTPUT.VISUAL);
-		caps.put(CAPABILITY.TEXT_COLOR, Color.BLACK);
+		caps.put(CAPABILITY.TEXT_COLOR, Color.WHITE);
+		caps.put(CAPABILITY.VIEW_COLOR, Color.DKGRAY);
 		caps.put(CAPABILITY.VOLUME, 	volume);
 	}
 	

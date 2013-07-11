@@ -14,15 +14,17 @@ public class ListContainsValueBuiltin extends BaseBuiltin {
 	public boolean bodyCall(Node[] args, int length, RuleContext context) {
 		Object element = getArg(0, args, context).getLiteralValue();
 		
+		boolean found = false;
+		
 		for (int i = 1 ; i < length; i++) {
 			Node n = getArg(i, args, context);
 			
-			if (n.getLiteralValue().equals(element.toString())){
-				return true;
+			if (n.getLiteralValue().toString().equals(element.toString())){
+				found = true;
 			}
 		}
 
-		return false;
+		return found;
 	}
 
 }

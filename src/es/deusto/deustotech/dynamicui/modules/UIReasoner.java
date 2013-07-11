@@ -94,7 +94,7 @@ public class UIReasoner {
 
         addInstancesWithJena("user", "device", "context", "final_conf");
 
-//        this.ontModel.write(System.out);
+        this.ontModel.write(System.out);
 
         return this.ontModel;
     }
@@ -108,7 +108,6 @@ public class UIReasoner {
      * @param finalUIConf
      */
     private void addInstancesWithJena(final String userId, final String deviceId, final String contextId, final String finalUIConf){
-    	//TODO: remove usages of ICapability.VIEW_SIZE.XXX and use this.YYY.getCapabilityValue(ICapability.CAPABILITY.VIEW_SIZE) instead
     	addUserInstance(userId);
     	addDeviceInstance(deviceId);
     	addContextInstance(contextId);
@@ -118,19 +117,23 @@ public class UIReasoner {
         Individual individual = this.ontUserClass.createIndividual(NS + id);
 
         Property viewSize = this.ontModel.getProperty(NS + "VIEW_SIZE");
-        Literal literal = this.ontModel.createTypedLiteral(ICapability.VIEW_SIZE.DEFAULT);
+        Literal literal = this.ontModel.createTypedLiteral(this.user.getCapabilityValue(ICapability.CAPABILITY.VIEW_SIZE));
         individual.setPropertyValue(viewSize, literal);
         
         Property viewColor = this.ontModel.getProperty(NS + "VIEW_COLOR");
-        literal = this.ontModel.createTypedLiteral(Color.WHITE);
+        literal = this.ontModel.createTypedLiteral(this.user.getCapabilityValue(ICapability.CAPABILITY.VIEW_COLOR));
         individual.setPropertyValue(viewColor, literal);
         
+        Property textSize = this.ontModel.getProperty(NS + "TEXT_SIZE");
+        literal = this.ontModel.createTypedLiteral(this.user.getCapabilityValue(ICapability.CAPABILITY.TEXT_SIZE));
+        individual.setPropertyValue(textSize, literal);
+        
         Property textColor = this.ontModel.getProperty(NS + "TEXT_COLOR");
-        literal = this.ontModel.createTypedLiteral(Color.BLACK);
+        literal = this.ontModel.createTypedLiteral(this.user.getCapabilityValue(ICapability.CAPABILITY.TEXT_COLOR));
         individual.setPropertyValue(textColor, literal);
 
         Property input = this.ontModel.getProperty(NS + "INPUT");
-        literal = this.ontModel.createTypedLiteral(ICapability.INPUT.HAPTIC);
+        literal = this.ontModel.createTypedLiteral(this.user.getCapabilityValue(ICapability.CAPABILITY.INPUT));
         individual.setPropertyValue(input, literal);
 
         Property brightness = this.ontModel.getProperty(NS + "BRIGHTNESS");
@@ -144,16 +147,15 @@ public class UIReasoner {
         Individual individual = this.ontDeviceClass.createIndividual(NS + id);
 
         Property viewSize = this.ontModel.getProperty(NS + "VIEW_SIZE");
-//        Literal literal = this.ontModel.createTypedLiteral(this.device.getCapabilityValue(ICapability.CAPABILITY.VIEW_SIZE));
-        Literal literal = this.ontModel.createTypedLiteral(ICapability.VIEW_SIZE.DEFAULT);
+        Literal literal = this.ontModel.createTypedLiteral(this.device.getCapabilityValue(ICapability.CAPABILITY.VIEW_SIZE));
         individual.setPropertyValue(viewSize, literal);
 
         Property input = this.ontModel.getProperty(NS + "INPUT");
-        literal = this.ontModel.createTypedLiteral(ICapability.INPUT.HAPTIC);
+        literal = this.ontModel.createTypedLiteral(this.device.getCapabilityValue(ICapability.CAPABILITY.INPUT));
         individual.setPropertyValue(input, literal);
 
         Property brightness = this.ontModel.getProperty(NS + "BRIGHTNESS");
-        literal = this.ontModel.createTypedLiteral(ICapability.BRIGHTNESS.DEFAULT);
+        literal = this.ontModel.createTypedLiteral(this.device.getCapabilityValue(ICapability.CAPABILITY.BRIGHTNESS));
         individual.setPropertyValue(brightness, literal);
         
         Property orientation = this.ontModel.getProperty(NS + "ORIENTATION");
@@ -181,94 +183,6 @@ public class UIReasoner {
         return individual;
     }
     
-    /**
-     * This method loads any rule to be executed by the reasoner
-     * @return A String containing every rule
-     */
-	private String loadRules() {
-		return viewSizeRules(); 
-	}
-	
-	/**
-	 * VIEW_SIZE
-	 *
-	 * Affected by:
-	 * -Context:     brightness, temperature
-	 * -User;        input, view_size, brightness
-	 * -Device:      brightness, input, acceleration, view_size, orientation
-	 *
-	 * Priorities order:
-	 * -user_input, device_input, user_view_size, device_view_size, context_luminosity, device_brightness.
-	 * context_temperature, device_orientation, device_acceleration
-	 *
-	 * */
-	private String viewSizeRules(){
-		//Default user and device with a high brightness environment
-		final String adaptViewSize_1 = "[adaptViewSize1: "
-				+ "(?u http://www.w3.org/1999/02/22-rdf-syntax-ns#type http://www.deustotech.es/adaptation.owl#User) "
-				+ "(?d http://www.w3.org/1999/02/22-rdf-syntax-ns#type http://www.deustotech.es/adaptation.owl#Device) "
-				+ "(?c http://www.w3.org/1999/02/22-rdf-syntax-ns#type http://www.deustotech.es/adaptation.owl#Context) "
-				+ "(?u http://www.deustotech.es/adaptation.owl#VIEW_SIZE ?u_vs) "
-				+ "(?u http://www.deustotech.es/adaptation.owl#VIEW_COLOR ?u_vc) "
-				+ "(?u http://www.deustotech.es/adaptation.owl#TEXT_COLOR ?u_tc) "
-				+ "(?u http://www.deustotech.es/adaptation.owl#INPUT ?u_i) "
-				+ "(?d http://www.deustotech.es/adaptation.owl#VIEW_SIZE ?d_vs) "
-				+ "(?d http://www.deustotech.es/adaptation.owl#BRIGHTNESS ?d_b) "
-				+ "(?d http://www.deustotech.es/adaptation.owl#INPUT ?d_i) "
-				+ "(?c http://www.deustotech.es/adaptation.owl#BRIGHTNESS ?c_b) "
-				+ "listContainsValue(?u_i, \"DEFAULT\", \"HAPTIC\") "
-				+ "listContainsValue(?d_i, \"DEFAULT\", \"HAPTIC\") "
-				+ "equal(?u_vs, ?d_vs) "
-				+ "notEqual(?c_b, ?d_b) "
-				+ "notEqual(?u_vc, ?u_tc) "
-				+ "listContainsValue(?c_b, \"HIGH\", \"VERY_HIGH\", \"DEFAULT\") "
-				//Brightness to HIGH
-				//View color to WHITE
-				//Text color to BLACK
-				//View size to BIG
-				+
-				" -> "
-				+ "print(\"EXECUTING_RULE_1\") "
-				+ "(http://www.deustotech.es/adaptation.owl#FinalUIConfigurationInstance http://www.w3.org/1999/02/22-rdf-syntax-ns#type http://www.deustotech.es/adaptation.owl#FinalUIConfiguration) "
-				+ "(http://www.deustotech.es/adaptation.owl#FinalUIConfigurationInstance http://www.deustotech.es/adaptation.owl#VIEW_SIZE \"BIG\") "
-				+ "(http://www.deustotech.es/adaptation.owl#FinalUIConfigurationInstance http://www.deustotech.es/adaptation.owl#VIEW_COLOR \"WHITE\") "
-				+ "(http://www.deustotech.es/adaptation.owl#FinalUIConfigurationInstance http://www.deustotech.es/adaptation.owl#TEXT_COLOR \"BLACK\") "
-				+ "(http://www.deustotech.es/adaptation.owl#FinalUIConfigurationInstance http://www.deustotech.es/adaptation.owl#BRIGHTNESS \"VERY_HIGH\") ]";
-		
-		final String adaptViewSize_2 = "[adaptViewSize2: "
-				+ "(?u http://www.w3.org/1999/02/22-rdf-syntax-ns#type http://www.deustotech.es/adaptation.owl#User) "
-				+ "(?d http://www.w3.org/1999/02/22-rdf-syntax-ns#type http://www.deustotech.es/adaptation.owl#Device) "
-				+ "(?c http://www.w3.org/1999/02/22-rdf-syntax-ns#type http://www.deustotech.es/adaptation.owl#Context) "
-				+ "(?u http://www.deustotech.es/adaptation.owl#VIEW_SIZE ?u_vs) "
-				+ "(?u http://www.deustotech.es/adaptation.owl#VIEW_COLOR ?u_vc) "
-				+ "(?u http://www.deustotech.es/adaptation.owl#TEXT_COLOR ?u_tc) "
-				+ "(?u http://www.deustotech.es/adaptation.owl#INPUT ?u_i) "
-				+ "(?d http://www.deustotech.es/adaptation.owl#VIEW_SIZE ?d_vs) "
-				+ "(?d http://www.deustotech.es/adaptation.owl#BRIGHTNESS ?d_b) "
-				+ "(?d http://www.deustotech.es/adaptation.owl#INPUT ?d_i) "
-				+ "(?c http://www.deustotech.es/adaptation.owl#BRIGHTNESS ?c_b) "
-				+ "listContainsValue(?u_i, \"DEFAULT\", \"HAPTIC\") "
-				+ "listContainsValue(?d_i, \"DEFAULT\", \"HAPTIC\") "
-				+ "equal(?u_vs, ?d_vs) "
-				+ "notEqual(?c_b, ?d_b) "
-				+ "notEqual(?u_vc, ?u_tc) "
-				+ "equal(?c_b, \"LOW\") "
-				//Brightness to HIGH
-				//View color to WHITE
-				//Text color to BLACK
-				//View size to SMALL
-				+
-				" -> "
-				+ "print(\"EXECUTING_RULE_2\") "
-				+ "(http://www.deustotech.es/adaptation.owl#FinalUIConfigurationInstance http://www.w3.org/1999/02/22-rdf-syntax-ns#type http://www.deustotech.es/adaptation.owl#FinalUIConfiguration) "
-				+ "(http://www.deustotech.es/adaptation.owl#FinalUIConfigurationInstance http://www.deustotech.es/adaptation.owl#VIEW_SIZE \"SMALL\") "
-				+ "(http://www.deustotech.es/adaptation.owl#FinalUIConfigurationInstance http://www.deustotech.es/adaptation.owl#VIEW_COLOR \"WHITE\") "
-				+ "(http://www.deustotech.es/adaptation.owl#FinalUIConfigurationInstance http://www.deustotech.es/adaptation.owl#TEXT_COLOR \"BLACK\") "
-				+ "(http://www.deustotech.es/adaptation.owl#FinalUIConfigurationInstance http://www.deustotech.es/adaptation.owl#BRIGHTNESS \"VERY_HIGH\") ]";
-		
-		return adaptViewSize_1 + adaptViewSize_2 + "";
-	}
-
     private void executeRules(Model dataModel) {
         infModel = ModelFactory.createInfModel(reasoner, dataModel);
         infModel.prepare();
@@ -293,21 +207,17 @@ public class UIReasoner {
     	final Statement textColorStmt 	= resource.getProperty(this.ontModel.getProperty(NS + "TEXT_COLOR"));
     	final Statement brightnessStmt 	= resource.getProperty(this.ontModel.getProperty(NS + "BRIGHTNESS"));
     	
-//    	finalConfiguration.setViewSize(viewSize.getObject().toString());
     	if (viewSizeStmt != null){
     		final ICapability.VIEW_SIZE viewSize 	= ICapability.VIEW_SIZE.valueOf(viewSizeStmt.getObject().toString());
-    		final ICapability.TEXT_SIZE textSize 	= ICapability.TEXT_SIZE.valueOf(viewSizeStmt.getObject().toString());
-    		final ICapability.BRIGHTNESS brightness = ICapability.BRIGHTNESS.valueOf(viewSizeStmt.getObject().toString());
-    		final int viewColor = Color.parseColor(viewSizeStmt.getObject().toString());
-    		final int textColor = Color.parseColor(viewSizeStmt.getObject().toString());
+    		final ICapability.TEXT_SIZE textSize 	= ICapability.TEXT_SIZE.valueOf(textSizeStmt.getObject().toString());
+    		final ICapability.BRIGHTNESS brightness = ICapability.BRIGHTNESS.valueOf(brightnessStmt.getObject().toString());
+    		final int viewColor = Color.parseColor(viewColorStmt.getObject().toString());
+    		final int textColor = Color.parseColor(textColorStmt.getObject().toString());
     		
     		return new UIConfiguration(viewSize, textSize, brightness, viewColor, textColor);
     	}
     	
     	return new UIConfiguration();
-    	
-//    	return new FinalUIConfiguration(viewColorStmt.getObject().toString(), textColorStmt.getObject().toString(), 0, 0, "", 
-//    			brightnessStmt.getObject().toString(), 0, textSizeStmt.getObject().toString(), viewSizeStmt.getObject().toString(), 0, 0, 0);
     }
     
     public UIConfiguration getAdaptedConfiguration(){
