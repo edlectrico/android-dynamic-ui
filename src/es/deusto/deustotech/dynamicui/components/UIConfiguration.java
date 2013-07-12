@@ -6,8 +6,6 @@ public class UIConfiguration {
 
 	private int viewColor;
 	private int textColor;
-//	private int height;
-//	private int width;
 	private ICapability.VIEW_SIZE viewSize;
 	private ICapability.TEXT_SIZE textSize;
 	
@@ -65,6 +63,14 @@ public class UIConfiguration {
 
 	public void setBrightness(ICapability.BRIGHTNESS brightness) {
 		this.brightness = brightness;
+	}
+	
+	@Override
+	public boolean equals(Object o){
+			return ((this.brightness.equals(((UIConfiguration) o).brightness)) && (this.textColor == ((UIConfiguration) o).textColor)
+					&& (this.textSize == ((UIConfiguration) o).textSize) && (this.viewColor == ((UIConfiguration) o).viewColor) 
+					&& (this.viewSize == ((UIConfiguration) o).viewSize));
+			
 	}
 
 }

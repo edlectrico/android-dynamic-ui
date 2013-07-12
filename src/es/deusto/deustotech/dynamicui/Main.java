@@ -70,7 +70,7 @@ public class Main extends Activity implements android.view.View.OnClickListener{
 			viewsMap.get(WidgetName.COMPONENT_NAMES[i]).invalidate();
 		}
 		
-		//TODO: generating mock user and context to call UserCapabilitiesUpdater
+		//Generating mock user and context to call UserCapabilitiesUpdater
 		//and obtain a updatedUser
 		//+++++++++++++++++++++++++++++++++++++++++++++++++
 		user 	= MockModelGenerator.generateMockUser();
@@ -105,6 +105,8 @@ public class Main extends Activity implements android.view.View.OnClickListener{
 		//perform the corresponding changes
 		AdaptationManager adaptationModule = new AdaptationManager(viewsMap, finalUIConfiguration, getApplicationContext(), user);
 		adaptationModule.adaptConfiguration();
+		
+		//TODO: update currentUI with the last adapted one
 
 
 		//The following code is just to @test the automatic adaptation each 1000 milliseconds 
@@ -119,7 +121,6 @@ public class Main extends Activity implements android.view.View.OnClickListener{
 	public void onClick(View view) {
 		switch (view.getId()) {
 		case R.id.context_force_high_button:
-//			adapt(user, MockModelGenerator.generateMockContext());
 			adapt(user, new ContextCapabilities(ICapability.BRIGHTNESS.HIGH, ICapability.NOISE.NOT_NOISY));
 			break;
 			
