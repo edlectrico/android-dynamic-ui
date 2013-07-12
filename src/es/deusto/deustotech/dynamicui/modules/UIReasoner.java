@@ -26,6 +26,7 @@ import com.hp.hpl.jena.reasoner.rulesys.Rule;
 
 import es.deusto.deustotech.dynamicui.R;
 import es.deusto.deustotech.dynamicui.components.UIConfiguration;
+import es.deusto.deustotech.dynamicui.components.WidgetName;
 import es.deusto.deustotech.dynamicui.model.ICapability;
 import es.deusto.deustotech.utils.jena.ListContainsValueBuiltin;
 import es.deusto.deustotech.utils.jena.ListNotContainsValueBuiltin;
@@ -64,21 +65,30 @@ public class UIReasoner {
         this.device 	= device;
 		this.context    = context;
 
+		this.appContext	    = appContext;
 		this.historyManager = new HistoryManager(this.appContext);
         this.currentUI 	    = currentUI; //TODO: Use this
-        this.appContext	    = appContext;
         
-        BuiltinRegistry.theRegistry.register(new ListContainsValueBuiltin());
-        BuiltinRegistry.theRegistry.register(new ListNotContainsValueBuiltin());
+        if (!isAdaptationHistoryEmpty()){
+        	if (historyManager.getLastConfiguration().equals(this.currentUI.get(WidgetName.BUTTON))){
+        		finalConfiguration = historyManager.getLastConfiguration();
+        		
+        		Log.d(UIReasoner.class.getSimpleName(), "No need of executing rules");
+        	} else {
+        		BuiltinRegistry.theRegistry.register(new ListContainsValueBuiltin());
+        		BuiltinRegistry.theRegistry.register(new ListNotContainsValueBuiltin());
+        		
+        		Rule.Parser ruleParser = Rule.rulesParserFromReader(new BufferedReader(new InputStreamReader(appContext.getResources().openRawResource(R.raw.action_rules))));
+        		reasoner = new GenericRuleReasoner(Rule.parseRules(ruleParser));
+        		
+        		executeRules(generateModel());
+        		
+        		finalConfiguration = parseConfiguration();
+        		
+        		Log.d(UIReasoner.class.getSimpleName(), "Rules ended");
+        	}
+        	}
         
-        Rule.Parser ruleParser = Rule.rulesParserFromReader(new BufferedReader(new InputStreamReader(appContext.getResources().openRawResource(R.raw.action_rules))));
-        reasoner = new GenericRuleReasoner(Rule.parseRules(ruleParser));
-        
-        executeRules(generateModel());
-        
-        finalConfiguration = parseConfiguration();
-		
-		Log.d(UIReasoner.class.getSimpleName(), "Rules ended");
 	}
 
     private Model generateModel() {
@@ -250,9 +260,9 @@ public class UIReasoner {
 //		}
 //	}
 //
-//	private boolean checkAdaptationHistory() {
-//		return historyManager.checkConfiguration(this.user, this.currentUI);
-//	}
+	private boolean isAdaptationHistoryEmpty() {
+		return historyManager.checkConfiguration(this.user, this.currentUI);
+	}
 //
 //	private FinalUIConfiguration adaptConfiguration(
 //			HashMap<CAPABILITY, Object> userCapabilities,
@@ -470,36 +480,36 @@ public class UIReasoner {
      *   0: if both are the same (adaptation is OK) or
      *   1: if context brightness is higher than the device configuration screen brightness
      */
-    private int brightnessComparison(ICapability.BRIGHTNESS deviceBrightness, ICapability.BRIGHTNESS contextBrightness){
-        if (deviceBrightness.equals(ICapability.BRIGHTNESS.LOW) || deviceBrightness.equals(ICapability.BRIGHTNESS.DEFAULT)
-        || deviceBrightness.equals(ICapability.BRIGHTNESS.HIGH)){
-            if (contextBrightness.equals(ICapability.BRIGHTNESS.VERY_HIGH)){
-                return 1; //context value higher than device current brightness level
-            } else return -1;
-        } else if (((deviceBrightness.equals(ICapability.BRIGHTNESS.VERY_HIGH)) && contextBrightness.equals(ICapability.BRIGHTNESS.VERY_HIGH)) ||
-                (((deviceBrightness.equals(ICapability.BRIGHTNESS.DEFAULT)) || deviceBrightness.equals(ICapability.BRIGHTNESS.LOW)
-                        && contextBrightness.equals(ICapability.BRIGHTNESS.LOW)))){
-                return 0;
-            } else return -1;
-        }
+//    private int brightnessComparison(ICapability.BRIGHTNESS deviceBrightness, ICapability.BRIGHTNESS contextBrightness){
+//        if (deviceBrightness.equals(ICapability.BRIGHTNESS.LOW) || deviceBrightness.equals(ICapability.BRIGHTNESS.DEFAULT)
+//        || deviceBrightness.equals(ICapability.BRIGHTNESS.HIGH)){
+//            if (contextBrightness.equals(ICapability.BRIGHTNESS.VERY_HIGH)){
+//                return 1; //context value higher than device current brightness level
+//            } else return -1;
+//        } else if (((deviceBrightness.equals(ICapability.BRIGHTNESS.VERY_HIGH)) && contextBrightness.equals(ICapability.BRIGHTNESS.VERY_HIGH)) ||
+//                (((deviceBrightness.equals(ICapability.BRIGHTNESS.DEFAULT)) || deviceBrightness.equals(ICapability.BRIGHTNESS.LOW)
+//                        && contextBrightness.equals(ICapability.BRIGHTNESS.LOW)))){
+//                return 0;
+//            } else return -1;
+//        }
 
     /**
      *This method compares current device view size status with the user's
      * @param userViewSize
      * @param deviceViewSize
-     * @return a number indicting if
+     * @return a number indicating if
      *  -1: user view size is higher than the device's,
-     *   0: if both are the same (adaptation is ok) or
+     *   0: if both are the same (adaptation is OK) or
      *   1: if device view size is higher than the user's
      */
-    private int viewSizeComparison(ICapability.VIEW_SIZE userViewSize, ICapability.VIEW_SIZE deviceViewSize){
-        if (userViewSize.equals(deviceViewSize)){
-            return 0;
-        } else if (userViewSize.compareTo(deviceViewSize) == -1){
-            return -1;
-        } else return 1;
-        //TODO: compare enum cardinal order, if User > Device -> return -1; else return 1;
-    }
+//    private int viewSizeComparison(ICapability.VIEW_SIZE userViewSize, ICapability.VIEW_SIZE deviceViewSize){
+//        if (userViewSize.equals(deviceViewSize)){
+//            return 0;
+//        } else if (userViewSize.compareTo(deviceViewSize) == -1){
+//            return -1;
+//        } else return 1;
+//        //TODO: compare enum cardinal order, if User > Device -> return -1; else return 1;
+//    }
 
 
     public ICapability getUser() {

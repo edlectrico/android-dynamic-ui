@@ -1,6 +1,5 @@
 package es.deusto.deustotech.dynamicui.components;
 
-import es.deusto.deustotech.dynamicui.model.ICapability;
 
 
 /**

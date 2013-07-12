@@ -4,7 +4,6 @@ import java.util.HashMap;
 
 import android.content.Context;
 import android.content.SharedPreferences;
-import android.graphics.Color;
 import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
@@ -109,18 +108,8 @@ public class AdaptationManager {
 	private void storeAdaptedConfiguration() {
 		SharedPreferences.Editor editor = preferences.edit();
 
-		//TODO: for each component
-//		final UIConfiguration configuration = new UIConfiguration(componentsToAdapt.get(WidgetName.BUTTON).getSolidColor(),
-//                ((Button) componentsToAdapt.get(WidgetName.BUTTON)).getCurrentTextColor(),
-//				componentsToAdapt.get(WidgetName.BUTTON).getHeight(),
-//				componentsToAdapt.get(WidgetName.BUTTON).getWidth());
-		final UIConfiguration configuration = new UIConfiguration(ICapability.VIEW_SIZE.DEFAULT,ICapability.TEXT_SIZE.DEFAULT,
-				ICapability.BRIGHTNESS.DEFAULT, Color.DKGRAY, Color.WHITE);
-		
-		
-//		HashMap<ICapability, HashMap<String, View>> currentSituation = new HashMap<ICapability, HashMap<String, View>>();
 		HashMap<ICapability, UIConfiguration> currentSituation = new HashMap<ICapability, UIConfiguration>();
-		currentSituation.put(user, configuration);
+		currentSituation.put(user, configuration); //We store just the button adaptation
 		
 		Gson gson = new Gson();
 		String json = gson.toJson(currentSituation);
@@ -128,12 +117,12 @@ public class AdaptationManager {
 		editor.putString(this.context.getResources().getString(R.string.adapted_configuration), json);
 		editor.commit();
 		
-//		json = preferences.getString(this.context.getResources().getString(R.string.adapted_configuration), "");
-//		System.out.println(json);
+		json = preferences.getString(this.context.getResources().getString(R.string.adapted_configuration), "");
+		System.out.println(json);
 	}
 
 	
-	//TODO: Remove the following methods, they're just to test 
+	//TODO: The following methods are just to test 
 	//the automatic adaptation each 1000 milliseconds 
 	//++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
 	/*

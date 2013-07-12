@@ -5,9 +5,6 @@ import java.util.HashMap;
 import android.content.Context;
 import android.content.SharedPreferences;
 import android.graphics.Color;
-
-import com.google.gson.Gson;
-
 import es.deusto.deustotech.dynamicui.R;
 import es.deusto.deustotech.dynamicui.components.UIConfiguration;
 import es.deusto.deustotech.dynamicui.model.ICapability;
@@ -45,25 +42,23 @@ public class HistoryManager {
 	 */
 	public boolean checkConfiguration(ICapability user,
 			HashMap<String, UIConfiguration> currentUI) {
-		//TODO: check SharedPreferences
 		// Restore preferences
-		preferences = this.context.getSharedPreferences(this.context.getResources().getString(R.string.adapted_configuration), 0);
+		preferences = this.context.getSharedPreferences(this.context.getResources().getString(R.string.preferences_name), 0);
 		
-		return compareUsers();
+		return isEmpty();
 	}
 
-	private boolean compareUsers() {
-		Gson gson 	= new Gson();
+	private boolean isEmpty() {
+//		Gson gson 	= new Gson();
 	    String json = preferences.getString(this.context.getResources().getString(R.string.adapted_configuration), "");
 	    
-	    if (json == ""){ //No adaptation stored
+	    if (json != ""){ //No adaptation stored
 	    	return false;
-	    }
+	    } else return true;
 	    
 	    //TODO
-	    HashMap<ICapability, UIConfiguration> previousSituation = gson.fromJson(json, HashMap.class);
-	    
-		return true;
+//	    HashMap<ICapability, UIConfiguration> previousSituation = gson.fromJson(json, HashMap.class);
+//	    final UIConfiguration uiConfiguration = gson.fromJson(json, UIConfiguration.class);
 	}
 
 	/**
@@ -72,11 +67,9 @@ public class HistoryManager {
 	 * 
 	 * @return the adaptation stored in the SharedPreferences
 	 */
-	public UIConfiguration getAdaptedConfiguration() {
+	public UIConfiguration getLastConfiguration() {
 		
 		//TODO: return the corresponding UIConfiguration
-		
-//		return new FinalUIConfiguration(Color.RED, Color.WHITE, 500, 500, null, ICapability.BRIGHTNESS.VERY_HIGH, 0, 0, "", 0, 0, 0);
 		return new UIConfiguration(ICapability.VIEW_SIZE.VERY_BIG,ICapability.TEXT_SIZE.DEFAULT,
 				ICapability.BRIGHTNESS.DEFAULT, Color.DKGRAY, Color.WHITE);
 	}

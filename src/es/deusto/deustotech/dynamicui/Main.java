@@ -3,15 +3,12 @@ package es.deusto.deustotech.dynamicui;
 import java.util.HashMap;
 
 import android.app.Activity;
-import android.content.SharedPreferences;
 import android.graphics.Color;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
 import android.widget.GridLayout;
 import android.widget.Toast;
-
-import com.google.gson.Gson;
 
 import es.deusto.deustotech.dynamicui.components.UIConfiguration;
 import es.deusto.deustotech.dynamicui.components.WidgetName;
@@ -37,7 +34,6 @@ public class Main extends Activity implements android.view.View.OnClickListener{
 	 */
 
 	private HashMap<String, View> viewsMap; //Current UI container
-	private SharedPreferences preferences;
 	private ICapability context, user, device;
 	private View button;
 
@@ -51,9 +47,6 @@ public class Main extends Activity implements android.view.View.OnClickListener{
 		findViewById(R.id.context_force_high_button).setOnClickListener(this);
 		findViewById(R.id.context_force_low_button).setOnClickListener(this);
 		
-		preferences = getSharedPreferences(
-				getResources().getString(R.string.preferences_name), 0);
-
 		viewsMap = new HashMap<String, View>();
 
 		GridLayout layout = (GridLayout) findViewById(R.id.default_layout); //main.xml
@@ -108,9 +101,6 @@ public class Main extends Activity implements android.view.View.OnClickListener{
 		final UIReasoner uiReasoner = new UIReasoner(user, device, context, currentUI, getApplicationContext());
 		final UIConfiguration finalUIConfiguration = uiReasoner.getAdaptedConfiguration();
 
-		//TODO: Store updated user and adapted configuration
-		storeCurrentSituation(user, finalUIConfiguration);
-
 		//Once the current UI is loaded, we call the AdaptationModule to
 		//perform the corresponding changes
 		AdaptationManager adaptationModule = new AdaptationManager(viewsMap, finalUIConfiguration, getApplicationContext(), user);
@@ -121,19 +111,6 @@ public class Main extends Activity implements android.view.View.OnClickListener{
 		//new Thread(adaptationModule).start();
 	}
 
-	//TODO This probably should be outside the Main activity. 
-	private void storeCurrentSituation(ICapability user, UIConfiguration configuration) {
-		SharedPreferences.Editor editor = preferences.edit();
-		
-		HashMap<ICapability, UIConfiguration> currentSituation = new HashMap<ICapability, UIConfiguration>();
-		currentSituation.put(user, configuration);
-		
-		Gson gson = new Gson();
-		String json = gson.toJson(currentSituation);
-		editor.putString(getResources().getString(R.string.current_situation), json);
-		editor.commit();
-	}
-	
 	private void toast(){
 		Toast.makeText(getApplicationContext(), "Pushed!", Toast.LENGTH_SHORT).show();
 	}
