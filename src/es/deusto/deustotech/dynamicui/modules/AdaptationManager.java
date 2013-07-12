@@ -7,6 +7,7 @@ import android.content.SharedPreferences;
 import android.graphics.Color;
 import android.view.View;
 import android.widget.Button;
+import android.widget.TextView;
 
 import com.google.gson.Gson;
 
@@ -47,11 +48,17 @@ public class AdaptationManager {
 	 * @return an adapted configuration HashMap
 	 */
 	public HashMap<String, View> adaptConfiguration(){
-
+		
 		//TODO: Adapt more than Size (Color, Brightness, etc).
 		componentsToAdapt.get(WidgetName.BUTTON).post(new Runnable() {
 			@Override
 			public void run() {
+				if (configuration.getBrightness().equals(ICapability.BRIGHTNESS.VERY_HIGH)){
+					//TODO: adapt brightness
+				} else if (configuration.getBrightness().equals(ICapability.BRIGHTNESS.LOW)){
+					//TODO: adapt brightness
+				}
+				
 				if (configuration.getViewSize().equals(ICapability.VIEW_SIZE.BIG)){
 					componentsToAdapt.get(WidgetName.BUTTON).setMinimumHeight(300);
 					componentsToAdapt.get(WidgetName.BUTTON).setMinimumWidth(500);
@@ -61,14 +68,37 @@ public class AdaptationManager {
 				}
 				componentsToAdapt.get(WidgetName.BUTTON).setBackgroundColor(configuration.getViewColor());
 				((Button) componentsToAdapt.get(WidgetName.BUTTON)).setTextColor(configuration.getTextColor());
-
-				if (configuration.getBrightness().equals(ICapability.BRIGHTNESS.VERY_HIGH)){
-					//TODO: adapt brightness
-				} else if (configuration.getBrightness().equals(ICapability.BRIGHTNESS.LOW)){
-					//TODO: adapt brightness
-				}
-
 			}
+		});
+		
+		componentsToAdapt.get(WidgetName.EDIT_TEXT).post(new Runnable() {
+			@Override
+			public void run() {
+				if (configuration.getViewSize().equals(ICapability.VIEW_SIZE.BIG)){
+					componentsToAdapt.get(WidgetName.EDIT_TEXT).setMinimumHeight(300);
+					componentsToAdapt.get(WidgetName.EDIT_TEXT).setMinimumWidth(500);
+				} else if (configuration.getViewSize().equals(ICapability.VIEW_SIZE.SMALL)){
+					componentsToAdapt.get(WidgetName.EDIT_TEXT).setMinimumHeight(50);
+					componentsToAdapt.get(WidgetName.EDIT_TEXT).setMinimumWidth(100);
+				}
+			}
+			
+		});
+		
+		componentsToAdapt.get(WidgetName.TEXT_VIEW).post(new Runnable() {
+			@Override
+			public void run() {
+				if (configuration.getViewSize().equals(ICapability.VIEW_SIZE.BIG)){
+					componentsToAdapt.get(WidgetName.TEXT_VIEW).setMinimumHeight(300);
+					componentsToAdapt.get(WidgetName.TEXT_VIEW).setMinimumWidth(500);
+				} else if (configuration.getViewSize().equals(ICapability.VIEW_SIZE.SMALL)){
+					componentsToAdapt.get(WidgetName.TEXT_VIEW).setMinimumHeight(50);
+					componentsToAdapt.get(WidgetName.TEXT_VIEW).setMinimumWidth(100);
+				}
+				componentsToAdapt.get(WidgetName.TEXT_VIEW).setBackgroundColor(configuration.getViewColor());
+				((TextView) componentsToAdapt.get(WidgetName.TEXT_VIEW)).setTextColor(configuration.getTextColor());
+			}
+			
 		});
 		
 		storeAdaptedConfiguration();

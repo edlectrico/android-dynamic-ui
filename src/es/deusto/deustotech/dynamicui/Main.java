@@ -98,17 +98,14 @@ public class Main extends Activity implements android.view.View.OnClickListener{
 		//TODO: For each component...
 		HashMap<String, UIConfiguration> currentUI = new HashMap<String, UIConfiguration>();
 
-		//		currentUI.put(WidgetName.BUTTON, new UIConfiguration(Color.DKGRAY, Color.BLACK,
-		//				button.getLayoutParams().height, button.getLayoutParams().width));
-
-		currentUI.put(WidgetName.BUTTON, new UIConfiguration(ICapability.VIEW_SIZE.DEFAULT,ICapability.TEXT_SIZE.DEFAULT,
-				ICapability.BRIGHTNESS.DEFAULT, Color.DKGRAY, Color.WHITE));
-
+		final UIConfiguration defaultConf = new UIConfiguration(ICapability.VIEW_SIZE.DEFAULT,ICapability.TEXT_SIZE.DEFAULT,
+				ICapability.BRIGHTNESS.DEFAULT, Color.DKGRAY, Color.WHITE);
+		
+		currentUI.put(WidgetName.BUTTON, defaultConf);
+		currentUI.put(WidgetName.TEXT_VIEW, defaultConf);
+		currentUI.put(WidgetName.EDIT_TEXT, defaultConf);
 
 		final UIReasoner uiReasoner = new UIReasoner(user, device, context, currentUI, getApplicationContext());
-
-		//TODO: Uncomment this code. It's just to test the UIReasoner rules
-
 		final UIConfiguration finalUIConfiguration = uiReasoner.getAdaptedConfiguration();
 
 		//TODO: Store updated user and adapted configuration

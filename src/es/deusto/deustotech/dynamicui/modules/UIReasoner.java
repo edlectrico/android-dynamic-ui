@@ -71,8 +71,6 @@ public class UIReasoner {
         BuiltinRegistry.theRegistry.register(new ListContainsValueBuiltin());
         BuiltinRegistry.theRegistry.register(new ListNotContainsValueBuiltin());
         
-//        reasoner = new GenericRuleReasoner(Rule.parseRules(loadRules()));
-        
         Rule.Parser ruleParser = Rule.rulesParserFromReader(new BufferedReader(new InputStreamReader(appContext.getResources().openRawResource(R.raw.action_rules))));
         reasoner = new GenericRuleReasoner(Rule.parseRules(ruleParser));
         

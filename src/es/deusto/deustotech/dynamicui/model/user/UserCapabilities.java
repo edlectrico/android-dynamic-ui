@@ -44,29 +44,4 @@ public class UserCapabilities extends AbstractCapabilities {
 		caps.put(CAPABILITY.VIEW_COLOR, Color.DKGRAY);
 		caps.put(CAPABILITY.VOLUME, 	volume);
 	}
-	
-	/*
-	public UserCapabilities(BRIGHTNESS brightness, VOLUME volume, VIEW_SIZE viewSize, TEXT_SIZE textSize) {
-		super();
-
-		this.caps = new HashMap<CAPABILITY, Object>();
-
-		caps.put(CAPABILITY.BRIGHTNESS, 			brightness);
-		caps.put(CAPABILITY.CONTRAST, 				CONTRAST.DEFAULT);
-//		caps.put(CAPABILITY.IMAGES, 				IMAGES.DEFAULT);
-		caps.put(CAPABILITY.INPUT, 				INPUT.HAPTIC);
-//		caps.put(CAPABILITY.LANGUAGE, 				LANGUAGE.ENGLISH);
-		caps.put(CAPABILITY.VIEW_SIZE, 			viewSize);
-		caps.put(CAPABILITY.TEXT_SIZE, 			textSize);
-		caps.put(CAPABILITY.OUTPUT, 				OUTPUT.VISUAL);
-//		caps.put(CAPABILITY.VIEW_BACKGROUND_COLOR, COLOR.DEFAULT);
-		caps.put(CAPABILITY.TEXT_COLOR, 			COLOR.DEFAULT);
-//		caps.put(CAPABILITY.EXPERIENCE, 			EXPERIENCE.STANDARD);
-		caps.put(CAPABILITY.VOLUME, 				volume);
-//		caps.put(CAPABILITY.ACTIVITY, 				ACTIVITIES.NONE);
-//		caps.put(CAPABILITY.LOCATION, 				LOCATION.HOME); 	//TODO: configure default locations? (HOME/STREET/WORK...)
-//		caps.put(CAPABILITY.RELATIONSHIP, 			RELATIONSHIP.NONE);	//TODO: Does it mean anything?
-	}
-	*/
-
 }

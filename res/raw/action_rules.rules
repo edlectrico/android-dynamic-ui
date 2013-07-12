@@ -2,7 +2,7 @@
 @prefix rdf: http://www.w3.org/1999/02/22-rdf-syntax-ns#
 @prefix owl: http://www.w3.org/2002/07/owl#
 
-[ViewSizeAction_1: 	
+[View_Action_1: 	
 					print("ViewSizeAction_1")
 					(?u rdf:type adpt:User)
 					(?d rdf:type adpt:Device)
@@ -38,7 +38,7 @@
 					(adpt:FinalUIConfigurationInstance adpt:BRIGHTNESS "VERY_HIGH")
 ]
 
-[ViewSizeAction_2: 	
+[View_Action_2: 	
 					print("ViewSizeAction_2")
 					(?u rdf:type adpt:User)
 					(?d rdf:type adpt:Device)
