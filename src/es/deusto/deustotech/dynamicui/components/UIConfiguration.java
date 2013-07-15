@@ -1,6 +1,7 @@
 package es.deusto.deustotech.dynamicui.components;
 
 import es.deusto.deustotech.dynamicui.model.ICapability;
+import es.deusto.deustotech.dynamicui.model.user.UserCapabilities;
 
 public class UIConfiguration {
 
@@ -66,12 +67,16 @@ public class UIConfiguration {
 	}
 	
 	//TODO: Check this method
-	@Override
-	public boolean equals(Object o){
-			return ((this.brightness.equals(((UIConfiguration) o).brightness)) && (this.textColor == ((UIConfiguration) o).textColor)
-					&& (this.textSize == ((UIConfiguration) o).textSize) && (this.viewColor == ((UIConfiguration) o).viewColor) 
-					&& (this.viewSize == ((UIConfiguration) o).viewSize));
-			
+	/**
+	 * This method checks if the UIConfiguration object has the same
+	 * parameters than the updated user 
+	 */
+	public boolean checkUserUIConfiguration(ICapability user){
+		return ((this.brightness.equals(user.getCapabilityValue(ICapability.CAPABILITY.BRIGHTNESS)))
+				&& (this.textColor == (Integer)(user.getCapabilityValue(ICapability.CAPABILITY.TEXT_COLOR)))
+				&& (this.textSize.equals((user.getCapabilityValue(ICapability.CAPABILITY.TEXT_SIZE))))
+				&& (this.viewColor == (Integer)(user.getCapabilityValue(ICapability.CAPABILITY.VIEW_COLOR)))
+				&& (this.viewSize.equals(user.getCapabilityValue(ICapability.CAPABILITY.VIEW_SIZE))));
 	}
 
 }

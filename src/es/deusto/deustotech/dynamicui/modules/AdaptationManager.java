@@ -21,7 +21,7 @@ public class AdaptationManager {
 	private UIConfiguration configuration;
 	private Context context;
 	private SharedPreferences preferences;
-	private ICapability user;
+//	private ICapability user;
 
 	public AdaptationManager() {
 		super();
@@ -35,7 +35,7 @@ public class AdaptationManager {
 		this.componentsToAdapt 	= viewsMap;
 		this.configuration 		= adaptedConfiguration;
 		this.context 			= appContext;
-		this.user 				= adaptedUser;
+//		this.user 				= adaptedUser;
 		
 		this.preferences = this.context.getSharedPreferences(this.context.getResources().getString(R.string.preferences_name), 0);
 	}
@@ -52,21 +52,23 @@ public class AdaptationManager {
 		componentsToAdapt.get(WidgetName.BUTTON).post(new Runnable() {
 			@Override
 			public void run() {
-				if (configuration.getBrightness().equals(ICapability.BRIGHTNESS.VERY_HIGH)){
-					//TODO: adapt brightness
-				} else if (configuration.getBrightness().equals(ICapability.BRIGHTNESS.LOW)){
-					//TODO: adapt brightness
+				if (configuration != null){
+					if (configuration.getBrightness().equals(ICapability.BRIGHTNESS.VERY_HIGH)){
+						//TODO: adapt brightness
+					} else if (configuration.getBrightness().equals(ICapability.BRIGHTNESS.LOW)){
+						//TODO: adapt brightness
+					}
+					
+					if (configuration.getViewSize().equals(ICapability.VIEW_SIZE.BIG)){
+						componentsToAdapt.get(WidgetName.BUTTON).setMinimumHeight(300);
+						componentsToAdapt.get(WidgetName.BUTTON).setMinimumWidth(500);
+					} else if (configuration.getViewSize().equals(ICapability.VIEW_SIZE.SMALL)){
+						componentsToAdapt.get(WidgetName.BUTTON).setMinimumHeight(50);
+						componentsToAdapt.get(WidgetName.BUTTON).setMinimumWidth(100);
+					}
+					componentsToAdapt.get(WidgetName.BUTTON).setBackgroundColor(configuration.getViewColor());
+					((Button) componentsToAdapt.get(WidgetName.BUTTON)).setTextColor(configuration.getTextColor());
 				}
-				
-				if (configuration.getViewSize().equals(ICapability.VIEW_SIZE.BIG)){
-					componentsToAdapt.get(WidgetName.BUTTON).setMinimumHeight(300);
-					componentsToAdapt.get(WidgetName.BUTTON).setMinimumWidth(500);
-				} else if (configuration.getViewSize().equals(ICapability.VIEW_SIZE.SMALL)){
-					componentsToAdapt.get(WidgetName.BUTTON).setMinimumHeight(50);
-					componentsToAdapt.get(WidgetName.BUTTON).setMinimumWidth(100);
-				}
-				componentsToAdapt.get(WidgetName.BUTTON).setBackgroundColor(configuration.getViewColor());
-				((Button) componentsToAdapt.get(WidgetName.BUTTON)).setTextColor(configuration.getTextColor());
 			}
 		});
 		
@@ -105,7 +107,11 @@ public class AdaptationManager {
 		return componentsToAdapt;
 	}
 	
-	private void storeAdaptedConfiguration() {
+	/**
+	 * This method stores the current UIConfiguration in a JSON format in
+	 * the SharedPreferences
+	 */
+	private void storeAdaptedConfiguration() { //last known UI (HistoryManager)
 		SharedPreferences.Editor editor = preferences.edit();
 
 		UIConfiguration currentSituation = new UIConfiguration();

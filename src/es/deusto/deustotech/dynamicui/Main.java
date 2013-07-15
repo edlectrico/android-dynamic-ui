@@ -113,16 +113,17 @@ public class Main extends Activity implements android.view.View.OnClickListener{
 			currentUI = new UIConfiguration(ICapability.VIEW_SIZE.DEFAULT,ICapability.TEXT_SIZE.DEFAULT,
 					ICapability.BRIGHTNESS.DEFAULT, Color.DKGRAY, Color.WHITE);
 		} else {
-			//currentUI = getUIFromSharedPreferences
-			currentUI = historyManager.getCurrentUI();
+			currentUI = historyManager.getLastKnownUI();
 		}
 		
-//		final UIConfiguration defaultConf = new UIConfiguration(ICapability.VIEW_SIZE.DEFAULT,ICapability.TEXT_SIZE.DEFAULT,
-//				ICapability.BRIGHTNESS.DEFAULT, Color.DKGRAY, Color.WHITE);
+		/*
+		final UIConfiguration defaultConf = new UIConfiguration(ICapability.VIEW_SIZE.DEFAULT,ICapability.TEXT_SIZE.DEFAULT,
+				ICapability.BRIGHTNESS.DEFAULT, Color.DKGRAY, Color.WHITE);
 		
-//		currentUI.put(WidgetName.BUTTON, defaultConf);
-//		currentUI.put(WidgetName.TEXT_VIEW, defaultConf);
-//		currentUI.put(WidgetName.EDIT_TEXT, defaultConf);
+		currentUI.put(WidgetName.BUTTON, defaultConf);
+		currentUI.put(WidgetName.TEXT_VIEW, defaultConf);
+		currentUI.put(WidgetName.EDIT_TEXT, defaultConf);
+		*/
 
 		final UIReasoner uiReasoner = new UIReasoner(user, device, context, currentUI, getApplicationContext());
 		final UIConfiguration finalUIConfiguration = uiReasoner.getAdaptedConfiguration();

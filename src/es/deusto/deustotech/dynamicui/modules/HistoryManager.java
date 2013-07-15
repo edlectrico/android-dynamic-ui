@@ -2,13 +2,11 @@ package es.deusto.deustotech.dynamicui.modules;
 
 import android.content.Context;
 import android.content.SharedPreferences;
-import android.graphics.Color;
 
 import com.google.gson.Gson;
 
 import es.deusto.deustotech.dynamicui.R;
 import es.deusto.deustotech.dynamicui.components.UIConfiguration;
-import es.deusto.deustotech.dynamicui.model.ICapability;
 
 public class HistoryManager {
 
@@ -28,8 +26,8 @@ public class HistoryManager {
 		super();
 		
 		this.context = appContext;
+		this.preferences = this.context.getSharedPreferences(this.context.getResources().getString(R.string.preferences_name), 0);
 	}
-
 	
 	/**
 	 * This method checks the SharedPreferences for a previous
@@ -51,37 +49,28 @@ public class HistoryManager {
 		return storedUI.equals(currentUI);
 	}
 
+	/**
+	 * This method checks if already is a configuration stored in the system
+	 * @return true: if there is no configuration found
+	 * false: if there is a configuration stored
+	 */
 	public boolean isEmpty() {
-		preferences = this.context.getSharedPreferences(this.context.getResources().getString(R.string.preferences_name), 0);
-	    String json = preferences.getString(this.context.getResources().getString(R.string.adapted_configuration), "");
-	    
-	    if (json != ""){ //No adaptation stored
+		final String json = preferences.getString(this.context.getResources().getString(R.string.adapted_configuration), "");
+		
+		if ((!json.equals("")) && (!json.equals("null"))){
 	    	return false;
-	    } else return true;
-	    
-	    //TODO
-//	    HashMap<ICapability, UIConfiguration> previousSituation = gson.fromJson(json, HashMap.class);
-//	    final UIConfiguration uiConfiguration = gson.fromJson(json, UIConfiguration.class);
+	    } else return true; //No adaptation stored
 	}
 
 	/**
-	 * If an adaptation has been found, this method just
-	 * returns it 
-	 * 
-	 * @return the adaptation stored in the SharedPreferences
+	 * This method returns the last known UI configuration, which
+	 * is stored by the AdaptationManager module
+	 * @return a UIConfiguration which represents the last known
+	 * configuration
 	 */
-	public UIConfiguration getLastConfiguration() {
-		
-		//TODO: return the corresponding UIConfiguration
-		return new UIConfiguration(ICapability.VIEW_SIZE.VERY_BIG,ICapability.TEXT_SIZE.DEFAULT,
-				ICapability.BRIGHTNESS.DEFAULT, Color.DKGRAY, Color.WHITE);
-	}
-	
-	public UIConfiguration getCurrentUI(){
-		
-		preferences = context.getSharedPreferences(context.getResources().getString(R.string.preferences_name), 0);
-		String json = preferences.getString(context.getResources().getString(R.string.adapted_configuration), "");
-		//{"brightness":"VERY_HIGH","viewSize":"BIG","textSize":"BIG","viewColor":-1,"textColor":-16777216}
+	public UIConfiguration getLastKnownUI(){
+		final String json = preferences.getString(context.getResources().getString(R.string.adapted_configuration), "");
+		//Example: {"brightness":"VERY_HIGH","viewSize":"BIG","textSize":"BIG","viewColor":-1,"textColor":-16777216}
 		Gson gson = new Gson();
 		UIConfiguration currentUI = gson.fromJson(json, UIConfiguration.class);
 		

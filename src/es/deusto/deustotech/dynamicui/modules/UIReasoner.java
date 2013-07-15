@@ -38,6 +38,8 @@ public class UIReasoner {
 	private UIConfiguration currentUI;
 	private HistoryManager historyManager;
 	private Context appContext;
+	
+	private boolean adapt;
 
     public static final String NS = "http://www.deustotech.es/adaptation.owl#";
     public OntModel ontModel = null;
@@ -65,27 +67,32 @@ public class UIReasoner {
 
 		this.appContext	    = appContext;
 		this.historyManager = new HistoryManager(this.appContext);
-		this.currentUI 	    = currentUI; //TODO: Use this
+		this.currentUI 	    = currentUI; 
+		this.adapt 			= true;
 
-		if (!isAdaptationHistoryEmpty()){
-			if (historyManager.getLastConfiguration().equals(this.currentUI)){
-				finalConfiguration = historyManager.getLastConfiguration();
+		if (!isAdaptationHistoryEmpty()){ 
+			if (historyManager.getLastKnownUI().checkUserUIConfiguration(this.user)){
+				this.adapt = false;
+				finalConfiguration = historyManager.getLastKnownUI();
 
 				Log.d(UIReasoner.class.getSimpleName(), "No need of executing rules");
-			} else {
-				BuiltinRegistry.theRegistry.register(new ListContainsValueBuiltin());
-				BuiltinRegistry.theRegistry.register(new ListNotContainsValueBuiltin());
-
-				Rule.Parser ruleParser = Rule.rulesParserFromReader(new BufferedReader(
-						new InputStreamReader(appContext.getResources().openRawResource(R.raw.action_rules))));
-				reasoner = new GenericRuleReasoner(Rule.parseRules(ruleParser));
-
-				executeRules(generateModel());
-
-				finalConfiguration = parseConfiguration();
-
-				Log.d(UIReasoner.class.getSimpleName(), "Rules ended");
 			}
+		} 
+		
+		if (this.adapt){
+			//Adding the custom Builtins to the BuiltinRegistry
+			BuiltinRegistry.theRegistry.register(new ListContainsValueBuiltin());
+			BuiltinRegistry.theRegistry.register(new ListNotContainsValueBuiltin());
+			
+			Rule.Parser ruleParser = Rule.rulesParserFromReader(new BufferedReader(
+					new InputStreamReader(appContext.getResources().openRawResource(R.raw.action_rules))));
+			reasoner = new GenericRuleReasoner(Rule.parseRules(ruleParser));
+			
+			executeRules(generateModel());
+			
+			finalConfiguration = parseConfiguration();
+			
+			Log.d(UIReasoner.class.getSimpleName(), "Rules ended");
 		}
 	}
 
@@ -122,27 +129,27 @@ public class UIReasoner {
     private Individual addUserInstance(String id) {
         Individual individual = this.ontUserClass.createIndividual(NS + id);
 
-        Property viewSize = this.ontModel.getProperty(NS + "VIEW_SIZE");
+        Property viewSize = this.ontModel.getProperty(NS + String.valueOf(ICapability.CAPABILITY.VIEW_SIZE));
         Literal literal = this.ontModel.createTypedLiteral(this.user.getCapabilityValue(ICapability.CAPABILITY.VIEW_SIZE));
         individual.setPropertyValue(viewSize, literal);
         
-        Property viewColor = this.ontModel.getProperty(NS + "VIEW_COLOR");
+        Property viewColor = this.ontModel.getProperty(NS + String.valueOf(ICapability.CAPABILITY.VIEW_COLOR));
         literal = this.ontModel.createTypedLiteral(this.user.getCapabilityValue(ICapability.CAPABILITY.VIEW_COLOR));
         individual.setPropertyValue(viewColor, literal);
         
-        Property textSize = this.ontModel.getProperty(NS + "TEXT_SIZE");
+        Property textSize = this.ontModel.getProperty(NS + String.valueOf(ICapability.CAPABILITY.TEXT_SIZE));
         literal = this.ontModel.createTypedLiteral(this.user.getCapabilityValue(ICapability.CAPABILITY.TEXT_SIZE));
         individual.setPropertyValue(textSize, literal);
         
-        Property textColor = this.ontModel.getProperty(NS + "TEXT_COLOR");
+        Property textColor = this.ontModel.getProperty(NS + String.valueOf(ICapability.CAPABILITY.TEXT_COLOR));
         literal = this.ontModel.createTypedLiteral(this.user.getCapabilityValue(ICapability.CAPABILITY.TEXT_COLOR));
         individual.setPropertyValue(textColor, literal);
 
-        Property input = this.ontModel.getProperty(NS + "INPUT");
+        Property input = this.ontModel.getProperty(NS + String.valueOf(ICapability.CAPABILITY.INPUT));
         literal = this.ontModel.createTypedLiteral(this.user.getCapabilityValue(ICapability.CAPABILITY.INPUT));
         individual.setPropertyValue(input, literal);
 
-        Property brightness = this.ontModel.getProperty(NS + "BRIGHTNESS");
+        Property brightness = this.ontModel.getProperty(NS + String.valueOf(ICapability.CAPABILITY.BRIGHTNESS));
         literal = this.ontModel.createTypedLiteral(this.user.getCapabilityValue(ICapability.CAPABILITY.BRIGHTNESS));
         individual.setPropertyValue(brightness, literal);
 
@@ -152,19 +159,19 @@ public class UIReasoner {
     private Individual addDeviceInstance(String id) {
         Individual individual = this.ontDeviceClass.createIndividual(NS + id);
 
-        Property viewSize = this.ontModel.getProperty(NS + "VIEW_SIZE");
+        Property viewSize = this.ontModel.getProperty(NS + String.valueOf(ICapability.CAPABILITY.VIEW_SIZE));
         Literal literal = this.ontModel.createTypedLiteral(this.device.getCapabilityValue(ICapability.CAPABILITY.VIEW_SIZE));
         individual.setPropertyValue(viewSize, literal);
 
-        Property input = this.ontModel.getProperty(NS + "INPUT");
+        Property input = this.ontModel.getProperty(NS + String.valueOf(ICapability.CAPABILITY.INPUT));
         literal = this.ontModel.createTypedLiteral(this.device.getCapabilityValue(ICapability.CAPABILITY.INPUT));
         individual.setPropertyValue(input, literal);
 
-        Property brightness = this.ontModel.getProperty(NS + "BRIGHTNESS");
+        Property brightness = this.ontModel.getProperty(NS + String.valueOf(ICapability.CAPABILITY.BRIGHTNESS));
         literal = this.ontModel.createTypedLiteral(this.device.getCapabilityValue(ICapability.CAPABILITY.BRIGHTNESS));
         individual.setPropertyValue(brightness, literal);
         
-        Property orientation = this.ontModel.getProperty(NS + "ORIENTATION");
+        Property orientation = this.ontModel.getProperty(NS + String.valueOf(ICapability.CAPABILITY.ORIENTATION));
         literal = this.ontModel.createTypedLiteral(this.device.getCapabilityValue(ICapability.CAPABILITY.ORIENTATION));
         individual.setPropertyValue(orientation, literal);
         
@@ -178,11 +185,11 @@ public class UIReasoner {
     private Individual addContextInstance(String id) {
         Individual individual = this.ontContextClass.createIndividual(NS + id);
 
-        Property temperature = this.ontModel.getProperty(NS + "TEMPERATURE");
+        Property temperature = this.ontModel.getProperty(NS + String.valueOf(ICapability.CAPABILITY.TEMPERATURE));
         Literal literal = this.ontModel.createTypedLiteral(this.context.getCapabilityValue(ICapability.CAPABILITY.TEMPERATURE));
         individual.setPropertyValue(temperature, literal);
 
-        Property brightness = this.ontModel.getProperty(NS + "BRIGHTNESS");
+        Property brightness = this.ontModel.getProperty(NS + String.valueOf(ICapability.CAPABILITY.BRIGHTNESS));
         literal = this.ontModel.createTypedLiteral(this.context.getCapabilityValue(ICapability.CAPABILITY.BRIGHTNESS));
         individual.setPropertyValue(brightness, literal);
 
@@ -207,11 +214,11 @@ public class UIReasoner {
     private UIConfiguration parseConfiguration(){
     	final Resource resource = infModel.getResource("http://www.deustotech.es/adaptation.owl#FinalUIConfigurationInstance");
     	
-    	final Statement viewSizeStmt 	= resource.getProperty(this.ontModel.getProperty(NS + "VIEW_SIZE"));
-    	final Statement viewColorStmt 	= resource.getProperty(this.ontModel.getProperty(NS + "VIEW_COLOR"));
-    	final Statement textSizeStmt 	= resource.getProperty(this.ontModel.getProperty(NS + "TEXT_SIZE"));
-    	final Statement textColorStmt 	= resource.getProperty(this.ontModel.getProperty(NS + "TEXT_COLOR"));
-    	final Statement brightnessStmt 	= resource.getProperty(this.ontModel.getProperty(NS + "BRIGHTNESS"));
+    	final Statement viewSizeStmt 	= resource.getProperty(this.ontModel.getProperty(NS + String.valueOf(ICapability.CAPABILITY.VIEW_SIZE)));
+    	final Statement viewColorStmt 	= resource.getProperty(this.ontModel.getProperty(NS + String.valueOf(ICapability.CAPABILITY.VIEW_COLOR)));
+    	final Statement textSizeStmt 	= resource.getProperty(this.ontModel.getProperty(NS + String.valueOf(ICapability.CAPABILITY.TEXT_SIZE)));
+    	final Statement textColorStmt 	= resource.getProperty(this.ontModel.getProperty(NS + String.valueOf(ICapability.CAPABILITY.TEXT_COLOR)));
+    	final Statement brightnessStmt 	= resource.getProperty(this.ontModel.getProperty(NS + String.valueOf(ICapability.CAPABILITY.BRIGHTNESS)));
     	
     	if (viewSizeStmt != null){
     		final ICapability.VIEW_SIZE viewSize 	= ICapability.VIEW_SIZE.valueOf(viewSizeStmt.getObject().toString());
@@ -259,7 +266,7 @@ public class UIReasoner {
 //	}
 //
 	private boolean isAdaptationHistoryEmpty() {
-		return historyManager.checkConfiguration(this.currentUI);
+		return historyManager.isEmpty();
 	}
 
     public ICapability getUser() {
