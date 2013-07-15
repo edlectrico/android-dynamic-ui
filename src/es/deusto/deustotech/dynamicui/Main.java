@@ -10,6 +10,7 @@ import android.view.View;
 import android.widget.GridLayout;
 import android.widget.Toast;
 import es.deusto.deustotech.dynamicui.components.UIConfiguration;
+import es.deusto.deustotech.dynamicui.components.WidgetName;
 import es.deusto.deustotech.dynamicui.model.ICapability;
 import es.deusto.deustotech.dynamicui.model.ICapability.CAPABILITY;
 import es.deusto.deustotech.dynamicui.model.MockModelGenerator;
@@ -70,16 +71,16 @@ public class Main extends Activity implements android.view.View.OnClickListener{
 		}
 		*/
 		
-		viewsMap.put("BUTTON", button);
-		viewsMap.put("TEXT VIEW", textView);
-		viewsMap.put("EDIT TEXT", editText);
+		viewsMap.put(WidgetName.BUTTON, button);
+		viewsMap.put(WidgetName.TEXT_VIEW, textView);
+		viewsMap.put(WidgetName.EDIT_TEXT, editText);
 		
-		layout.addView(viewsMap.get("BUTTON"));
-		layout.addView(viewsMap.get("TEXT VIEW"));
-		layout.addView(viewsMap.get("EDIT TEXT"));
-		viewsMap.get("BUTTON").invalidate();
-		viewsMap.get("TEXT VIEW").invalidate();
-		viewsMap.get("EDIT TEXT").invalidate();
+		layout.addView(viewsMap.get(WidgetName.BUTTON));
+		layout.addView(viewsMap.get(WidgetName.TEXT_VIEW));
+		layout.addView(viewsMap.get(WidgetName.EDIT_TEXT));
+		viewsMap.get(WidgetName.BUTTON).invalidate();
+		viewsMap.get(WidgetName.TEXT_VIEW).invalidate();
+		viewsMap.get(WidgetName.EDIT_TEXT).invalidate();
 		
 		//Generating mock user and context to call UserCapabilitiesUpdater
 		//and obtain a updatedUser
