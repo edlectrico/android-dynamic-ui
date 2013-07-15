@@ -108,8 +108,8 @@ public class AdaptationManager {
 	private void storeAdaptedConfiguration() {
 		SharedPreferences.Editor editor = preferences.edit();
 
-		HashMap<ICapability, UIConfiguration> currentSituation = new HashMap<ICapability, UIConfiguration>();
-		currentSituation.put(user, configuration); //We store just the button adaptation
+		UIConfiguration currentSituation = new UIConfiguration();
+		currentSituation = configuration; //We store just the button adaptation
 		
 		Gson gson = new Gson();
 		String json = gson.toJson(currentSituation);
@@ -117,8 +117,9 @@ public class AdaptationManager {
 		editor.putString(this.context.getResources().getString(R.string.adapted_configuration), json);
 		editor.commit();
 		
-		json = preferences.getString(this.context.getResources().getString(R.string.adapted_configuration), "");
-		System.out.println(json);
+		//Check data
+//		json = preferences.getString(this.context.getResources().getString(R.string.adapted_configuration), "");
+//		System.out.println(json);
 	}
 
 	

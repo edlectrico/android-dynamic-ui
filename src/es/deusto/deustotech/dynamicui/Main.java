@@ -16,6 +16,7 @@ import es.deusto.deustotech.dynamicui.model.ICapability.CAPABILITY;
 import es.deusto.deustotech.dynamicui.model.MockModelGenerator;
 import es.deusto.deustotech.dynamicui.model.context.ContextCapabilities;
 import es.deusto.deustotech.dynamicui.modules.AdaptationManager;
+import es.deusto.deustotech.dynamicui.modules.HistoryManager;
 import es.deusto.deustotech.dynamicui.modules.UIReasoner;
 import es.deusto.deustotech.dynamicui.modules.UserCapabilitiesUpdater;
 
@@ -102,8 +103,19 @@ public class Main extends Activity implements android.view.View.OnClickListener{
 
 		//TODO: For each component...
 //		HashMap<String, UIConfiguration> currentUI = new HashMap<String, UIConfiguration>();
-		UIConfiguration currentUI = new UIConfiguration(ICapability.VIEW_SIZE.DEFAULT,ICapability.TEXT_SIZE.DEFAULT,
-				ICapability.BRIGHTNESS.DEFAULT, Color.DKGRAY, Color.WHITE);
+		//TODO: getCurrentUI
+		//1. If getUIFromSharedPreferences == null, return new default UI
+		//2. Else, currentUI = getUIFromSharedPreferences
+		UIConfiguration currentUI;
+		HistoryManager historyManager = new HistoryManager(getApplicationContext());
+		if (historyManager.isEmpty()){
+			//Default Android UI
+			currentUI = new UIConfiguration(ICapability.VIEW_SIZE.DEFAULT,ICapability.TEXT_SIZE.DEFAULT,
+					ICapability.BRIGHTNESS.DEFAULT, Color.DKGRAY, Color.WHITE);
+		} else {
+			//currentUI = getUIFromSharedPreferences
+			currentUI = historyManager.getCurrentUI();
+		}
 		
 //		final UIConfiguration defaultConf = new UIConfiguration(ICapability.VIEW_SIZE.DEFAULT,ICapability.TEXT_SIZE.DEFAULT,
 //				ICapability.BRIGHTNESS.DEFAULT, Color.DKGRAY, Color.WHITE);
