@@ -2,7 +2,6 @@ package es.deusto.deustotech.dynamicui.modules;
 
 import java.io.BufferedReader;
 import java.io.InputStreamReader;
-import java.util.HashMap;
 
 import android.content.Context;
 import android.graphics.Color;
@@ -26,7 +25,6 @@ import com.hp.hpl.jena.reasoner.rulesys.Rule;
 
 import es.deusto.deustotech.dynamicui.R;
 import es.deusto.deustotech.dynamicui.components.UIConfiguration;
-import es.deusto.deustotech.dynamicui.components.WidgetName;
 import es.deusto.deustotech.dynamicui.model.ICapability;
 import es.deusto.deustotech.utils.jena.ListContainsValueBuiltin;
 import es.deusto.deustotech.utils.jena.ListNotContainsValueBuiltin;
@@ -37,7 +35,7 @@ public class UIReasoner {
 	
 	private UIConfiguration finalConfiguration;
 	
-	private HashMap<String, UIConfiguration> currentUI;
+	private UIConfiguration currentUI;
 	private HistoryManager historyManager;
 	private Context appContext;
 
@@ -58,7 +56,7 @@ public class UIReasoner {
 	}
 
 	public UIReasoner(ICapability user, ICapability device, ICapability context,
-			HashMap<String, UIConfiguration> currentUI, Context appContext) {
+			UIConfiguration currentUI, Context appContext) {
 		super();
 
 		this.user 		= user;
@@ -70,7 +68,7 @@ public class UIReasoner {
 		this.currentUI 	    = currentUI; //TODO: Use this
 
 		if (!isAdaptationHistoryEmpty()){
-			if (historyManager.getLastConfiguration().equals(this.currentUI.get(WidgetName.BUTTON))){
+			if (historyManager.getLastConfiguration().equals(this.currentUI)){
 				finalConfiguration = historyManager.getLastConfiguration();
 
 				Log.d(UIReasoner.class.getSimpleName(), "No need of executing rules");
@@ -225,7 +223,7 @@ public class UIReasoner {
     		return new UIConfiguration(viewSize, textSize, brightness, viewColor, textColor);
     	}
     	
-    	return new UIConfiguration();
+    	return this.currentUI;
     }
     
     public UIConfiguration getAdaptedConfiguration(){
@@ -272,7 +270,7 @@ public class UIReasoner {
 		return device;
 	}
 
-	public HashMap<String, UIConfiguration> getUiConfiguration() {
+	public UIConfiguration getUiConfiguration() {
 		return currentUI;
 	}
 }

@@ -9,13 +9,11 @@ import android.util.Log;
 import android.view.View;
 import android.widget.GridLayout;
 import android.widget.Toast;
-
 import es.deusto.deustotech.dynamicui.components.UIConfiguration;
-import es.deusto.deustotech.dynamicui.components.WidgetName;
 import es.deusto.deustotech.dynamicui.model.ICapability;
 import es.deusto.deustotech.dynamicui.model.ICapability.CAPABILITY;
-import es.deusto.deustotech.dynamicui.model.context.ContextCapabilities;
 import es.deusto.deustotech.dynamicui.model.MockModelGenerator;
+import es.deusto.deustotech.dynamicui.model.context.ContextCapabilities;
 import es.deusto.deustotech.dynamicui.modules.AdaptationManager;
 import es.deusto.deustotech.dynamicui.modules.UIReasoner;
 import es.deusto.deustotech.dynamicui.modules.UserCapabilitiesUpdater;
@@ -57,6 +55,7 @@ public class Main extends Activity implements android.view.View.OnClickListener{
 
 		Log.d(this.getClass().getName(), "view is: " + button.getClass().getName());
 
+		/*
 		for (int i=0; i<WidgetName.COMPONENT_NAMES.length; ++i){
 			if (WidgetName.COMPONENT_NAMES[i] == WidgetName.BUTTON){
 				viewsMap.put(WidgetName.COMPONENT_NAMES[i], button);
@@ -69,6 +68,18 @@ public class Main extends Activity implements android.view.View.OnClickListener{
 			layout.addView(viewsMap.get(WidgetName.COMPONENT_NAMES[i]));
 			viewsMap.get(WidgetName.COMPONENT_NAMES[i]).invalidate();
 		}
+		*/
+		
+		viewsMap.put("BUTTON", button);
+		viewsMap.put("TEXT VIEW", textView);
+		viewsMap.put("EDIT TEXT", editText);
+		
+		layout.addView(viewsMap.get("BUTTON"));
+		layout.addView(viewsMap.get("TEXT VIEW"));
+		layout.addView(viewsMap.get("EDIT TEXT"));
+		viewsMap.get("BUTTON").invalidate();
+		viewsMap.get("TEXT VIEW").invalidate();
+		viewsMap.get("EDIT TEXT").invalidate();
 		
 		//Generating mock user and context to call UserCapabilitiesUpdater
 		//and obtain a updatedUser
@@ -89,14 +100,16 @@ public class Main extends Activity implements android.view.View.OnClickListener{
 		user = UserCapabilitiesUpdater.update(user, context);
 
 		//TODO: For each component...
-		HashMap<String, UIConfiguration> currentUI = new HashMap<String, UIConfiguration>();
-
-		final UIConfiguration defaultConf = new UIConfiguration(ICapability.VIEW_SIZE.DEFAULT,ICapability.TEXT_SIZE.DEFAULT,
+//		HashMap<String, UIConfiguration> currentUI = new HashMap<String, UIConfiguration>();
+		UIConfiguration currentUI = new UIConfiguration(ICapability.VIEW_SIZE.DEFAULT,ICapability.TEXT_SIZE.DEFAULT,
 				ICapability.BRIGHTNESS.DEFAULT, Color.DKGRAY, Color.WHITE);
 		
-		currentUI.put(WidgetName.BUTTON, defaultConf);
-		currentUI.put(WidgetName.TEXT_VIEW, defaultConf);
-		currentUI.put(WidgetName.EDIT_TEXT, defaultConf);
+//		final UIConfiguration defaultConf = new UIConfiguration(ICapability.VIEW_SIZE.DEFAULT,ICapability.TEXT_SIZE.DEFAULT,
+//				ICapability.BRIGHTNESS.DEFAULT, Color.DKGRAY, Color.WHITE);
+		
+//		currentUI.put(WidgetName.BUTTON, defaultConf);
+//		currentUI.put(WidgetName.TEXT_VIEW, defaultConf);
+//		currentUI.put(WidgetName.EDIT_TEXT, defaultConf);
 
 		final UIReasoner uiReasoner = new UIReasoner(user, device, context, currentUI, getApplicationContext());
 		final UIConfiguration finalUIConfiguration = uiReasoner.getAdaptedConfiguration();

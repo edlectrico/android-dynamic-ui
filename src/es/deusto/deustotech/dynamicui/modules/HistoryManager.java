@@ -1,7 +1,5 @@
 package es.deusto.deustotech.dynamicui.modules;
 
-import java.util.HashMap;
-
 import android.content.Context;
 import android.content.SharedPreferences;
 import android.graphics.Color;
@@ -40,8 +38,7 @@ public class HistoryManager {
 	 * @param currentUI
 	 * @return if found return true, else return false
 	 */
-	public boolean checkConfiguration(ICapability user,
-			HashMap<String, UIConfiguration> currentUI) {
+	public boolean checkConfiguration(ICapability user, UIConfiguration currentUI) {
 		// Restore preferences
 		preferences = this.context.getSharedPreferences(this.context.getResources().getString(R.string.preferences_name), 0);
 		

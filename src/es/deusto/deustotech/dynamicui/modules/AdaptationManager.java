@@ -12,7 +12,6 @@ import com.google.gson.Gson;
 
 import es.deusto.deustotech.dynamicui.R;
 import es.deusto.deustotech.dynamicui.components.UIConfiguration;
-import es.deusto.deustotech.dynamicui.components.WidgetName;
 import es.deusto.deustotech.dynamicui.model.ICapability;
 
 public class AdaptationManager {
@@ -49,7 +48,7 @@ public class AdaptationManager {
 	public HashMap<String, View> adaptConfiguration(){
 		
 		//TODO: Adapt more than Size (Color, Brightness, etc).
-		componentsToAdapt.get(WidgetName.BUTTON).post(new Runnable() {
+		componentsToAdapt.get("BUTTON").post(new Runnable() {
 			@Override
 			public void run() {
 				if (configuration.getBrightness().equals(ICapability.BRIGHTNESS.VERY_HIGH)){
@@ -59,43 +58,43 @@ public class AdaptationManager {
 				}
 				
 				if (configuration.getViewSize().equals(ICapability.VIEW_SIZE.BIG)){
-					componentsToAdapt.get(WidgetName.BUTTON).setMinimumHeight(300);
-					componentsToAdapt.get(WidgetName.BUTTON).setMinimumWidth(500);
+					componentsToAdapt.get("BUTTON").setMinimumHeight(300);
+					componentsToAdapt.get("BUTTON").setMinimumWidth(500);
 				} else if (configuration.getViewSize().equals(ICapability.VIEW_SIZE.SMALL)){
-					componentsToAdapt.get(WidgetName.BUTTON).setMinimumHeight(50);
-					componentsToAdapt.get(WidgetName.BUTTON).setMinimumWidth(100);
+					componentsToAdapt.get("BUTTON").setMinimumHeight(50);
+					componentsToAdapt.get("BUTTON").setMinimumWidth(100);
 				}
-				componentsToAdapt.get(WidgetName.BUTTON).setBackgroundColor(configuration.getViewColor());
-				((Button) componentsToAdapt.get(WidgetName.BUTTON)).setTextColor(configuration.getTextColor());
+				componentsToAdapt.get("BUTTON").setBackgroundColor(configuration.getViewColor());
+				((Button) componentsToAdapt.get("BUTTON")).setTextColor(configuration.getTextColor());
 			}
 		});
 		
-		componentsToAdapt.get(WidgetName.EDIT_TEXT).post(new Runnable() {
+		componentsToAdapt.get("EDIT TEXT").post(new Runnable() {
 			@Override
 			public void run() {
 				if (configuration.getViewSize().equals(ICapability.VIEW_SIZE.BIG)){
-					componentsToAdapt.get(WidgetName.EDIT_TEXT).setMinimumHeight(300);
-					componentsToAdapt.get(WidgetName.EDIT_TEXT).setMinimumWidth(500);
+					componentsToAdapt.get("EDIT TEXT").setMinimumHeight(300);
+					componentsToAdapt.get("EDIT TEXT").setMinimumWidth(500);
 				} else if (configuration.getViewSize().equals(ICapability.VIEW_SIZE.SMALL)){
-					componentsToAdapt.get(WidgetName.EDIT_TEXT).setMinimumHeight(50);
-					componentsToAdapt.get(WidgetName.EDIT_TEXT).setMinimumWidth(100);
+					componentsToAdapt.get("EDIT TEXT").setMinimumHeight(50);
+					componentsToAdapt.get("EDIT TEXT").setMinimumWidth(100);
 				}
 			}
 			
 		});
 		
-		componentsToAdapt.get(WidgetName.TEXT_VIEW).post(new Runnable() {
+		componentsToAdapt.get("TEXT VIEW").post(new Runnable() {
 			@Override
 			public void run() {
 				if (configuration.getViewSize().equals(ICapability.VIEW_SIZE.BIG)){
-					componentsToAdapt.get(WidgetName.TEXT_VIEW).setMinimumHeight(300);
-					componentsToAdapt.get(WidgetName.TEXT_VIEW).setMinimumWidth(500);
+					componentsToAdapt.get("TEXT VIEW").setMinimumHeight(300);
+					componentsToAdapt.get("TEXT VIEW").setMinimumWidth(500);
 				} else if (configuration.getViewSize().equals(ICapability.VIEW_SIZE.SMALL)){
-					componentsToAdapt.get(WidgetName.TEXT_VIEW).setMinimumHeight(50);
-					componentsToAdapt.get(WidgetName.TEXT_VIEW).setMinimumWidth(100);
+					componentsToAdapt.get("TEXT VIEW").setMinimumHeight(50);
+					componentsToAdapt.get("TEXT VIEW").setMinimumWidth(100);
 				}
-				componentsToAdapt.get(WidgetName.TEXT_VIEW).setBackgroundColor(configuration.getViewColor());
-				((TextView) componentsToAdapt.get(WidgetName.TEXT_VIEW)).setTextColor(configuration.getTextColor());
+				componentsToAdapt.get("TEXT VIEW").setBackgroundColor(configuration.getViewColor());
+				((TextView) componentsToAdapt.get("TEXT VIEW")).setTextColor(configuration.getTextColor());
 			}
 			
 		});
