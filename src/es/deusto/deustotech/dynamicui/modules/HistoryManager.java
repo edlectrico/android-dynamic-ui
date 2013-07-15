@@ -37,17 +37,18 @@ public class HistoryManager {
 	 * apparitions in the past, so a deeper adaptation is not
 	 * needed
 	 * 
-	 * @param user
 	 * @param currentUI
 	 * @return if found return true, else return false
 	 */
-	public boolean checkConfiguration(ICapability user, UIConfiguration currentUI) {
+	public boolean checkConfiguration(UIConfiguration currentUI) {
 		// Restore preferences
 		preferences = this.context.getSharedPreferences(this.context.getResources().getString(R.string.preferences_name), 0);
 		String json = preferences.getString(this.context.getResources().getString(R.string.adapted_configuration), "");
 		
-		//TODO
-		return false;
+		Gson gson = new Gson();
+		UIConfiguration storedUI = gson.fromJson(json, UIConfiguration.class);
+		
+		return storedUI.equals(currentUI);
 	}
 
 	public boolean isEmpty() {

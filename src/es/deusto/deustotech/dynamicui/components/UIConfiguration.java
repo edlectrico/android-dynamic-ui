@@ -65,6 +65,7 @@ public class UIConfiguration {
 		this.brightness = brightness;
 	}
 	
+	//TODO: Check this method
 	@Override
 	public boolean equals(Object o){
 			return ((this.brightness.equals(((UIConfiguration) o).brightness)) && (this.textColor == ((UIConfiguration) o).textColor)

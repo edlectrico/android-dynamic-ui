@@ -259,7 +259,7 @@ public class UIReasoner {
 //	}
 //
 	private boolean isAdaptationHistoryEmpty() {
-		return historyManager.checkConfiguration(this.user, this.currentUI);
+		return historyManager.checkConfiguration(this.currentUI);
 	}
 
     public ICapability getUser() {
