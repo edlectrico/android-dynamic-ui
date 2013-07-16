@@ -43,8 +43,10 @@ public class AdaptationManager {
 	
 	/**
 	 * This method takes both componentsToAdapt and adaptatedConfiguration and performs
-	 * the necessary adaptations in the first HashMap.
+	 * the necessary adaptations in the first HashMap. It also stores the configuration
+	 * for the given user
 	 * 
+	 * @param adaptedUser
 	 * @return an adapted configuration HashMap
 	 */
 	public HashMap<String, View> adaptConfiguration(final ICapability adaptedUser){
@@ -112,13 +114,6 @@ public class AdaptationManager {
 	private void storeAdaptedConfiguration(final ICapability adaptedUser) { //last known UI (HistoryManager)
 		SharedPreferences.Editor userEditor = userPreferences.edit();
 
-//		HashMap<ICapability, UIConfiguration> adaptedUserConf = new HashMap<ICapability, UIConfiguration>();
-//		final BRIGHTNESS brightness = (BRIGHTNESS) adaptedUser.getCapabilityValue(ICapability.CAPABILITY.BRIGHTNESS);
-//		final VIEW_SIZE viewSize = (VIEW_SIZE) adaptedUser.getCapabilityValue(ICapability.CAPABILITY.VIEW_SIZE);
-//		final TEXT_SIZE textSize = (TEXT_SIZE) adaptedUser.getCapabilityValue(ICapability.CAPABILITY.TEXT_SIZE);
-//		
-//		adaptedUserConf.put(new UserCapabilities(brightness, null, viewSize, textSize), configuration);
-		
 		Gson gson = new Gson();
 		String json = gson.toJson(adaptedUser);
 		//TODO Here the problem is that every adaptation will be stored here, deleting the previous one
@@ -131,36 +126,8 @@ public class AdaptationManager {
 		uiEditor.putString(this.context.getResources().getString(R.string.adapted_configuration_ui), json);
 		uiEditor.commit();
 		
-		
-		
 		//Check data
 //		json = preferences.getString(this.context.getResources().getString(R.string.adapted_configuration), "");
 //		System.out.println(json);
 	}
-
-	
-	//TODO: The following methods are just to test 
-	//the automatic adaptation each 1000 milliseconds 
-	//++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
-	/*
-	private int generateRandomValue() {
-		Random random = new Random();
-		return random.nextInt(6);
-	}
-	 */
-
-	/*
-	@Override
-	public void run() {
-		while (true){
-			adapt();
-			try {
-				Thread.sleep(1000);
-			} catch (InterruptedException e) {
-				e.printStackTrace();
-			}
-		}
-	}
-	*/
-	//++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
 }

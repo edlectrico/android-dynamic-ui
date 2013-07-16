@@ -35,9 +35,8 @@ public class HistoryManager {
 	
 	/**
 	 * This method checks the SharedPreferences for a previous
-	 * similar situation with the same user and UI configuration
-	 * apparitions in the past, so a deeper adaptation is not
-	 * needed
+	 * similar situation with the same user, so a deeper
+	 * adaptation is not needed
 	 * 
 	 * @param user
 	 * @return if found return true, else return false
@@ -50,12 +49,6 @@ public class HistoryManager {
 		Gson gson = new Gson();
 		ICapability storedUser = gson.fromJson(json, UserCapabilities.class);
 		
-//		final BRIGHTNESS brightness = (BRIGHTNESS) user.getCapabilityValue(ICapability.CAPABILITY.BRIGHTNESS);
-//		final VIEW_SIZE viewSize = (VIEW_SIZE) user.getCapabilityValue(ICapability.CAPABILITY.VIEW_SIZE);
-//		final TEXT_SIZE textSize = (TEXT_SIZE) user.getCapabilityValue(ICapability.CAPABILITY.TEXT_SIZE);
-//		final ICapability simpleUser = new UserCapabilities(brightness, null, viewSize, textSize);
-		
-		//TODO: This always returns false...
 		return ((String.valueOf(storedUser.getCapabilityValue(ICapability.CAPABILITY.BRIGHTNESS)).
 				equalsIgnoreCase(String.valueOf(user.getCapabilityValue(ICapability.CAPABILITY.BRIGHTNESS))))
 				&& (String.valueOf(storedUser.getCapabilityValue(ICapability.CAPABILITY.VIEW_SIZE)).
@@ -66,6 +59,7 @@ public class HistoryManager {
 
 	/**
 	 * This method checks if already is a configuration stored in the system
+	 * 
 	 * @return true: if there is no configuration found
 	 * false: if there is a configuration stored
 	 */
@@ -80,14 +74,15 @@ public class HistoryManager {
 	/**
 	 * This method returns the last known UI configuration, which
 	 * is stored by the AdaptationManager module
+	 * 
+	 * @param user
 	 * @return a UIConfiguration which represents the last known
-	 * configuration
+	 * configuration for a given user
 	 */
 	public UIConfiguration getLastKnownUI(final ICapability user){
 		final String json = uiPreferences.getString(context.getResources().getString(R.string.adapted_configuration_ui), "");
 		//Example: {"brightness":"VERY_HIGH","viewSize":"BIG","textSize":"BIG","viewColor":-1,"textColor":-16777216}
 		Gson gson = new Gson();
-//		UIConfiguration currentUI = gson.fromJson(json, UIConfiguration.class);
 		UIConfiguration adaptedUserConf = gson.fromJson(json, UIConfiguration.class);
 		
 		return adaptedUserConf;
