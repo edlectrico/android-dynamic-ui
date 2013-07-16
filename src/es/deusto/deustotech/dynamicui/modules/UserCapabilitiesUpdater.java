@@ -1,8 +1,31 @@
 package es.deusto.deustotech.dynamicui.modules;
 
-import android.graphics.Color;
+import java.io.BufferedReader;
+import java.io.InputStreamReader;
+
+import android.content.Context;
+
+import com.hp.hpl.jena.ontology.Individual;
+import com.hp.hpl.jena.ontology.OntClass;
+import com.hp.hpl.jena.ontology.OntModel;
+import com.hp.hpl.jena.ontology.OntModelSpec;
+import com.hp.hpl.jena.rdf.model.InfModel;
+import com.hp.hpl.jena.rdf.model.Literal;
+import com.hp.hpl.jena.rdf.model.Model;
+import com.hp.hpl.jena.rdf.model.ModelFactory;
+import com.hp.hpl.jena.rdf.model.Property;
+import com.hp.hpl.jena.rdf.model.Resource;
+import com.hp.hpl.jena.rdf.model.Statement;
+import com.hp.hpl.jena.reasoner.Reasoner;
+import com.hp.hpl.jena.reasoner.rulesys.BuiltinRegistry;
+import com.hp.hpl.jena.reasoner.rulesys.GenericRuleReasoner;
+import com.hp.hpl.jena.reasoner.rulesys.Rule;
+
+import es.deusto.deustotech.dynamicui.R;
 import es.deusto.deustotech.dynamicui.model.ICapability;
-import es.deusto.deustotech.dynamicui.model.ICapability.CAPABILITY;
+import es.deusto.deustotech.dynamicui.model.user.UserCapabilities;
+import es.deusto.deustotech.utils.jena.ListContainsValueBuiltin;
+import es.deusto.deustotech.utils.jena.ListNotContainsValueBuiltin;
 
 public class UserCapabilitiesUpdater {
 
@@ -13,144 +36,137 @@ public class UserCapabilitiesUpdater {
 	 * context situation.
 	 */
 
-	/**
-	 * Given a user and a context situation this method updates
-	 * the user capabilities to the new current context parameters.
-	 * 
-	 * @param user
-	 * @param context
-	 * @return an updated user
-	 */
-	//TODO rules
-	static public ICapability update(ICapability user, ICapability context) {
-		// TODO: for the moment just adapt NOISE and BRIGHTNESS
-		final Object userBrightnessValue 		= user.getCapabilityValue(CAPABILITY.BRIGHTNESS);
-		final Object contextIlluminanceValue 	= context.getCapabilityValue(CAPABILITY.BRIGHTNESS);
+	public static final String NS = "http://www.deustotech.es/adaptation.owl#";
+    public OntModel ontModel = null;
+    public OntClass ontUserClass = null;
+    public OntClass ontContextClass = null;
+    public OntClass ontAdaptedUserClass = null;
 
-		if (!(userBrightnessValue.equals(ICapability.BRIGHTNESS.ONLY_HIGH)) 	//These configurations allow no adaptation
-				&& !(userBrightnessValue.equals(ICapability.BRIGHTNESS.ONLY_LOW) )
-				&& !(userBrightnessValue.equals(ICapability.BRIGHTNESS.ONLY_VERY_HIGH))){
-
-			if ((userBrightnessValue.equals(ICapability.BRIGHTNESS.DEFAULT)
-					|| userBrightnessValue.equals(ICapability.BRIGHTNESS.LOW)
-					|| userBrightnessValue.equals(ICapability.BRIGHTNESS.HIGH))) { //If BRIGHTNESS.VERY_HIGHT -> no applicable adaptation
-				//CONTEXT_ILLUMINANCE
-				if (contextIlluminanceValue
-						.equals(ICapability.BRIGHTNESS.HIGH)) {
-					user.setCapabilityValue(CAPABILITY.BRIGHTNESS,
-							ICapability.BRIGHTNESS.HIGH);
-					user.setCapabilityValue(CAPABILITY.VIEW_COLOR, Color.WHITE);
-//					user.setCapabilityValue(CAPABILITY.USER_MAX_TEXT_SIZE, TEXT_SIZE.VERY_BIG);
-//				} else if (contextIlluminanceValue
-//						.equals(ICapability.ILLUMINANCE.DAYLIGHT)){
-//					user.setCapabilityValue(CAPABILITY.BRIGHTNESS,
-//							ICapability.BRIGHTNESS.HIGH);
-//					user.setCapabilityValue(CAPABILITY.VIEW_COLOR, ICapability.COLOR.RED);
-//				} else if ((contextIlluminanceValue
-//						.equals(ICapability.ILLUMINANCE.MOONLESS_CLEAR_NIGHT)) || (contextIlluminanceValue
-//								.equals(ICapability.ILLUMINANCE.MOONLESS_OVERCAST_NIGHT))
-//								|| (contextIlluminanceValue
-//										.equals(ICapability.ILLUMINANCE.FULL_MOON_CLEAR_NIGHT))
-//										|| (contextIlluminanceValue
-//												.equals(ICapability.ILLUMINANCE.TWILIGHT_SKY))) {
-//					user.setCapabilityValue(CAPABILITY.BRIGHTNESS,
-//							ICapability.BRIGHTNESS.LOW);
-//					user.setCapabilityValue(CAPABILITY.VIEW_COLOR, ICapability.COLOR.GRAY);
-				} else if (contextIlluminanceValue
-                        .equals(ICapability.BRIGHTNESS.LOW)) {
-                    user.setCapabilityValue(CAPABILITY.BRIGHTNESS,
-                            ICapability.BRIGHTNESS.LOW);
-                    user.setCapabilityValue(CAPABILITY.VIEW_COLOR, Color.DKGRAY);
-                    user.setCapabilityValue(CAPABILITY.TEXT_COLOR, Color.BLUE);
-                }
-
-
-
-				//USER_VIEW_SIZE
-				final Object userViewSizeValue 	= user.getCapabilityValue(CAPABILITY.VIEW_SIZE);
-				final Object userTextSizeValue 	= user.getCapabilityValue(CAPABILITY.TEXT_SIZE);
-				
-				if (!userViewSizeValue.equals(ICapability.VIEW_SIZE.ONLY_VERY_BIG)){
-					if (contextIlluminanceValue.equals(ICapability.BRIGHTNESS.HIGH)){ //BIGGER CONTROLS/TEXT
-						if (userViewSizeValue.equals(ICapability.VIEW_SIZE.DEFAULT)){
-							user.setCapabilityValue(CAPABILITY.VIEW_SIZE, ICapability.VIEW_SIZE.BIG);
-						} else if (userViewSizeValue.equals(ICapability.VIEW_SIZE.BIG)){
-							user.setCapabilityValue(CAPABILITY.VIEW_SIZE, ICapability.VIEW_SIZE.VERY_BIG); //TODO: Is it correct?
-						}
-						//USER_TEXT_SIZE
-						if (userTextSizeValue.equals(ICapability.TEXT_SIZE.DEFAULT)){
-							user.setCapabilityValue(CAPABILITY.TEXT_SIZE, ICapability.TEXT_SIZE.BIG);
-						} else if (userTextSizeValue.equals(ICapability.TEXT_SIZE.BIG)){
-							user.setCapabilityValue(CAPABILITY.TEXT_SIZE, ICapability.TEXT_SIZE.VERY_BIG); //TODO: Is it correct?
-						}
-//					} else if ((contextIlluminanceValue
-//							.equals(ICapability.ILLUMINANCE.MOONLESS_CLEAR_NIGHT)) || (contextIlluminanceValue
-//									.equals(ICapability.ILLUMINANCE.MOONLESS_OVERCAST_NIGHT))
-//									|| (contextIlluminanceValue
-//											.equals(ICapability.ILLUMINANCE.FULL_MOON_CLEAR_NIGHT))
-//											|| (contextIlluminanceValue
-//													.equals(ICapability.ILLUMINANCE.TWILIGHT_SKY))){ //SMALLER CONTROLS/TEXT
-//						user.setCapabilityValue(CAPABILITY.VIEW_SIZE, ICapability.VIEW_SIZE.SMALL);
-					}
-				}
-			}
-		}
-
-        /*
+    public Reasoner reasoner;
+    public InfModel infModel;
+    
+    public ICapability user;
+    public ICapability context;
+	
+	public UserCapabilitiesUpdater(ICapability user, ICapability context, Context appContext) {
+		super();
 		
-		final Object userInputValue 	= user.getCapabilityValue(CAPABILITY.INPUT);
+		this.user = user;
+		this.context = context;
 		
-		if (userInputValue.equals(UserCapabilities.INPUT.HAPTIC)){
-			if (contextIlluminanceValue
-					.equals(ICapability.ILLUMINANCE.SUNLIGHT)) {
-				//TODO: Bigger and more visible controls
-//				user.setCapabilityValue(CAPABILITY.USER_TEXT_SIZE, TEXT_SIZE.VERY_BIG);
-//				user.setCapabilityValue(CAPABILITY.USER_VIEW_SIZE, ICapability.VIEW_SIZE.VERY_BIG);
-//				user.setCapabilityValue(CAPABILITY.USER_IMAGES, IMAGES.ONLY_BIG);
-//				user.setCapabilityValue(CAPABILITY.USER_VIEW_BACKGROUND_COLOR, Color.RED);
-				
-				*//*
-					caps.put(CAPABILITY.USER_CONTRAST, contrast);
-					caps.put(CAPABILITY.USER_IMAGES, IMAGES.DEFAULT);
-					caps.put(CAPABILITY.USER_INPUT, INPUT.HAPTIC);
-					caps.put(CAPABILITY.USER_LANGUAGE, LANGUAGE.ENGLISH);
-					
-					caps.put(CAPABILITY.USER_MIN_TEXT_SIZE, minTextSize);
-					caps.put(CAPABILITY.USER_OUTPUT, OUTPUT.VISUAL);
-					caps.put(CAPABILITY.USER_BACKGROUND_COLOR, COLOR.DEFAULT);
-					caps.put(CAPABILITY.USER_TEXT_COLOR, COLOR.DEFAULT);
-					caps.put(CAPABILITY.USER_EXPERIENCE, EXPERIENCE.STANDARD);
-					caps.put(CAPABILITY.USER_VOLUME, volume);
-					caps.put(CAPABILITY.USER_ACTIVITY, ACTIVITIES.NONE);
-					caps.put(CAPABILITY.USER_LOCATION, location); 	//TODO: configure default locations? (HOME/STREET/WORK...)
-					caps.put(CAPABILITY.USER_RELATIONSHIP, RELATIONSHIP.NONE);	//TODO: Does it mean anything?
-				 *//*
-			}
-		}
+		BuiltinRegistry.theRegistry.register(new ListContainsValueBuiltin());
+		BuiltinRegistry.theRegistry.register(new ListNotContainsValueBuiltin());
 		
-		final Object userVolumeValue 	= user.getCapabilityValue(CAPABILITY.VOLUME);
-		final Object contextNoiseValue 	= context.getCapabilityValue(CAPABILITY.CONTEXT_NOISE);
+		Rule.Parser ruleParser = Rule.rulesParserFromReader(new BufferedReader(
+				new InputStreamReader(appContext.getResources().openRawResource(R.raw.user_rules))));
+		reasoner = new GenericRuleReasoner(Rule.parseRules(ruleParser));
+		
+		executeRules(generateModel());
+	}
 
-		if (!(userVolumeValue.equals(ICapability.VOLUME.ONLY_LOW)) && !(userVolumeValue.equals(ICapability.VOLUME.ONLY_HIGHT)) && 
-				!(userVolumeValue.equals(ICapability.VOLUME.ONLY_VERY_HIGHT))){
-			if ((userVolumeValue.equals(ICapability.VOLUME.DEFAULT))
-					|| (userVolumeValue.equals(ICapability.VOLUME.LOW))
-					|| (userVolumeValue.equals(ICapability.VOLUME.HIGH))) { //If VOLUME.VERY_HIGHT -> no applicable adaptation
-//				if (contextNoiseValue.equals(ICapability.NOISE.NOISY)) {
-//					user.setCapabilityValue(CAPABILITY.VOLUME,
-//							ICapability.VOLUME.VERY_HIGH);
-//				} else if (contextNoiseValue.equals(ICapability.NOISE.STREET)) {
-//					user.setCapabilityValue(CAPABILITY.VOLUME,
-//							ICapability.VOLUME.HIGH);
-//				} else
-                if (contextNoiseValue.equals(ICapability.NOISE.NOT_NOISY)) {
-					user.setCapabilityValue(CAPABILITY.VOLUME,
-							ICapability.VOLUME.DEFAULT); //TODO: Not using VOLUME.LOW
-				}
-			}
-		}
-*/
-		return user; 
+	private Model generateModel() {
+        this.ontModel = ModelFactory.createOntologyModel(OntModelSpec.OWL_MEM);
+        this.ontModel.setNsPrefix("adaptation", NS);
+        
+        this.ontUserClass 	 	= ontModel.createClass(NS + "User");
+        this.ontContextClass 	= ontModel.createClass(NS + "Context");
+        this.ontAdaptedUserClass 	= ontModel.createClass(NS + "UpdatedUser");
+
+        addInstancesWithJena("user", "context", "updated_user");
+
+        this.ontModel.write(System.out);
+
+        return this.ontModel;
+    }
+	
+	private void addInstancesWithJena(final String userId, final String contextId, final String adaptedUser){
+    	addUserInstance(userId);
+    	addContextInstance(contextId);
+    }
+	
+	private Individual addUserInstance(String id) {
+        Individual individual = this.ontUserClass.createIndividual(NS + id);
+
+        Property viewSize = this.ontModel.getProperty(NS + String.valueOf(ICapability.CAPABILITY.VIEW_SIZE));
+        Literal literal = this.ontModel.createTypedLiteral(this.user.getCapabilityValue(ICapability.CAPABILITY.VIEW_SIZE));
+        individual.setPropertyValue(viewSize, literal);
+        
+        Property viewColor = this.ontModel.getProperty(NS + String.valueOf(ICapability.CAPABILITY.VIEW_COLOR));
+        literal = this.ontModel.createTypedLiteral(this.user.getCapabilityValue(ICapability.CAPABILITY.VIEW_COLOR));
+        individual.setPropertyValue(viewColor, literal);
+        
+        Property textSize = this.ontModel.getProperty(NS + String.valueOf(ICapability.CAPABILITY.TEXT_SIZE));
+        literal = this.ontModel.createTypedLiteral(this.user.getCapabilityValue(ICapability.CAPABILITY.TEXT_SIZE));
+        individual.setPropertyValue(textSize, literal);
+        
+        Property textColor = this.ontModel.getProperty(NS + String.valueOf(ICapability.CAPABILITY.TEXT_COLOR));
+        literal = this.ontModel.createTypedLiteral(this.user.getCapabilityValue(ICapability.CAPABILITY.TEXT_COLOR));
+        individual.setPropertyValue(textColor, literal);
+
+        Property input = this.ontModel.getProperty(NS + String.valueOf(ICapability.CAPABILITY.INPUT));
+        literal = this.ontModel.createTypedLiteral(this.user.getCapabilityValue(ICapability.CAPABILITY.INPUT));
+        individual.setPropertyValue(input, literal);
+
+        Property brightness = this.ontModel.getProperty(NS + String.valueOf(ICapability.CAPABILITY.BRIGHTNESS));
+        literal = this.ontModel.createTypedLiteral(this.user.getCapabilityValue(ICapability.CAPABILITY.BRIGHTNESS));
+        individual.setPropertyValue(brightness, literal);
+
+        return individual;
+    }
+	
+	private Individual addContextInstance(String id) {
+        Individual individual = this.ontContextClass.createIndividual(NS + id);
+
+        Property temperature = this.ontModel.getProperty(NS + String.valueOf(ICapability.CAPABILITY.TEMPERATURE));
+        Literal literal = this.ontModel.createTypedLiteral(this.context.getCapabilityValue(ICapability.CAPABILITY.TEMPERATURE));
+        individual.setPropertyValue(temperature, literal);
+
+        Property brightness = this.ontModel.getProperty(NS + String.valueOf(ICapability.CAPABILITY.BRIGHTNESS));
+        literal = this.ontModel.createTypedLiteral(this.context.getCapabilityValue(ICapability.CAPABILITY.BRIGHTNESS));
+        individual.setPropertyValue(brightness, literal);
+
+        return individual;
+    }
+    
+    private void executeRules(Model dataModel) {
+        infModel = ModelFactory.createInfModel(reasoner, dataModel);
+        infModel.prepare();
+
+//        for (Statement st : infModel.listStatements().toList()){
+//            Log.d("InfModel", st.toString());
+//        }
+    }
+    
+    private ICapability parseUser(){
+    	final Resource resource = infModel.getResource("http://www.deustotech.es/adaptation.owl#UpdatedUserInstance");
+    	
+    	final Statement viewSizeStmt 	= resource.getProperty(this.ontModel.getProperty(NS + String.valueOf(ICapability.CAPABILITY.VIEW_SIZE)));
+//    	final Statement viewColorStmt 	= resource.getProperty(this.ontModel.getProperty(NS + String.valueOf(ICapability.CAPABILITY.VIEW_COLOR)));
+    	final Statement textSizeStmt 	= resource.getProperty(this.ontModel.getProperty(NS + String.valueOf(ICapability.CAPABILITY.TEXT_SIZE)));
+//    	final Statement textColorStmt 	= resource.getProperty(this.ontModel.getProperty(NS + String.valueOf(ICapability.CAPABILITY.TEXT_COLOR)));
+    	final Statement brightnessStmt 	= resource.getProperty(this.ontModel.getProperty(NS + String.valueOf(ICapability.CAPABILITY.BRIGHTNESS)));
+    	
+    	if (viewSizeStmt != null){
+    		final ICapability.VIEW_SIZE viewSize 	= ICapability.VIEW_SIZE.valueOf(viewSizeStmt.getObject().toString());
+    		ICapability.TEXT_SIZE textSize; 	
+    		//TODO: Fix this
+    		if (textSizeStmt != null){
+    			textSize = ICapability.TEXT_SIZE.valueOf(textSizeStmt.getObject().toString());
+    		} else {
+    			textSize = ICapability.TEXT_SIZE.valueOf("DEFAULT");
+    		}
+    		final ICapability.BRIGHTNESS brightness = ICapability.BRIGHTNESS.valueOf(brightnessStmt.getObject().toString());
+//    		final int viewColor = Color.parseColor(viewColorStmt.getObject().toString());
+//    		final int textColor = Color.parseColor(textColorStmt.getObject().toString());
+    		
+    		return new UserCapabilities(brightness, null, viewSize, textSize);
+    	}
+    	
+    	return null;
+    }
+
+	public ICapability update() {
+		return parseUser();
 	}
 
 }

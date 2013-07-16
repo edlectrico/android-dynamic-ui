@@ -70,31 +70,34 @@ public class UIReasoner {
 //		this.currentUI 	    = currentUI; 
 		this.adapt 			= true;
 		
-		this.user = UserCapabilitiesUpdater.update(user, context);
+		UserCapabilitiesUpdater userUpdater = new UserCapabilitiesUpdater(this.user, this.context, this.appContext);
+		this.user = userUpdater.update();
 
-		if (!isAdaptationHistoryEmpty()){ 
-			if (historyManager.checkConfiguration(this.user)){
-				this.adapt = false;
-				finalConfiguration = historyManager.getLastKnownUI(this.user);
+		if (this.user != null){
+			if (!isAdaptationHistoryEmpty()){ 
+				if (historyManager.checkConfiguration(this.user)){
+					this.adapt = false;
+					finalConfiguration = historyManager.getLastKnownUI(this.user);
 
-				Log.d(UIReasoner.class.getSimpleName(), "No need of executing rules");
-			}
-		} 
-		
-		if (this.adapt){
-			//Adding the custom Builtins to the BuiltinRegistry
-			BuiltinRegistry.theRegistry.register(new ListContainsValueBuiltin());
-			BuiltinRegistry.theRegistry.register(new ListNotContainsValueBuiltin());
-			
-			Rule.Parser ruleParser = Rule.rulesParserFromReader(new BufferedReader(
-					new InputStreamReader(appContext.getResources().openRawResource(R.raw.action_rules))));
-			reasoner = new GenericRuleReasoner(Rule.parseRules(ruleParser));
-			
-			executeRules(generateModel());
-			
-			finalConfiguration = parseConfiguration();
-			
-			Log.d(UIReasoner.class.getSimpleName(), "Rules ended");
+					Log.d(UIReasoner.class.getSimpleName(), "No need of executing rules");
+				}
+			} 
+
+			if (this.adapt){
+				//Adding the custom Builtins to the BuiltinRegistry
+				BuiltinRegistry.theRegistry.register(new ListContainsValueBuiltin());
+				BuiltinRegistry.theRegistry.register(new ListNotContainsValueBuiltin());
+
+				Rule.Parser ruleParser = Rule.rulesParserFromReader(new BufferedReader(
+						new InputStreamReader(appContext.getResources().openRawResource(R.raw.action_rules))));
+				reasoner = new GenericRuleReasoner(Rule.parseRules(ruleParser));
+
+				executeRules(generateModel());
+
+				finalConfiguration = parseConfiguration();
+
+				Log.d(UIReasoner.class.getSimpleName(), "Rules ended");
+			}	
 		}
 	}
 

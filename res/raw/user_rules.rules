@@ -1,0 +1,151 @@
+@prefix adpt: http://www.deustotech.es/adaptation.owl#
+@prefix rdf: http://www.w3.org/1999/02/22-rdf-syntax-ns#
+@prefix owl: http://www.w3.org/2002/07/owl#
+
+[User__1: 	
+					print("User__1")
+					(?u rdf:type adpt:User)
+					(?c rdf:type adpt:Context)
+					(?u adpt:VIEW_SIZE ?u_vs)
+					(?u adpt:VIEW_COLOR ?u_vc)
+					(?u adpt:TEXT_COLOR ?u_tc)
+					(?u adpt:INPUT ?u_i)
+					(?u adpt:BRIGHTNESS ?u_b)
+					(?c adpt:BRIGHTNESS ?c_b)
+					print("config")
+					listNotContainsValue(?u_b, "ONLY_HIGH", "ONLY_LOW", "ONLY_VERY_HIGH")
+					print("listNotContainsValue(?u_b, ONLY_HIGH, ONLY_LOW, ONLY_VERY_HIGH)")
+					listContainsValue(?u_b, "DEFAULT", "LOW", "HIGH")
+					print("listContainsValue(?u_b, DEFAULT, LOW, HIGH)")
+					print("listContainsValue x 2")
+					equal(?c_b, "HIGH")
+					
+					->
+					print("EXECUTING_USER_RULE_1")
+					(adpt:UpdatedUserInstance rdf:type adpt:UpdatedUser)
+					(adpt:UpdatedUserInstance adpt:BRIGHTNESS "HIGH")
+					(adpt:UpdatedUserInstance adpt:VIEW_COLOR "WHITE")
+]
+
+[User__2: 	
+					print("User__2")
+					(?u rdf:type adpt:User)
+					(?c rdf:type adpt:Context)
+					(?u adpt:VIEW_SIZE ?u_vs)
+					(?u adpt:VIEW_COLOR ?u_vc)
+					(?u adpt:TEXT_COLOR ?u_tc)
+					(?u adpt:INPUT ?u_i)
+					(?u adpt:BRIGHTNESS ?u_b)
+					(?c adpt:BRIGHTNESS ?c_b)
+					print("config")
+					listNotContainsValue(?u_b, "ONLY_HIGH", "ONLY_LOW", "ONLY_VERY_HIGH")
+					print("listNotContainsValue(?u_b, ONLY_HIGH, ONLY_LOW, ONLY_VERY_HIGH)")
+					listContainsValue(?u_b, "DEFAULT", "LOW", "HIGH")
+					print("listContainsValue(?u_b, DEFAULT, LOW, HIGH)")
+					print("listContainsValue x 2")
+					equal(?c_b, "LOW")
+					
+					->
+					print("EXECUTING_USER_RULE_2")
+					(adpt:UpdatedUserInstance rdf:type adpt:UpdatedUser)
+					(adpt:UpdatedUserInstance adpt:BRIGHTNESS "LOW")
+					(adpt:UpdatedUserInstance adpt:VIEW_SIZE "SMALL")
+					(adpt:UpdatedUserInstance adpt:VIEW_COLOR "DKGREY")
+					(adpt:UpdatedUserInstance adpt:TEXT_COLOR "BLUE")
+]
+
+[User__3: 	
+					print("User__3")
+					(?u rdf:type adpt:User)
+					(?c rdf:type adpt:Context)
+					(?u adpt:VIEW_SIZE ?u_vs)
+					(?u adpt:VIEW_COLOR ?u_vc)
+					(?u adpt:TEXT_COLOR ?u_tc)
+					(?u adpt:INPUT ?u_i)
+					(?u adpt:BRIGHTNESS ?u_b)
+					(?c adpt:BRIGHTNESS ?c_b)
+					print("config")
+					notEqual(?u_vs, "ONLY_VERY_BIG")
+					print("notEqual(?u_vs, ONLY_VERY_BIG)")
+					equal(?c_b, "HIGH")
+					print("equal(?c_b, HIGH)")
+					equal(?u_vs, "DEFAULT")
+					print("equal(?u_vs, DEFAULT)")
+					
+					->
+					print("EXECUTING_USER_RULE_3")
+					(adpt:UpdatedUserInstance rdf:type adpt:UpdatedUser)
+					(adpt:UpdatedUserInstance adpt:VIEW_SIZE "BIG")
+]
+
+[User__4: 	
+					print("User__4")
+					(?u rdf:type adpt:User)
+					(?c rdf:type adpt:Context)
+					(?u adpt:VIEW_SIZE ?u_vs)
+					(?u adpt:VIEW_COLOR ?u_vc)
+					(?u adpt:TEXT_COLOR ?u_tc)
+					(?u adpt:INPUT ?u_i)
+					(?u adpt:BRIGHTNESS ?u_b)
+					(?c adpt:BRIGHTNESS ?c_b)
+					print("config")
+					notEqual(?u_vs, "ONLY_VERY_BIG")
+					print("notEqual(?u_vs, ONLY_VERY_BIG)")
+					equal(?c_b, "HIGH")
+					print("equal(?c_b, HIGH)")
+					equal(?u_vs, "BIG")
+					print("equal(?u_vs, BIG)")
+					
+					->
+					print("EXECUTING_USER_RULE_4")
+					(adpt:UpdatedUserInstance rdf:type adpt:UpdatedUser)
+					(adpt:UpdatedUserInstance adpt:VIEW_SIZE "VERY_BIG")
+]
+
+[User__5: 	
+					print("User__5")
+					(?u rdf:type adpt:User)
+					(?c rdf:type adpt:Context)
+					(?u adpt:VIEW_SIZE ?u_vs)
+					(?u adpt:VIEW_COLOR ?u_vc)
+					(?u adpt:TEXT_COLOR ?u_tc)
+					(?u adpt:INPUT ?u_i)
+					(?u adpt:BRIGHTNESS ?u_b)
+					(?c adpt:BRIGHTNESS ?c_b)
+					print("config")
+					notEqual(?u_vs, "ONLY_VERY_BIG")
+					print("notEqual(?u_vs, ONLY_VERY_BIG)")
+					equal(?c_b, "HIGH")
+					print("equal(?c_b, HIGH)")
+					equal(?u_ts, "DEFAULT")
+					print("equal(?u_vs, DEFAULT)")
+					
+					->
+					print("EXECUTING_USER_RULE_5")
+					(adpt:UpdatedUserInstance rdf:type adpt:UpdatedUser)
+					(adpt:UpdatedUserInstance adpt:TEXT_SIZE "BIG")
+]
+
+[User__6: 	
+					print("User__6")
+					(?u rdf:type adpt:User)
+					(?c rdf:type adpt:Context)
+					(?u adpt:VIEW_SIZE ?u_vs)
+					(?u adpt:VIEW_COLOR ?u_vc)
+					(?u adpt:TEXT_COLOR ?u_tc)
+					(?u adpt:INPUT ?u_i)
+					(?u adpt:BRIGHTNESS ?u_b)
+					(?c adpt:BRIGHTNESS ?c_b)
+					print("config")
+					notEqual(?u_vs, "ONLY_VERY_BIG")
+					print("notEqual(?u_vs, ONLY_VERY_BIG)")
+					equal(?c_b, "HIGH")
+					print("equal(?c_b, HIGH)")
+					equal(?u_ts, "BIG")
+					print("equal(?u_vs, BIG)")
+					
+					->
+					print("EXECUTING_USER_RULE_6")
+					(adpt:UpdatedUserInstance rdf:type adpt:UpdatedUser)
+					(adpt:UpdatedUserInstance adpt:TEXT_SIZE "VERY_BIG")
+]
