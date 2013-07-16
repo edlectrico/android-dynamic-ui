@@ -51,6 +51,8 @@ public class Main extends Activity implements android.view.View.OnClickListener{
 		button 			= findViewById(R.id.mybutton);
 		View textView 	= findViewById(R.id.mytexview);
 		View editText	= findViewById(R.id.myedittext);
+		
+		button.setOnClickListener(this);
 
 		Log.d(this.getClass().getName(), "view is: " + button.getClass().getName());
 
@@ -82,8 +84,14 @@ public class Main extends Activity implements android.view.View.OnClickListener{
 		final UIReasoner uiReasoner = new UIReasoner(user, device, context, getApplicationContext());
 		final UIConfiguration finalUIConfiguration = uiReasoner.getAdaptedConfiguration();
 
-		AdaptationManager adaptationModule = new AdaptationManager(viewsMap, finalUIConfiguration, getApplicationContext());
-		adaptationModule.adaptConfiguration(uiReasoner.getUser());
+		if (finalUIConfiguration != null){
+			AdaptationManager adaptationModule = new AdaptationManager(viewsMap, finalUIConfiguration, getApplicationContext());
+			adaptationModule.adaptConfiguration(uiReasoner.getUser());
+		} else {
+			Toast.makeText(getApplicationContext(),
+					"A problem occurred during the adaptation process, the final adaptation is null",
+					Toast.LENGTH_LONG).show();
+		}
 	}
 
 	private void toast(){

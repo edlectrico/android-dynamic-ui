@@ -279,9 +279,5 @@ public class UIReasoner {
 	public ICapability getDevice() {
 		return this.device;
 	}
-
-//	public UIConfiguration getUiConfiguration() {
-//		return currentUI;
-//	}
 }
 

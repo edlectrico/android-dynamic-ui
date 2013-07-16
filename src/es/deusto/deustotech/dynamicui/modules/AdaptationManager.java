@@ -22,7 +22,7 @@ public class AdaptationManager {
 	private Context context;
 	private SharedPreferences userPreferences;
 	private SharedPreferences uiPreferences;
-
+	
 	public AdaptationManager() {
 		super();
 	}
@@ -40,7 +40,7 @@ public class AdaptationManager {
 		this.uiPreferences = this.context.getSharedPreferences(this.context
 				.getResources().getString(R.string.preferences_name_ui), 0);
 	}
-	
+
 	/**
 	 * This method takes both componentsToAdapt and adaptatedConfiguration and performs
 	 * the necessary adaptations in the first HashMap. It also stores the configuration
