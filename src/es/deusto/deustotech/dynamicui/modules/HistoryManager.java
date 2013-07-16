@@ -1,5 +1,7 @@
 package es.deusto.deustotech.dynamicui.modules;
 
+import java.util.HashMap;
+
 import android.content.Context;
 import android.content.SharedPreferences;
 
@@ -7,6 +9,11 @@ import com.google.gson.Gson;
 
 import es.deusto.deustotech.dynamicui.R;
 import es.deusto.deustotech.dynamicui.components.UIConfiguration;
+import es.deusto.deustotech.dynamicui.model.ICapability;
+import es.deusto.deustotech.dynamicui.model.ICapability.BRIGHTNESS;
+import es.deusto.deustotech.dynamicui.model.ICapability.TEXT_SIZE;
+import es.deusto.deustotech.dynamicui.model.ICapability.VIEW_SIZE;
+import es.deusto.deustotech.dynamicui.model.user.UserCapabilities;
 
 public class HistoryManager {
 
@@ -22,7 +29,7 @@ public class HistoryManager {
 		super();
 	}
 
-	public HistoryManager(Context appContext){
+	public HistoryManager(Context appContext, final ICapability user){
 		super();
 		
 		this.context = appContext;
@@ -35,18 +42,23 @@ public class HistoryManager {
 	 * apparitions in the past, so a deeper adaptation is not
 	 * needed
 	 * 
-	 * @param currentUI
+	 * @param user
 	 * @return if found return true, else return false
 	 */
-	public boolean checkConfiguration(UIConfiguration currentUI) {
+	public boolean checkConfiguration(final ICapability user) {
 		// Restore preferences
 		preferences = this.context.getSharedPreferences(this.context.getResources().getString(R.string.preferences_name), 0);
 		String json = preferences.getString(this.context.getResources().getString(R.string.adapted_configuration), "");
 		
 		Gson gson = new Gson();
-		UIConfiguration storedUI = gson.fromJson(json, UIConfiguration.class);
+		HashMap<ICapability, UIConfiguration> storedUI = gson.fromJson(json, HashMap.class);
 		
-		return storedUI.equals(currentUI);
+		final BRIGHTNESS brightness = (BRIGHTNESS) user.getCapabilityValue(ICapability.CAPABILITY.BRIGHTNESS);
+		final VIEW_SIZE viewSize = (VIEW_SIZE) user.getCapabilityValue(ICapability.CAPABILITY.VIEW_SIZE);
+		final TEXT_SIZE textSize = (TEXT_SIZE) user.getCapabilityValue(ICapability.CAPABILITY.TEXT_SIZE);
+		final ICapability simpleUser = new UserCapabilities(brightness, null, viewSize, textSize);
+		
+		return (storedUI.get(simpleUser) != null);
 	}
 
 	/**
@@ -68,13 +80,15 @@ public class HistoryManager {
 	 * @return a UIConfiguration which represents the last known
 	 * configuration
 	 */
-	public UIConfiguration getLastKnownUI(){
+	public UIConfiguration getLastKnownUI(final ICapability user){
 		final String json = preferences.getString(context.getResources().getString(R.string.adapted_configuration), "");
 		//Example: {"brightness":"VERY_HIGH","viewSize":"BIG","textSize":"BIG","viewColor":-1,"textColor":-16777216}
 		Gson gson = new Gson();
-		UIConfiguration currentUI = gson.fromJson(json, UIConfiguration.class);
+//		UIConfiguration currentUI = gson.fromJson(json, UIConfiguration.class);
+		HashMap<ICapability, UIConfiguration> adaptedUserConf = gson.fromJson(json, HashMap.class);
 		
-		return new UIConfiguration(currentUI.getViewSize(), currentUI.getTextSize(), currentUI.getBrightness(), 
-				currentUI.getViewColor(), currentUI.getTextColor());
+		return new UIConfiguration(adaptedUserConf.get(user).getViewSize(), adaptedUserConf.get(user).getTextSize(), 
+				adaptedUserConf.get(user).getBrightness(), adaptedUserConf.get(user).getViewColor(), 
+				adaptedUserConf.get(user).getTextColor());
 	}
 }

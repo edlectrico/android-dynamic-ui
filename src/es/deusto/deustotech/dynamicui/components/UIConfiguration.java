@@ -1,7 +1,6 @@
 package es.deusto.deustotech.dynamicui.components;
 
 import es.deusto.deustotech.dynamicui.model.ICapability;
-import es.deusto.deustotech.dynamicui.model.user.UserCapabilities;
 
 public class UIConfiguration {
 

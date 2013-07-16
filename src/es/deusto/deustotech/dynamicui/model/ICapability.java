@@ -169,7 +169,7 @@ public interface ICapability {
 	
 	static enum PRESSURE {
 		NORMAL, HIGH, LOW
-	};
+	}
 	
 	public Object getCapabilityValue(final CAPABILITY capabilityName);
 	public void setCapabilityValue(final CAPABILITY capabilityName, final Object value);

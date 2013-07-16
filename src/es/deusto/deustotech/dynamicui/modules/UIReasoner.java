@@ -35,7 +35,7 @@ public class UIReasoner {
 	
 	private UIConfiguration finalConfiguration;
 	
-	private UIConfiguration currentUI;
+//	private UIConfiguration currentUI;
 	private HistoryManager historyManager;
 	private Context appContext;
 	
@@ -57,8 +57,8 @@ public class UIReasoner {
 		super();
 	}
 
-	public UIReasoner(ICapability user, ICapability device, ICapability context,
-			UIConfiguration currentUI, Context appContext) {
+	public UIReasoner(ICapability user, ICapability device, 
+			ICapability context, Context appContext) {
 		super();
 
 		this.user 		= user;
@@ -66,14 +66,16 @@ public class UIReasoner {
 		this.context    = context;
 
 		this.appContext	    = appContext;
-		this.historyManager = new HistoryManager(this.appContext);
-		this.currentUI 	    = currentUI; 
+		this.historyManager = new HistoryManager(this.appContext, this.user);
+//		this.currentUI 	    = currentUI; 
 		this.adapt 			= true;
+		
+		this.user = UserCapabilitiesUpdater.update(user, context);
 
 		if (!isAdaptationHistoryEmpty()){ 
-			if (historyManager.getLastKnownUI().checkUserUIConfiguration(this.user)){
+			if (historyManager.checkConfiguration(this.user)){
 				this.adapt = false;
-				finalConfiguration = historyManager.getLastKnownUI();
+				finalConfiguration = historyManager.getLastKnownUI(this.user);
 
 				Log.d(UIReasoner.class.getSimpleName(), "No need of executing rules");
 			}
@@ -230,7 +232,8 @@ public class UIReasoner {
     		return new UIConfiguration(viewSize, textSize, brightness, viewColor, textColor);
     	}
     	
-    	return this.currentUI;
+//    	return this.currentUI;
+    	return null;
     }
     
     public UIConfiguration getAdaptedConfiguration(){
@@ -270,15 +273,15 @@ public class UIReasoner {
 	}
 
     public ICapability getUser() {
-		return user;
+		return this.user;
 	}
 
 	public ICapability getDevice() {
-		return device;
+		return this.device;
 	}
 
-	public UIConfiguration getUiConfiguration() {
-		return currentUI;
-	}
+//	public UIConfiguration getUiConfiguration() {
+//		return currentUI;
+//	}
 }
 

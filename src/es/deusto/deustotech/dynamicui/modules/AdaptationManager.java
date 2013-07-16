@@ -14,6 +14,10 @@ import es.deusto.deustotech.dynamicui.R;
 import es.deusto.deustotech.dynamicui.components.UIConfiguration;
 import es.deusto.deustotech.dynamicui.components.WidgetName;
 import es.deusto.deustotech.dynamicui.model.ICapability;
+import es.deusto.deustotech.dynamicui.model.ICapability.BRIGHTNESS;
+import es.deusto.deustotech.dynamicui.model.ICapability.VIEW_SIZE;
+import es.deusto.deustotech.dynamicui.model.ICapability.TEXT_SIZE;
+import es.deusto.deustotech.dynamicui.model.user.UserCapabilities;
 
 public class AdaptationManager {
 
@@ -21,23 +25,21 @@ public class AdaptationManager {
 	private UIConfiguration configuration;
 	private Context context;
 	private SharedPreferences preferences;
-//	private ICapability user;
 
 	public AdaptationManager() {
 		super();
 	}
 
 	public AdaptationManager(HashMap<String, View> viewsMap,  
-			UIConfiguration adaptedConfiguration, Context appContext, 
-			ICapability adaptedUser) {
+			final UIConfiguration finalConfiguration, Context appContext) {
 		super();
 
 		this.componentsToAdapt 	= viewsMap;
-		this.configuration 		= adaptedConfiguration;
+		this.configuration 		= finalConfiguration;
 		this.context 			= appContext;
-//		this.user 				= adaptedUser;
 		
-		this.preferences = this.context.getSharedPreferences(this.context.getResources().getString(R.string.preferences_name), 0);
+		this.preferences = this.context.getSharedPreferences(this.context
+				.getResources().getString(R.string.preferences_name), 0);
 	}
 	
 	/**
@@ -46,8 +48,7 @@ public class AdaptationManager {
 	 * 
 	 * @return an adapted configuration HashMap
 	 */
-	public HashMap<String, View> adaptConfiguration(){
-		
+	public HashMap<String, View> adaptConfiguration(final ICapability adaptedUser){
 		//TODO: Adapt more than Size (Color, Brightness, etc).
 		componentsToAdapt.get(WidgetName.BUTTON).post(new Runnable() {
 			@Override
@@ -83,7 +84,6 @@ public class AdaptationManager {
 					componentsToAdapt.get(WidgetName.EDIT_TEXT).setMinimumWidth(100);
 				}
 			}
-			
 		});
 		
 		componentsToAdapt.get(WidgetName.TEXT_VIEW).post(new Runnable() {
@@ -99,10 +99,9 @@ public class AdaptationManager {
 				componentsToAdapt.get(WidgetName.TEXT_VIEW).setBackgroundColor(configuration.getViewColor());
 				((TextView) componentsToAdapt.get(WidgetName.TEXT_VIEW)).setTextColor(configuration.getTextColor());
 			}
-			
 		});
 		
-		storeAdaptedConfiguration();
+		storeAdaptedConfiguration(adaptedUser);
 		
 		return componentsToAdapt;
 	}
@@ -111,15 +110,20 @@ public class AdaptationManager {
 	 * This method stores the current UIConfiguration in a JSON format in
 	 * the SharedPreferences
 	 */
-	private void storeAdaptedConfiguration() { //last known UI (HistoryManager)
+	private void storeAdaptedConfiguration(final ICapability adaptedUser) { //last known UI (HistoryManager)
 		SharedPreferences.Editor editor = preferences.edit();
 
-		UIConfiguration currentSituation = new UIConfiguration();
-		currentSituation = configuration; //We store just the button adaptation
+		HashMap<ICapability, UIConfiguration> adaptedUserConf = new HashMap<ICapability, UIConfiguration>();
+		final BRIGHTNESS brightness = (BRIGHTNESS) adaptedUser.getCapabilityValue(ICapability.CAPABILITY.BRIGHTNESS);
+		final VIEW_SIZE viewSize = (VIEW_SIZE) adaptedUser.getCapabilityValue(ICapability.CAPABILITY.VIEW_SIZE);
+		final TEXT_SIZE textSize = (TEXT_SIZE) adaptedUser.getCapabilityValue(ICapability.CAPABILITY.TEXT_SIZE);
+		
+		adaptedUserConf.put(new UserCapabilities(brightness, null, viewSize, textSize), configuration);
 		
 		Gson gson = new Gson();
-		String json = gson.toJson(currentSituation);
+		String json = gson.toJson(adaptedUserConf);
 		//TODO Here the problem is that every adaptation will be stored here, deleting the previous one
+		//Will we store more than one adaptation?
 		editor.putString(this.context.getResources().getString(R.string.adapted_configuration), json);
 		editor.commit();
 		

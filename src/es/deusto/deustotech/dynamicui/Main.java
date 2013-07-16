@@ -3,7 +3,6 @@ package es.deusto.deustotech.dynamicui;
 import java.util.HashMap;
 
 import android.app.Activity;
-import android.graphics.Color;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
@@ -16,9 +15,7 @@ import es.deusto.deustotech.dynamicui.model.ICapability.CAPABILITY;
 import es.deusto.deustotech.dynamicui.model.MockModelGenerator;
 import es.deusto.deustotech.dynamicui.model.context.ContextCapabilities;
 import es.deusto.deustotech.dynamicui.modules.AdaptationManager;
-import es.deusto.deustotech.dynamicui.modules.HistoryManager;
 import es.deusto.deustotech.dynamicui.modules.UIReasoner;
-import es.deusto.deustotech.dynamicui.modules.UserCapabilitiesUpdater;
 
 public class Main extends Activity implements android.view.View.OnClickListener{
 
@@ -57,21 +54,6 @@ public class Main extends Activity implements android.view.View.OnClickListener{
 
 		Log.d(this.getClass().getName(), "view is: " + button.getClass().getName());
 
-		/*
-		for (int i=0; i<WidgetName.COMPONENT_NAMES.length; ++i){
-			if (WidgetName.COMPONENT_NAMES[i] == WidgetName.BUTTON){
-				viewsMap.put(WidgetName.COMPONENT_NAMES[i], button);
-			} else if (WidgetName.COMPONENT_NAMES[i] == WidgetName.TEXT_VIEW){
-				viewsMap.put(WidgetName.COMPONENT_NAMES[i], textView);
-			} else if  (WidgetName.COMPONENT_NAMES[i] == WidgetName.EDIT_TEXT){
-				viewsMap.put(WidgetName.COMPONENT_NAMES[i], editText);
-			}
-
-			layout.addView(viewsMap.get(WidgetName.COMPONENT_NAMES[i]));
-			viewsMap.get(WidgetName.COMPONENT_NAMES[i]).invalidate();
-		}
-		*/
-		
 		viewsMap.put(WidgetName.BUTTON, button);
 		viewsMap.put(WidgetName.TEXT_VIEW, textView);
 		viewsMap.put(WidgetName.EDIT_TEXT, editText);
@@ -97,47 +79,11 @@ public class Main extends Activity implements android.view.View.OnClickListener{
 	private void adapt(ICapability user, ICapability context){
 		Log.e(Main.class.getSimpleName(), context.getCapabilityValue(CAPABILITY.BRIGHTNESS).toString());
 
-		//Context and users are directly related since context affect user capabilities
-		//TODO: rules here?
-		user = UserCapabilitiesUpdater.update(user, context);
-
-		//TODO: For each component...
-//		HashMap<String, UIConfiguration> currentUI = new HashMap<String, UIConfiguration>();
-		//TODO: getCurrentUI
-		//1. If getUIFromSharedPreferences == null, return new default UI
-		//2. Else, currentUI = getUIFromSharedPreferences
-		UIConfiguration currentUI;
-		HistoryManager historyManager = new HistoryManager(getApplicationContext());
-		if (historyManager.isEmpty()){
-			//Default Android UI
-			currentUI = new UIConfiguration(ICapability.VIEW_SIZE.DEFAULT,ICapability.TEXT_SIZE.DEFAULT,
-					ICapability.BRIGHTNESS.DEFAULT, Color.DKGRAY, Color.WHITE);
-		} else {
-			currentUI = historyManager.getLastKnownUI();
-		}
-		
-		/*
-		final UIConfiguration defaultConf = new UIConfiguration(ICapability.VIEW_SIZE.DEFAULT,ICapability.TEXT_SIZE.DEFAULT,
-				ICapability.BRIGHTNESS.DEFAULT, Color.DKGRAY, Color.WHITE);
-		
-		currentUI.put(WidgetName.BUTTON, defaultConf);
-		currentUI.put(WidgetName.TEXT_VIEW, defaultConf);
-		currentUI.put(WidgetName.EDIT_TEXT, defaultConf);
-		*/
-
-		final UIReasoner uiReasoner = new UIReasoner(user, device, context, currentUI, getApplicationContext());
+		final UIReasoner uiReasoner = new UIReasoner(user, device, context, getApplicationContext());
 		final UIConfiguration finalUIConfiguration = uiReasoner.getAdaptedConfiguration();
 
-		//Once the current UI is loaded, we call the AdaptationModule to
-		//perform the corresponding changes
-		AdaptationManager adaptationModule = new AdaptationManager(viewsMap, finalUIConfiguration, getApplicationContext(), user);
-		adaptationModule.adaptConfiguration();
-		
-		//TODO: update currentUI with the last adapted one
-
-
-		//The following code is just to @test the automatic adaptation each 1000 milliseconds 
-		//new Thread(adaptationModule).start();
+		AdaptationManager adaptationModule = new AdaptationManager(viewsMap, finalUIConfiguration, getApplicationContext());
+		adaptationModule.adaptConfiguration(uiReasoner.getUser());
 	}
 
 	private void toast(){

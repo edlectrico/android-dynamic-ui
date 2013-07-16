@@ -23,8 +23,6 @@
 					print("listContainsValue x 2")
 					notEqual(?c_b, ?d_b)
 					print("notEqual(?c_b, ?d_b)")
-					notEqual(?u_vc, ?u_tc)
-					print("notEqual(?u_vc, ?u_tc)")
 					listContainsValue(?c_b, "HIGH", "VERY_HIGH", "DEFAULT")
 					print("listContainsValue(?c_b, HIGH, VERY_HIGH, DEFAULT)")
 					
@@ -59,8 +57,6 @@
 					print("listContainsValue x 2")
 					notEqual(?c_b, ?d_b)
 					print("notEqual(?c_b, ?d_b)")
-					notEqual(?u_vc, ?u_tc)
-					print("notEqual(?u_vc, ?u_tc)")
 					equal(?c_b, "LOW")
 					print("equal(?c_b, LOW)")
 					

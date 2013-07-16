@@ -21,9 +21,9 @@ public class UserCapabilitiesUpdater {
 	 * @param context
 	 * @return an updated user
 	 */
+	//TODO rules
 	static public ICapability update(ICapability user, ICapability context) {
 		// TODO: for the moment just adapt NOISE and BRIGHTNESS
-
 		final Object userBrightnessValue 		= user.getCapabilityValue(CAPABILITY.BRIGHTNESS);
 		final Object contextIlluminanceValue 	= context.getCapabilityValue(CAPABILITY.BRIGHTNESS);
 
@@ -36,7 +36,7 @@ public class UserCapabilitiesUpdater {
 					|| userBrightnessValue.equals(ICapability.BRIGHTNESS.HIGH))) { //If BRIGHTNESS.VERY_HIGHT -> no applicable adaptation
 				//CONTEXT_ILLUMINANCE
 				if (contextIlluminanceValue
-						.equals(ICapability.BRIGHTNESS.VERY_HIGH)) {
+						.equals(ICapability.BRIGHTNESS.HIGH)) {
 					user.setCapabilityValue(CAPABILITY.BRIGHTNESS,
 							ICapability.BRIGHTNESS.HIGH);
 					user.setCapabilityValue(CAPABILITY.VIEW_COLOR, Color.WHITE);
@@ -71,7 +71,7 @@ public class UserCapabilitiesUpdater {
 				final Object userTextSizeValue 	= user.getCapabilityValue(CAPABILITY.TEXT_SIZE);
 				
 				if (!userViewSizeValue.equals(ICapability.VIEW_SIZE.ONLY_VERY_BIG)){
-					if (contextIlluminanceValue.equals(ICapability.BRIGHTNESS.VERY_HIGH)){ //BIGGER CONTROLS/TEXT
+					if (contextIlluminanceValue.equals(ICapability.BRIGHTNESS.HIGH)){ //BIGGER CONTROLS/TEXT
 						if (userViewSizeValue.equals(ICapability.VIEW_SIZE.DEFAULT)){
 							user.setCapabilityValue(CAPABILITY.VIEW_SIZE, ICapability.VIEW_SIZE.BIG);
 						} else if (userViewSizeValue.equals(ICapability.VIEW_SIZE.BIG)){
