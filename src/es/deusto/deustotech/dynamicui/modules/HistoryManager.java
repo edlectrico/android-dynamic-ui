@@ -58,6 +58,7 @@ public class HistoryManager {
 		final TEXT_SIZE textSize = (TEXT_SIZE) user.getCapabilityValue(ICapability.CAPABILITY.TEXT_SIZE);
 		final ICapability simpleUser = new UserCapabilities(brightness, null, viewSize, textSize);
 		
+		//TODO: This always returns false...
 		return (storedUI.get(simpleUser) != null);
 	}
 
