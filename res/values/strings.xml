@@ -5,9 +5,11 @@
 	<string name="mytextview">XML TextView</string>
 	<string name="myedittext">XML EditText</string>
 	
-	<string name="preferences_name">DynamicUIPreferences</string>
+	<string name="preferences_name_user">UserPreferences</string>
+	<string name="preferences_name_ui">UIPreferences</string>
 	<string name="current_situation">Current Situation</string>
-	<string name="adapted_configuration">Adapted Configuration</string>
+	<string name="adapted_configuration_user">UserConfiguration</string>
+	<string name="adapted_configuration_ui">UIConfiguration</string>
 	
 	<!-- Mock Context triggers  -->
 	<string name="force_high">High Bright. Ctx</string>
